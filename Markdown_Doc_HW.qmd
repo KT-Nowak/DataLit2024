@@ -1,5 +1,6 @@
 ---
 title: "Markdown Homework: Resume Nowak"
+author: Kt Nowak
 format: html
 editor: visual
 ---
