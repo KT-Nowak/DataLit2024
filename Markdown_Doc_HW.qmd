@@ -1,0 +1,36 @@
+---
+title: "Markdown Homework: Resume Nowak"
+format: html
+editor: visual
+---
+
+## Experience
+
+### Recreation Specialist at Meadow Farm
+
+### With Henrico County, March 2023 to Present
+
+##### At Henrico County’s Meadow Farm Museum, works to generate public programing and operates facilities during business hours and special events.
+  * Collaborates with staff members from numerous county sites to create programming fit to the diverse community’s needs
+  * Utilizes First Aid, CPR, and AED certification 
+  * Produces and carries out programs for public education on numerous topics
+
+### Parks and Recreation Assistant at Hidden Pond Nature Center
+
+### With Fairfax County, May 2022 to June 2023
+
+##### At Hidden Pond, a neighborhood park with woodland trails, streams, and a pond, assisted in animal caretaking , facility operations, public education, and facility maintenance. 
+
+  * Oversaw care of animals used for educational programs including fish, frogs, turtles, and snakes
+  * Ensured safety for all site volunteers, employees, and visitors  
+  * Created curriculum on environmental topics
+  
+## Education
+
+#### **Bachelor of Science:** Environmental Studies 
+#### **May 2022 GPA: 3.895**
+
+
+#### **Bachelor of Fine Arts:** Communication Arts with a Concentration in Scientific Illustration
+#### **May 2022 GPA: 3.895**
+
