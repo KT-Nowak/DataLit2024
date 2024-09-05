@@ -4,10 +4,10 @@ author: "Kt Nowak"
 format: revealjs
 editor: visual
 ---
+
 # Insects
 
 ## I Capital F ing Love Insects
-&nbsp;
 
 I think they are the coolest things on Earth
 
@@ -16,7 +16,6 @@ I think they are the coolest things on Earth
 -   they are very skilled at what they do
 
 ## These are Insects that are Cool as Hell
-&nbsp;
 
 there's probably even cooler ones we don't even know about
 
