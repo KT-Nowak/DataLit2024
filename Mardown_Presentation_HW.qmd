@@ -1,0 +1,33 @@
+---
+title: "Markdown Homework: Presentation Nowak"
+author: "Kt Nowak"
+format: revealjs
+editor: visual
+---
+## Insects
+
+## I Capital F ing Love Insects
+&nbsp;
+
+I think they are the coolest things on Earth
+
+-   they are very small
+
+-   they are very skilled at what they do
+
+## These are Insects that are Cool as Hell
+&nbsp;
+
+there's probably even cooler ones we don't even know about
+
+## Giraffe Weevil
+
+![native to Madagascar](Giraffe_Weevil.jpg)
+
+## Ermine Moth
+
+![native to Virginia](ermine_moth.jpg)
+
+## Giant Water Bug
+
+![aka Toe Biter](toe_biter.jpg)
