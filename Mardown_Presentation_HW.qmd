@@ -4,7 +4,7 @@ author: "Kt Nowak"
 format: revealjs
 editor: visual
 ---
-## Insects
+# Insects
 
 ## I Capital F ing Love Insects
 &nbsp;
