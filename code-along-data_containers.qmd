@@ -57,3 +57,17 @@ fit
 ```
 
 ## Data Frames
+```{r}
+library(magrittr)
+
+# Install from CRAN
+install.packages("tidyverse")
+
+
+beetles <- read_csv( url )
+
+
+
+
+
+```

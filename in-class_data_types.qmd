@@ -141,7 +141,7 @@ Create the variables `trueResult` and `falseResult` and assign them the proper l
 
 trueResult <- TRUE
 
-flaseResut <- FALSE
+falseResult <- FALSE
 
 
 ```
@@ -172,7 +172,12 @@ Using the variables `trueResult` and `falseResult` demonstrate AND operator in R
 ```{r}
 
 trueResult & trueResult
+
 trueResult & falseResult
+
+falseResult & trueResult
+
+falseResult & falseResult
 
 ```
 
@@ -180,6 +185,12 @@ Do the same as the previous question for the approriate OR operator.
 
 ```{r}
 trueResult | trueResult
+
+trueResult | falseResult
+
+falseResult | trueResult
+
+falseResult | falseResult
 
 ```
 
