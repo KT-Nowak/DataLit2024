@@ -172,6 +172,7 @@ Using the variables `trueResult` and `falseResult` demonstrate AND operator in R
 ```{r}
 
 trueResult & trueResult
+trueResult & falseResult
 
 ```
 
