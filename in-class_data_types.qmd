@@ -150,6 +150,7 @@ flaseResut <- FALSE
 Using the variables `trueResult` and `falseResult` demonstrate logical operators for equality, inequality, and negation.
 
 ```{r}
+
 #equality
 'trueResult' == 'falseResult'
 
