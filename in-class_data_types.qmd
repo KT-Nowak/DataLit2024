@@ -150,6 +150,13 @@ Create the variables `trueResult` and `falseResult` and assign them the proper l
 Using the variables `trueResult` and `falseResult` demonstrate logical operators for equality, inequality, and negation.
 
 ```{r}
+#equality
+'trueResult' == 'falseResult'
+
+#inequality
+'trueResult' != 'falseResult'
+
+
 #negation
 !trueResult
 
@@ -163,16 +170,17 @@ Using the variables `trueResult` and `falseResult` demonstrate AND operator in R
 
 ```{r}
 
+trueResult & trueResult
+
 ```
 
 Do the same as the previous question for the approriate OR operator.
 
 ```{r}
 
+trueResult | trueResult
+
 ```
-
-
-
 
 In the example above for the square root, the variable `root2` has the square root of the number $2$.  Test the equality (e.g., use the `==` operator) of this varible times itself to the value $2$. Discuss this with your neighbor.  Does this make sense?
 
@@ -189,12 +197,23 @@ When did you first become a college student?  Create a variable representing thi
 
 ```{r}
 
+start_date <- "07/20/2018"
+
+class(start_date)
+
+
+start_date
+
 ```
 
 
 How many days was it between then and now?
 
 ```{r}
+
+today <- today()
+
+class(today)
 
 ```
 
