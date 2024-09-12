@@ -139,9 +139,9 @@ Create the variables `trueResult` and `falseResult` and assign them the proper l
 
 ```{r}
 
-'trueResult' <- TRUE
+trueResult <- TRUE
 
-'flaseResut' <- FALSE
+flaseResut <- FALSE
 
 
 ```
@@ -177,14 +177,17 @@ trueResult & trueResult
 Do the same as the previous question for the approriate OR operator.
 
 ```{r}
-
 trueResult | trueResult
 
 ```
 
+
 In the example above for the square root, the variable `root2` has the square root of the number $2$.  Test the equality (e.g., use the `==` operator) of this varible times itself to the value $2$. Discuss this with your neighbor.  Does this make sense?
 
 ```{r}
+
+root2
+sqrt(2)^2
 
 ```
 
@@ -197,12 +200,10 @@ When did you first become a college student?  Create a variable representing thi
 
 ```{r}
 
-start_date <- "07/20/2018"
-
-class(start_date)
+library(lubridate)
 
 
-start_date
+mdy('07-20-2018') -> start_date
 
 ```
 
@@ -211,9 +212,8 @@ How many days was it between then and now?
 
 ```{r}
 
-today <- today()
+today() - start_date
 
-class(today)
 
 ```
 
