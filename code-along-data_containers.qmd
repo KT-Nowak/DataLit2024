@@ -47,7 +47,12 @@ summary(iris)
 
 class(iris)
 
-iris
+
+
+fit <- cor.test(iris$Petal.Length,iris$Petal.Width)
+
+fit
+
 
 ```
 
