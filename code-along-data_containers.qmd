@@ -41,5 +41,14 @@ sum(data) - sum(other)
 ## Matrices
 
 ## Lists
+```{r}
+
+summary(iris)
+
+class(iris)
+
+iris
+
+```
 
 ## Data Frames
