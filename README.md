@@ -13,4 +13,4 @@ please.
 
 - [Resume](https://kt-nowak.github.io/DataLit2024/Markdown_Doc_HW.html)
 
-- [InClass_DataTypes](https://kt-nowak.github.io/DataLit2024/in-class_data_types.html)
+- [In Class Data Types](https://kt-nowak.github.io/DataLit2024/in-class_data_types.html)
