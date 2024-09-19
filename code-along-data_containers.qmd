@@ -15,13 +15,14 @@ This file is used for demonstrating individual examples related to this topic an
 
 There are two data sets used for this example; The *iris* data set (that comes with R) and data from the following url that has some sampling site locales for a species of bark beetle, *Araptus attenuatus* (Fig. @fig-araptus) that we will be using throughout the semester.
 
-![The Sonoran desert bark beetle, *Araptus attenuatus*.](media/beetles.png){#fig-araptus}
+\#![The Sonoran desert bark beetle, Araptus attenuatus.](media/beetles.png){#fig-araptus}
 
 ```{r}
 url <- "https://raw.githubusercontent.com/DyerlabTeaching/Data-Containers/main/data/arapat.csv"
 ```
 
 ## Vectors
+
 ```{r}
 
 data <- c(23, 42, 24, 32, 34, 43)
@@ -41,6 +42,7 @@ sum(data) - sum(other)
 ## Matrices
 
 ## Lists
+
 ```{r}
 
 summary(iris)
@@ -57,17 +59,80 @@ fit
 ```
 
 ## Data Frames
+
 ```{r}
-library(magrittr)
 
 # Install from CRAN
-install.packages("tidyverse")
+#install.packages("tidyverse")
+
+library(tidyverse)
+
+library(dplyr)
+
+library(knitr)
+
+library(kableExtra)
+
+library(lubridate)
 
 
 beetles <- read_csv( url )
+
+### load in rice data###
+
+url2 <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+
+rice <- read_csv( url2 )
+
+names( rice )
+
+
+
+###standardizing the units of temp
+
+##changing C deg to F deg
+#manipulating dates
+
+rice |>
+  mutate( rice$H2O_TempC= 1.8 * rice$H2O_TempC + 32) |>
+  select( -rice$H2O_TempC  ) |>  
+  select( DateTime, rice$H2O_TempC  ) |>
+  mutate( Date = mdy_hms(DateTime, tz="EST")) |>
+  mutate( Weekday = weekdays( Date)) |>
+  summarise( 'Average Temp' = mean( rice$H2O_TempC ))
+  
+
+  
 
 
 
 
 
 ```
+####
+```{r}
+rice %>%
+  mutate(H2O_Temp = 1.8 * H2O_TempC + 32) %>%
+  select(-H2O_TempC) %>%                        
+  select(DateTime, H2O_Temp, AirTempF, Rain_in) %>%
+  mutate(Date = mdy_hms(DateTime, tz = "EST")) %>%
+  mutate(Weekday = wday(Date,
+                        label = T,
+                        abbr = T)) %>%
+  group_by(Weekday) %>%
+  summarise("Average Temp" = mean(H2O_Temp, na.rm = T),
+            "Air Temp" = mean(AirTempF),
+            "Rain (in)" = mean (Rain_in))
+
+kable_minimal()
+
+
+
+
+
+
+
+
+
+
+
