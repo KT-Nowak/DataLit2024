@@ -124,7 +124,7 @@ rice %>%
             "Air Temp" = mean(AirTempF),
             "Rain (in)" = mean (Rain_in))
 
-kable_minimal()
+
 
 
 
