@@ -1,0 +1,93 @@
+---
+title: "Summary Tabular Data Homework"
+author: "Kt Nowak"
+format: html
+editor: visual
+---
+
+## Abstract
+
+This is an evaluation of the sleeping habits of Katherine Nowak. 
+
+## Introduction
+
+This data was collected by the subject, Katheirne Nowak, who self recorded the amount of hours they slept after waking up each morning. The data available includes date in the form mm/dd and number of hours slept. When recording data the number of hours slept was rounded to the nearest quarter hour. All dates are in the year 2024, this year data is not recorded in the .csv. 
+
+## Methods
+
+The .csv "Hours_slept" was imported in to R with the following code
+```{r}
+library(readr)
+Hours_slept <- read_csv("Hours-slept.csv", 
+   col_types = cols(Month = col_character(), 
+   `Hours Slept` = col_number()))
+
+```
+
+Load Packages
+
+```{r}
+library(tidyverse)
+
+library(dplyr)
+
+library(knitr)
+
+library(kableExtra)
+
+library(lubridate)
+```
+Reformat Date Information from mm/dd to mm/dd/yyy
+
+```{r}
+
+
+sleep <- as.data.frame(Hours_slept)
+colnames(sleep) <- c("Month", "Hours_Slept")
+
+# Extract the date column
+dates <- sleep$Month
+
+# Create a year variable (assuming 2024)
+year <- 2024
+
+# Construct dates with year
+fullDates <- paste(dates, year, sep = "/")
+
+# Convert to mm/dd/yyyy format
+new_dates <- format(mdy(fullDates), "%m/%d/%Y")
+
+# Combine with hours slept
+combined_data <- data.frame(Date = fullDates, Hours_Slept = sleep$Hours_Slept)
+
+print(combined_data)
+  
+```
+
+Create a column displaying days of the week based on known dates
+```{r}
+
+combined_data$Date <- mdy(combined_data$Date)
+
+combined_data$Weekday <- wday(combined_data$Date, label = TRUE)
+
+
+dataWweeks <- data.frame(Date = fullDates, Hours_Slept = sleep$Hours_Slept, Weeks = combined_data$Weekday )
+
+print(dataWweeks)
+```
+
+Summarize hours slept by day of the week
+```{r}
+
+plot(dataWweeks$Weeks, dataWweeks$Hours_Slept)
+
+
+
+
+
+
+
+
+```
+

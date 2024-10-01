@@ -123,13 +123,36 @@ rice %>%
   summarise("Average Temp" = mean(H2O_Temp, na.rm = T),
             "Air Temp" = mean(AirTempF),
             "Rain (in)" = mean (Rain_in))
+```
+
+
+Functions 
+
+```{r}
+
+##calling data
+
+url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+
+read.csv( url ) -> rice
+
+##our function
+
+#make date object
+#make month/weekday object
+#convert F to C
+#get rid of extra data
+#reorder columns
+
+##return(rice)
+get_rice_data <- function() { 
+
+
+}
 
 
 
-
-
-
-
+```
 
 
 
