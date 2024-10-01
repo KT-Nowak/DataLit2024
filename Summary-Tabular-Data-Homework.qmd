@@ -2,7 +2,9 @@
 title: "Summary Tabular Data Homework"
 author: "Kt Nowak"
 format: html
+warning: false 
 editor: visual
+
 ---
 
 ## Abstract
@@ -81,18 +83,22 @@ dataWweeks$Hours_Slept <- as.numeric(dataWweeks$Hours_Slept)
 
 summary_data <- dataWweeks %>%
   group_by(dataWweeks$Weeks) %>%
-  summarize(Total_Hours_Slept = sum(dataWweeks$Hours_Slept))
+  summarize(dataWweeks$Hours_Slept)
 
 print(summary_data)
+
+
 
 ```
 
 
 
-The following graph summarizes hours slept by day of the week
+The following graph summarizes hours slept by day of the week. We can see the range and mean of the data. 
 ```{r}
 
-plot(dataWweeks$Weeks, dataWweeks$Hours_Slept)
+plot(dataWweeks$Weeks, dataWweeks$Hours_Slept, 
+     xlab = "Day of the Week",
+     ylab = "Hours of Sleep" )
 
 ```
 
