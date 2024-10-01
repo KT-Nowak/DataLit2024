@@ -89,7 +89,7 @@ print(summary_data)
 
 
 
-Summarize hours slept by day of the week
+The following graph summarizes hours slept by day of the week
 ```{r}
 
 plot(dataWweeks$Weeks, dataWweeks$Hours_Slept)
