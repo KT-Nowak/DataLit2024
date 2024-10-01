@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>This is an evaluation of the sleeping habits of Katherine Nowak.</p>
+<p>This is an evaluation of the sleeping habits of Katherine Nowak. We will sumarize number of hours slept by day of the week.</p>
 </section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -173,329 +173,37 @@ The following object is masked from 'package:dplyr':
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>new_dates <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">mdy</span>(fullDates), <span class="st">"%m/%d/%Y"</span>)</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine with hours slept</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> fullDates, <span class="at">Hours_Slept =</span> sleep<span class="sc">$</span>Hours_Slept)</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(combined_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         Date Hours_Slept
-1    1/1/2024        7.00
-2    1/2/2024        5.00
-3    1/3/2024        7.00
-4    1/4/2024       11.00
-5    1/5/2024       10.00
-6    1/6/2024        7.50
-7    1/7/2024        8.00
-8    1/8/2024       10.00
-9    1/9/2024       11.00
-10  1/10/2024       11.00
-11  1/11/2024        8.00
-12  1/12/2024        8.50
-13  1/13/2024        7.50
-14  1/14/2024        8.00
-15  1/15/2024        7.00
-16  1/16/2024       10.00
-17  1/17/2024        6.50
-18  1/18/2024       10.00
-19  1/19/2024        8.00
-20  1/20/2024        6.75
-21  1/21/2024        7.50
-22  1/22/2024        8.50
-23  1/23/2024       10.00
-24  1/24/2024       11.00
-25  1/25/2024       10.00
-26  1/26/2024        9.00
-27  1/27/2024        9.00
-28  1/28/2024        9.50
-29  1/29/2024        8.00
-30  1/30/2024       13.00
-31  1/31/2024        6.50
-32   2/1/2024        9.00
-33   2/2/2024       10.00
-34   2/3/2024        8.00
-35   2/4/2024        7.50
-36   2/5/2024       10.00
-37   2/6/2024       10.00
-38   2/7/2024        9.00
-39   2/8/2024       10.00
-40   2/9/2024        7.00
-41  2/10/2024        8.00
-42  2/11/2024        7.00
-43  2/12/2024        9.00
-44  2/13/2024       10.00
-45  2/14/2024       10.00
-46  2/15/2024        8.00
-47  2/16/2024       10.00
-48  2/17/2024        7.00
-49  2/18/2024        8.00
-50  2/19/2024        8.00
-51  2/20/2024        9.00
-52  2/21/2024       10.00
-53  2/22/2024        8.00
-54  2/23/2024       11.00
-55  2/24/2024        8.00
-56  2/25/2024        8.00
-57  2/26/2024        6.00
-58  2/27/2024        8.00
-59  2/28/2024       12.00
-60  2/29/2024        8.00
-61   3/1/2024        7.00
-62   3/2/2024        8.00
-63   3/3/2024        7.00
-64   3/4/2024       13.00
-65   3/5/2024       10.00
-66   3/6/2024        5.00
-67   3/7/2024          NA
-68   3/8/2024          NA
-69   3/9/2024          NA
-70  3/10/2024          NA
-71  3/11/2024          NA
-72  3/12/2024          NA
-73  3/13/2024          NA
-74  3/14/2024          NA
-75  3/15/2024          NA
-76  3/16/2024        8.00
-77  3/17/2024        7.00
-78  3/18/2024       11.00
-79  3/19/2024       10.00
-80  3/20/2024        7.00
-81  3/21/2024        7.00
-82  3/22/2024        5.00
-83  3/23/2024        8.00
-84  3/24/2024        8.00
-85  3/25/2024          NA
-86  3/26/2024          NA
-87  3/27/2024        7.00
-88  3/28/2024        9.00
-89  3/29/2024        6.50
-90  3/30/2024        7.00
-91  3/31/2024       11.00
-92   4/1/2024        6.00
-93   4/2/2024        6.00
-94   4/3/2024        6.00
-95   4/4/2024        6.00
-96   4/5/2024        8.00
-97   4/6/2024        5.50
-98   4/7/2024        6.00
-99   4/8/2024        9.00
-100  4/9/2024        9.00
-101 4/10/2024        6.00
-102 4/11/2024        6.00
-103 4/12/2024        6.50
-104 4/13/2024        6.50
-105 4/14/2024        7.00
-106 4/15/2024       12.00
-107 4/16/2024        8.00
-108 4/17/2024        6.50
-109 4/18/2024        6.00
-110 4/19/2024        7.00
-111 4/20/2024        7.00
-112 4/21/2024        7.00
-113 4/22/2024        7.00
-114 4/23/2024        9.00
-115 4/24/2024        8.50
-116 4/25/2024        8.50
-117 4/26/2024        6.00
-118 4/27/2024        5.75
-119 4/28/2024        9.00
-120 4/29/2024        8.00
-121 4/30/2024        8.00
-122  5/1/2024        7.00
-123  5/2/2024        6.00
-124  5/3/2024        7.00
-125  5/4/2024        6.00
-126  5/5/2024        6.50
-127  5/6/2024        8.00
-128  5/7/2024        7.00
-129  5/8/2024        8.50
-130  5/9/2024        8.00
-131 5/10/2024        6.00
-132 5/11/2024        5.50
-133 5/12/2024        9.00
-134 5/13/2024       11.50
-135 5/14/2024        8.00
-136 5/15/2024        5.50
-137 5/16/2024        8.00
-138 5/17/2024        3.00
-139 5/18/2024       10.00
-140 5/19/2024        8.00
-141 5/20/2024        8.00
-142 5/21/2024        8.00
-143 5/22/2024        7.50
-144 5/23/2024          NA
-145 5/24/2024          NA
-146 5/25/2024          NA
-147 5/26/2024          NA
-148 5/27/2024          NA
-149 5/28/2024        8.00
-150 5/29/2024          NA
-151 5/30/2024          NA
-152 5/31/2024          NA</code></pre>
-</div>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> fullDates, <span class="at">Hours_Slept =</span> sleep<span class="sc">$</span>Hours_Slept)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Create a column displaying days of the week based on known dates</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>combined_data<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">mdy</span>(combined_data<span class="sc">$</span>Date)</span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>combined_data<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">mdy</span>(combined_data<span class="sc">$</span>Date)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>combined_data<span class="sc">$</span>Weekday <span class="ot">&lt;-</span> <span class="fu">wday</span>(combined_data<span class="sc">$</span>Date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>dataWweeks <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> fullDates, <span class="at">Hours_Slept =</span> sleep<span class="sc">$</span>Hours_Slept, <span class="at">Weeks =</span> combined_data<span class="sc">$</span>Weekday )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>##Results</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dataWweeks<span class="sc">$</span>Hours_Slept <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataWweeks<span class="sc">$</span>Hours_Slept)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>combined_data<span class="sc">$</span>Weekday <span class="ot">&lt;-</span> <span class="fu">wday</span>(combined_data<span class="sc">$</span>Date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>dataWweeks <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> fullDates, <span class="at">Hours_Slept =</span> sleep<span class="sc">$</span>Hours_Slept, <span class="at">Weeks =</span> combined_data<span class="sc">$</span>Weekday )</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dataWweeks)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>summary_data <span class="ot">&lt;-</span> dataWweeks <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dataWweeks<span class="sc">$</span>Weeks) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Total_Hours_Slept =</span> <span class="fu">sum</span>(dataWweeks<span class="sc">$</span>Hours_Slept))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         Date Hours_Slept Weeks
-1    1/1/2024        7.00   Mon
-2    1/2/2024        5.00   Tue
-3    1/3/2024        7.00   Wed
-4    1/4/2024       11.00   Thu
-5    1/5/2024       10.00   Fri
-6    1/6/2024        7.50   Sat
-7    1/7/2024        8.00   Sun
-8    1/8/2024       10.00   Mon
-9    1/9/2024       11.00   Tue
-10  1/10/2024       11.00   Wed
-11  1/11/2024        8.00   Thu
-12  1/12/2024        8.50   Fri
-13  1/13/2024        7.50   Sat
-14  1/14/2024        8.00   Sun
-15  1/15/2024        7.00   Mon
-16  1/16/2024       10.00   Tue
-17  1/17/2024        6.50   Wed
-18  1/18/2024       10.00   Thu
-19  1/19/2024        8.00   Fri
-20  1/20/2024        6.75   Sat
-21  1/21/2024        7.50   Sun
-22  1/22/2024        8.50   Mon
-23  1/23/2024       10.00   Tue
-24  1/24/2024       11.00   Wed
-25  1/25/2024       10.00   Thu
-26  1/26/2024        9.00   Fri
-27  1/27/2024        9.00   Sat
-28  1/28/2024        9.50   Sun
-29  1/29/2024        8.00   Mon
-30  1/30/2024       13.00   Tue
-31  1/31/2024        6.50   Wed
-32   2/1/2024        9.00   Thu
-33   2/2/2024       10.00   Fri
-34   2/3/2024        8.00   Sat
-35   2/4/2024        7.50   Sun
-36   2/5/2024       10.00   Mon
-37   2/6/2024       10.00   Tue
-38   2/7/2024        9.00   Wed
-39   2/8/2024       10.00   Thu
-40   2/9/2024        7.00   Fri
-41  2/10/2024        8.00   Sat
-42  2/11/2024        7.00   Sun
-43  2/12/2024        9.00   Mon
-44  2/13/2024       10.00   Tue
-45  2/14/2024       10.00   Wed
-46  2/15/2024        8.00   Thu
-47  2/16/2024       10.00   Fri
-48  2/17/2024        7.00   Sat
-49  2/18/2024        8.00   Sun
-50  2/19/2024        8.00   Mon
-51  2/20/2024        9.00   Tue
-52  2/21/2024       10.00   Wed
-53  2/22/2024        8.00   Thu
-54  2/23/2024       11.00   Fri
-55  2/24/2024        8.00   Sat
-56  2/25/2024        8.00   Sun
-57  2/26/2024        6.00   Mon
-58  2/27/2024        8.00   Tue
-59  2/28/2024       12.00   Wed
-60  2/29/2024        8.00   Thu
-61   3/1/2024        7.00   Fri
-62   3/2/2024        8.00   Sat
-63   3/3/2024        7.00   Sun
-64   3/4/2024       13.00   Mon
-65   3/5/2024       10.00   Tue
-66   3/6/2024        5.00   Wed
-67   3/7/2024          NA   Thu
-68   3/8/2024          NA   Fri
-69   3/9/2024          NA   Sat
-70  3/10/2024          NA   Sun
-71  3/11/2024          NA   Mon
-72  3/12/2024          NA   Tue
-73  3/13/2024          NA   Wed
-74  3/14/2024          NA   Thu
-75  3/15/2024          NA   Fri
-76  3/16/2024        8.00   Sat
-77  3/17/2024        7.00   Sun
-78  3/18/2024       11.00   Mon
-79  3/19/2024       10.00   Tue
-80  3/20/2024        7.00   Wed
-81  3/21/2024        7.00   Thu
-82  3/22/2024        5.00   Fri
-83  3/23/2024        8.00   Sat
-84  3/24/2024        8.00   Sun
-85  3/25/2024          NA   Mon
-86  3/26/2024          NA   Tue
-87  3/27/2024        7.00   Wed
-88  3/28/2024        9.00   Thu
-89  3/29/2024        6.50   Fri
-90  3/30/2024        7.00   Sat
-91  3/31/2024       11.00   Sun
-92   4/1/2024        6.00   Mon
-93   4/2/2024        6.00   Tue
-94   4/3/2024        6.00   Wed
-95   4/4/2024        6.00   Thu
-96   4/5/2024        8.00   Fri
-97   4/6/2024        5.50   Sat
-98   4/7/2024        6.00   Sun
-99   4/8/2024        9.00   Mon
-100  4/9/2024        9.00   Tue
-101 4/10/2024        6.00   Wed
-102 4/11/2024        6.00   Thu
-103 4/12/2024        6.50   Fri
-104 4/13/2024        6.50   Sat
-105 4/14/2024        7.00   Sun
-106 4/15/2024       12.00   Mon
-107 4/16/2024        8.00   Tue
-108 4/17/2024        6.50   Wed
-109 4/18/2024        6.00   Thu
-110 4/19/2024        7.00   Fri
-111 4/20/2024        7.00   Sat
-112 4/21/2024        7.00   Sun
-113 4/22/2024        7.00   Mon
-114 4/23/2024        9.00   Tue
-115 4/24/2024        8.50   Wed
-116 4/25/2024        8.50   Thu
-117 4/26/2024        6.00   Fri
-118 4/27/2024        5.75   Sat
-119 4/28/2024        9.00   Sun
-120 4/29/2024        8.00   Mon
-121 4/30/2024        8.00   Tue
-122  5/1/2024        7.00   Wed
-123  5/2/2024        6.00   Thu
-124  5/3/2024        7.00   Fri
-125  5/4/2024        6.00   Sat
-126  5/5/2024        6.50   Sun
-127  5/6/2024        8.00   Mon
-128  5/7/2024        7.00   Tue
-129  5/8/2024        8.50   Wed
-130  5/9/2024        8.00   Thu
-131 5/10/2024        6.00   Fri
-132 5/11/2024        5.50   Sat
-133 5/12/2024        9.00   Sun
-134 5/13/2024       11.50   Mon
-135 5/14/2024        8.00   Tue
-136 5/15/2024        5.50   Wed
-137 5/16/2024        8.00   Thu
-138 5/17/2024        3.00   Fri
-139 5/18/2024       10.00   Sat
-140 5/19/2024        8.00   Sun
-141 5/20/2024        8.00   Mon
-142 5/21/2024        8.00   Tue
-143 5/22/2024        7.50   Wed
-144 5/23/2024          NA   Thu
-145 5/24/2024          NA   Fri
-146 5/25/2024          NA   Sat
-147 5/26/2024          NA   Sun
-148 5/27/2024          NA   Mon
-149 5/28/2024        8.00   Tue
-150 5/29/2024          NA   Wed
-151 5/30/2024          NA   Thu
-152 5/31/2024          NA   Fri</code></pre>
+<pre><code># A tibble: 7 × 2
+  `dataWweeks$Weeks` Total_Hours_Slept
+  &lt;ord&gt;                          &lt;dbl&gt;
+1 Sun                               NA
+2 Mon                               NA
+3 Tue                               NA
+4 Wed                               NA
+5 Thu                               NA
+6 Fri                               NA
+7 Sat                               NA</code></pre>
 </div>
 </div>
 <p>Summarize hours slept by day of the week</p>
@@ -504,7 +212,7 @@ The following object is masked from 'package:dplyr':
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Summary-Tabular-Data-Homework_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Summary-Tabular-Data-Homework_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
