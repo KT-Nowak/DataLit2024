@@ -14,3 +14,7 @@ please.
 - [Resume](https://kt-nowak.github.io/DataLit2024/Markdown_Doc_HW.html)
 
 - [In Class Data Types](https://kt-nowak.github.io/DataLit2024/in-class_data_types.html)
+
+- [Tabular Data Homework](https://kt-nowak.github.io/DataLit2024/Summary-Tabular-Data-Homework.html)
+
+
