@@ -20,9 +20,7 @@ This data was collected by the subject, Katheirne Nowak, who self recorded the a
 The .csv "Hours_slept" was imported in to R with the following code
 ```{r}
 library(readr)
-Hours_slept <- read_csv("Hours-slept.csv", 
-   col_types = cols(Month = col_character(), 
-   `Hours Slept` = col_number()))
+Hours_slept <- read_csv("Hours-slept.csv", na = "-" )
 
 ```
 
@@ -42,63 +40,27 @@ library(lubridate)
 Reformat Date Information from mm/dd to mm/dd/yyy
 
 ```{r}
-
-
-sleep <- as.data.frame(Hours_slept)
-colnames(sleep) <- c("Month", "Hours_Slept")
-
-# Extract the date column
-dates <- sleep$Month
-
-# Create a year variable (assuming 2024)
-year <- 2024
-
-# Construct dates with year
-fullDates <- paste(dates, year, sep = "/")
-
-# Convert to mm/dd/yyyy format
-new_dates <- format(mdy(fullDates), "%m/%d/%Y")
-
-# Combine with hours slept
-combined_data <- data.frame(Date = fullDates, Hours_Slept = sleep$Hours_Slept)
-
+Hours_slept |> 
+  mutate( Date = mdy(paste(Month,"/2024", sep=""))) -> df
+ 
 ```
 
-Create a column displaying days of the week based on known dates
+
+
+## Results
+
 ```{r}
 
-combined_data$Date <- mdy(combined_data$Date)
-
-combined_data$Weekday <- wday(combined_data$Date, label = TRUE)
-
-
-dataWweeks <- data.frame(Date = fullDates, Hours_Slept = sleep$Hours_Slept, Weeks = combined_data$Weekday )
-
-```
-
-##Results
-
-```{r}
-dataWweeks$Hours_Slept <- as.numeric(dataWweeks$Hours_Slept)
-
-summary_data <- dataWweeks %>%
-  group_by(dataWweeks$Weeks) %>%
-  summarize(dataWweeks$Hours_Slept)
-
-print(summary_data)
-
-
+df |> 
+  mutate( Weekday = wday(Date, label=TRUE, abbr=FALSE) ) |>
+  group_by(Weekday) |> 
+  summarize( Sleep = mean(`Hours Slept`,na.rm=T)) |>
+  kable() |> 
+  kable_paper()
 
 ```
 
 
-
-The following graph summarizes hours slept by day of the week. We can see the range and mean of the data. 
-```{r}
-
-plot(dataWweeks$Weeks, dataWweeks$Hours_Slept, 
-     xlab = "Day of the Week",
-     ylab = "Hours of Sleep" )
-
-```
+Katherine Nowak slept the most on Tuesdays, with an average of 8.85 hours. Katherine Nowak slept the least on Saturdays with an average of 7.3 hours.  
+This is consistent with the subject's work scheduled. Their work is closed on Tuesdays and open extra hours on Saturdays. 
 

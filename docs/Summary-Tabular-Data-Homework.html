@@ -68,6 +68,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="Summary-Tabular-Data-Homework_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Summary-Tabular-Data-Homework_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Summary-Tabular-Data-Homework_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="Summary-Tabular-Data-Homework_files/libs/kePrint-0.0.1/kePrint.js"></script>
+
+<link href="Summary-Tabular-Data-Homework_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 
 
 </head>
@@ -116,9 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The .csv “Hours_slept” was imported in to R with the following code</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Hours_slept <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Hours-slept.csv"</span>, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">Month =</span> <span class="fu">col_character</span>(), </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   <span class="st">`</span><span class="at">Hours Slept</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">col_number</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Hours_slept <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Hours-slept.csv"</span>, <span class="at">na =</span> <span class="st">"-"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Load Packages</p>
 <div class="cell">
@@ -134,73 +136,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Reformat Date Information from mm/dd to mm/dd/yyy</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sleep <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(Hours_slept)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(sleep) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Month"</span>, <span class="st">"Hours_Slept"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the date column</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> sleep<span class="sc">$</span>Month</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a year variable (assuming 2024)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>year <span class="ot">&lt;-</span> <span class="dv">2024</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct dates with year</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>fullDates <span class="ot">&lt;-</span> <span class="fu">paste</span>(dates, year, <span class="at">sep =</span> <span class="st">"/"</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to mm/dd/yyyy format</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>new_dates <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">mdy</span>(fullDates), <span class="st">"%m/%d/%Y"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine with hours slept</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> fullDates, <span class="at">Hours_Slept =</span> sleep<span class="sc">$</span>Hours_Slept)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Hours_slept <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">Date =</span> <span class="fu">mdy</span>(<span class="fu">paste</span>(Month,<span class="st">"/2024"</span>, <span class="at">sep=</span><span class="st">""</span>))) <span class="ot">-&gt;</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create a column displaying days of the week based on known dates</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>combined_data<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">mdy</span>(combined_data<span class="sc">$</span>Date)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>combined_data<span class="sc">$</span>Weekday <span class="ot">&lt;-</span> <span class="fu">wday</span>(combined_data<span class="sc">$</span>Date, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>dataWweeks <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date =</span> fullDates, <span class="at">Hours_Slept =</span> sleep<span class="sc">$</span>Hours_Slept, <span class="at">Weeks =</span> combined_data<span class="sc">$</span>Weekday )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>##Results</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dataWweeks<span class="sc">$</span>Hours_Slept <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(dataWweeks<span class="sc">$</span>Hours_Slept)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>summary_data <span class="ot">&lt;-</span> dataWweeks <span class="sc">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dataWweeks<span class="sc">$</span>Weeks) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(dataWweeks<span class="sc">$</span>Hours_Slept)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,064 × 2
-# Groups:   dataWweeks$Weeks [7]
-   `dataWweeks$Weeks` `dataWweeks$Hours_Slept`
-   &lt;ord&gt;                                 &lt;dbl&gt;
- 1 Sun                                     7  
- 2 Sun                                     5  
- 3 Sun                                     7  
- 4 Sun                                    11  
- 5 Sun                                    10  
- 6 Sun                                     7.5
- 7 Sun                                     8  
- 8 Sun                                    10  
- 9 Sun                                    11  
-10 Sun                                    11  
-# ℹ 1,054 more rows</code></pre>
-</div>
-</div>
-<p>The following graph summarizes hours slept by day of the week. We can see the range and mean of the data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dataWweeks<span class="sc">$</span>Weeks, dataWweeks<span class="sc">$</span>Hours_Slept, </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Day of the Week"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Hours of Sleep"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">Weekday =</span> <span class="fu">wday</span>(Date, <span class="at">label=</span><span class="cn">TRUE</span>, <span class="at">abbr=</span><span class="cn">FALSE</span>) ) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Weekday) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="at">Sleep =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Hours Slept</span><span class="st">`</span>,<span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Summary-Tabular-Data-Homework_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<table class="lightable-paper caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Weekday</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Sleep</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Sunday</td>
+<td style="text-align: right;">7.842105</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Monday</td>
+<td style="text-align: right;">8.789474</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tuesday</td>
+<td style="text-align: right;">8.850000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wednesday</td>
+<td style="text-align: right;">7.875000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Thursday</td>
+<td style="text-align: right;">8.138889</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Friday</td>
+<td style="text-align: right;">7.527778</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Saturday</td>
+<td style="text-align: right;">7.315790</td>
+</tr>
+</tbody>
+</table>
+
+
 </div>
 </div>
-</div>
+<p>Katherine Nowak slept the most on Tuesdays, with an average of 8.85 hours. Katherine Nowak slept the least on Saturdays with an average of 7.3 hours.<br>
+This is consistent with the subject’s work scheduled. Their work is closed on Tuesdays and open extra hours on Saturdays.</p>
 </section>
 
 </main>
