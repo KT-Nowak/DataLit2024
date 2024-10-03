@@ -12,7 +12,7 @@ library(lubridate)
 
 url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
 
-read.csv( url ) -> rice
+read_csv( url ) -> rice
 
 ## below is a function that
 
@@ -21,12 +21,28 @@ read.csv( url ) -> rice
   ###Additional columns for Month, Day, and Weekday as properly ordered variables. 
   ###No extraneous columns of data. Keep atmospheric and water conditions
 
-
 get_rice_data <- function() { 
   
-  #change h2o temp c to f
-  mutate( rice$H2O_TempC = 1.8 * rice$H2O_TempC + 32)
+  rice$H2O_TempF <- (9/5) * rice$H2O_TempC + 32 
+  rice$Rain_cm <- rice$Rain_in * 2.54
+  rice$Date <- substr(rice[["DateTime"]], 1, nchar(rice[["DateTime"]]) - 11)
+  rice$Time <- substr(rice[["DateTime"]], 
+                      nchar(rice[["DateTime"]]) - 10, nchar(rice[["DateTime"]]))
+  rice$Date <- as.POSIXlt(rice$Date, format = "%d/%m/%y")
+  rice$Weekday <-wday(
+    rice$Date,
+    label = TRUE,
+    abbr = TRUE,)
+  rice$Weekday <- 
+    rice <- rice[, !names(rice) %in% c("H2O_TempC")]
+    rice <- rice[, !names(rice) %in% c("PH_mv")]
+    rice <- rice[, !names(rice) %in% c("Depth_ft")]
+    rice <- rice[, !names(rice) %in% c("SpCond_mScm")]
+    rice <- rice[, !names(rice) %in% c("Rain_in")]
+    rice <- rice[, !names(rice) %in% c("DateTime")]
+    rice <- rice[, !names(rice) %in% c("DateTime")]
+    
   
-  
-  return(better_rice)
 }
+  return(better_rice)
+

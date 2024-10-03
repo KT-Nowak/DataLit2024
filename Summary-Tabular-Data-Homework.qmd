@@ -4,20 +4,20 @@ author: "Kt Nowak"
 format: html
 warning: false 
 editor: visual
-
 ---
 
 ## Abstract
 
-This is an evaluation of the sleeping habits of Katherine Nowak. We will sumarize number of hours slept by day of the week. 
+This is an evaluation of the sleeping habits of Katherine Nowak. We will summarize number of hours slept by day of the week.
 
 ## Introduction
 
-This data was collected by the subject, Katheirne Nowak, who self recorded the amount of hours they slept after waking up each morning. The data available includes date in the form mm/dd and number of hours slept. When recording data the number of hours slept was rounded to the nearest quarter hour. All dates are in the year 2024, this year data is not recorded in the .csv. 
+This data was collected by the subject, Katheirne Nowak, who self recorded the amount of hours they slept after waking up each morning. The data available includes date in the form mm/dd and number of hours slept. When recording data the number of hours slept was rounded to the nearest quarter hour. All dates are in the year 2024, this year data is not recorded in the .csv.
 
 ## Methods
 
 The .csv "Hours_slept" was imported in to R with the following code
+
 ```{r}
 library(readr)
 Hours_slept <- read_csv("Hours-slept.csv", na = "-" )
@@ -37,6 +37,7 @@ library(kableExtra)
 
 library(lubridate)
 ```
+
 Reformat Date Information from mm/dd to mm/dd/yyy
 
 ```{r}
@@ -44,8 +45,6 @@ Hours_slept |>
   mutate( Date = mdy(paste(Month,"/2024", sep=""))) -> df
  
 ```
-
-
 
 ## Results
 
@@ -60,7 +59,5 @@ df |>
 
 ```
 
-
-Katherine Nowak slept the most on Tuesdays, with an average of 8.85 hours. Katherine Nowak slept the least on Saturdays with an average of 7.3 hours.  
-This is consistent with the subject's work scheduled. Their work is closed on Tuesdays and open extra hours on Saturdays. 
-
+Katherine Nowak slept the most on Tuesdays, with an average of 8.85 hours. Katherine Nowak slept the least on Saturdays with an average of 7.3 hours.\
+This is consistent with the subject's work scheduled. Their work is closed on Tuesdays and open extra hours on Saturdays.
