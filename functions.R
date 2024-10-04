@@ -33,16 +33,17 @@ get_rice_data <- function() {
     rice$Date,
     label = TRUE,
     abbr = TRUE,)
-  rice$Weekday <- 
     rice <- rice[, !names(rice) %in% c("H2O_TempC")]
     rice <- rice[, !names(rice) %in% c("PH_mv")]
     rice <- rice[, !names(rice) %in% c("Depth_ft")]
     rice <- rice[, !names(rice) %in% c("SpCond_mScm")]
     rice <- rice[, !names(rice) %in% c("Rain_in")]
     rice <- rice[, !names(rice) %in% c("DateTime")]
-    rice <- rice[, !names(rice) %in% c("DateTime")]
-    
+    rice <- rice[, !names(rice) %in% c("RecordID")]
+    return(better_rice)
   
 }
-  return(better_rice)
+
+View(rice)
+
 
