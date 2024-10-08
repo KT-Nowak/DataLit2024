@@ -7,52 +7,22 @@ editor: visual
 
 ## The Following Function Calls in Rice Data
 
+
+```{r}
+source("functions.R")
+data <- get_rice_data()
+summary( data )
+```
+
 ```{r}
 ##bringing in packages
 library(tidyverse)
-
 library(knitr)
-
 library(kableExtra)
-
 library(lubridate)
 
 
-##calling data
 
-url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
-
-read_csv( url ) -> rice
-
-## below is a function that
-
-  ###All the data is represented in common units (Imperial or Standard).
-  ###An actual date object represents the date and time information.
-  ###Additional columns for Month, Day, and Weekday as properly ordered variables. 
-  ###No extraneous columns of data. Keep atmospheric and water conditions
-
-get_rice_data <- function() { 
-  
-  rice$H2O_TempF <- (9/5) * rice$H2O_TempC + 32 
-  rice$Rain_cm <- rice$Rain_in * 2.54
-  rice$Date <- substr(rice[["DateTime"]], 1, nchar(rice[["DateTime"]]) - 11)
-  rice$Time <- substr(rice[["DateTime"]], 
-                      nchar(rice[["DateTime"]]) - 10, nchar(rice[["DateTime"]]))
-  rice$Date <- as.POSIXlt(rice$Date, format = "%d/%m/%y")
-  rice$Weekday <-wday(
-    rice$Date,
-    label = TRUE,
-    abbr = TRUE,)
-    rice <- rice[, !names(rice) %in% c("H2O_TempC")]
-    rice <- rice[, !names(rice) %in% c("PH_mv")]
-    rice <- rice[, !names(rice) %in% c("Depth_ft")]
-    rice <- rice[, !names(rice) %in% c("SpCond_mScm")]
-    rice <- rice[, !names(rice) %in% c("Rain_in")]
-    rice <- rice[, !names(rice) %in% c("DateTime")]
-    rice <- rice[, !names(rice) %in% c("RecordID")]
-    return(better_rice)
-  
-}
 ```
 
 

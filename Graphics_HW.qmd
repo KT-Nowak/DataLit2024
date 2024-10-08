@@ -1,0 +1,96 @@
+---
+title: "Graphics_HW"
+author: "Kt Nowak"
+format: html
+editor: visual
+---
+
+## Grahpics 
+
+1. Total Rain for Each Weekday in January.  
+
+```{r}
+
+##standard plot
+january_data <- rice %>%
+  filter(format(Date, "%B") == "January")
+
+plot(january_data$Rain_cm,january_data$Weekday,
+     main = "Cm of Rainfall in Jan. 2020 by Weekday",
+     xlab = "Weekday",
+     ylab = "Rainfall (cm)")
+
+
+```
+```{r}
+
+##ggplot
+
+library(ggplot2)
+
+ggplot(january_data, aes(january_data$Rain_cm,january_data$Weekday)) +
+  xlab( "Rain (cm)") +
+  ylab( "Weekday") +
+  geom_line(color = "red") +
+  geom_point(color = "blue") +
+  scale_x_continuous(breaks = seq(0, 10, by = 2)) +
+  ggtitle("Cm of Rainfall in Jan.2020 Enhanced by Weekday")
+
+
+```
+
+2. Average daily temperature for weekdays in February
+
+```{r}
+##standard plot
+
+february_data <- rice %>%
+  filter(format(Date, "%B") == "February")
+
+plot(february_data$Weekday,february_data$Rain_cm, 
+     main = "Avg. Daily Temp. F in Feb. 2020 by Weekday",
+     xlab = "Weekday",
+     ylab = "Average Daily Air Temp.(F)")
+
+
+```
+```{r}
+
+##ggplot
+
+ggplot(february_data, aes(february_data$Rain_cm,february_data$Weekday,)) +
+  xlab( "Average Daily Tempurature (F)") +
+  ylab( "Weekday") +
+  geom_line(color = "red") +
+  geom_point(color = "blue") +
+  scale_x_continuous(breaks = seq(0, 10, by = 2)) +
+  ggtitle("Avg. Daily Temp. F in Feb. 2020 by Weekday")
+
+
+```
+
+3. Water depth on Valentine's Day.
+
+```{r}
+
+##standard plot 
+
+valentines_day <- data %>%
+  filter(format(Date) == "2020-14-02")
+
+
+```
+
+4. Scatter plot of Daily Total Rain and Daily Median Temperature grouped by month (label the centroid of months).
+
+```{r}
+
+```
+
+5.Wind Direction during the week containing the 8th of January.
+
+```{r}
+
+
+```
+

@@ -1,18 +1,12 @@
 ##bringing in packages
 library(tidyverse)
 
-library(knitr)
-
-library(kableExtra)
-
 library(lubridate)
 
 
 ##calling data
 
-url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
 
-read_csv( url ) -> rice
 
 ## below is a function that
 
@@ -22,6 +16,9 @@ read_csv( url ) -> rice
   ###No extraneous columns of data. Keep atmospheric and water conditions
 
 get_rice_data <- function() { 
+  url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+  
+  read_csv( url ) -> rice
   
   rice$H2O_TempF <- (9/5) * rice$H2O_TempC + 32 
   rice$Rain_cm <- rice$Rain_in * 2.54
@@ -40,10 +37,10 @@ get_rice_data <- function() {
     rice <- rice[, !names(rice) %in% c("Rain_in")]
     rice <- rice[, !names(rice) %in% c("DateTime")]
     rice <- rice[, !names(rice) %in% c("RecordID")]
-    return(better_rice)
+    
+    return(rice)
   
 }
 
-View(rice)
 
 
