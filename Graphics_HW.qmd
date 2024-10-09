@@ -75,9 +75,8 @@ ggplot(february_data, aes(february_data$Rain_cm,february_data$Weekday,)) +
 
 ##standard plot 
 
-valentines_day <- data %>%
-  filter(format(Date) == "2020-14-02")
-
+valentines_day <- rice |> 
+  filter( Date > ymd("2014-02-14"))
 
 ```
 

@@ -25,7 +25,7 @@ get_rice_data <- function() {
   rice$Date <- substr(rice[["DateTime"]], 1, nchar(rice[["DateTime"]]) - 11)
   rice$Time <- substr(rice[["DateTime"]], 
                       nchar(rice[["DateTime"]]) - 10, nchar(rice[["DateTime"]]))
-  rice$Date <- as.POSIXlt(rice$Date, format = "%d/%m/%y")
+  rice$Date <- as.POSIXlt(rice$Date, format = "%mm/%d/%y")
   rice$Weekday <-wday(
     rice$Date,
     label = TRUE,
