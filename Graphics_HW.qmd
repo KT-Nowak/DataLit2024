@@ -3,6 +3,8 @@ title: "Graphics_HW"
 author: "Kt Nowak"
 format: html
 editor: visual
+warning: FALSE
+message: FALSE
 ---
 
 ```{r}
@@ -68,8 +70,14 @@ ggplot(january_data, aes(january_data$Rain_cm,january_data$Weekday)) +
 
 february_data <- rice %>%
   filter(format(Date, "%B") == "February")
+```
+
+```{r results="hide"}
 
 as.character(february_data$Weekday)
+```
+
+```{r}
 
 plot(february_data$Weekday,february_data$Rain_cm, 
      main = "Avg. Daily Temp. F in Feb. 2014 by Weekday",
@@ -102,8 +110,15 @@ ggplot(february_data, aes(february_data$Rain_cm,february_data$Weekday,)) +
 
 valentines_day <- rice |> 
   filter( Date == ymd("2014-02-14"))
+```
+
+```{r results="hide"}
 
 as.list(valentines_day$Time)
+```
+
+
+```{r results="hide"}
 
 
 plot(valentines_day$Depth_m, 
@@ -113,11 +128,15 @@ plot(valentines_day$Depth_m,
 
 ```
 
-```{r}
+```{r results="hide"}
 
 ##ggplot
 
 as.data.frame(valentines_day)
+```
+
+
+```{r}
 
 ggplot(valentines_day, 
        aes(x = Depth_m, 

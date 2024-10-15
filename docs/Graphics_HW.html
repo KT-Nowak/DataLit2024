@@ -104,50 +104,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"get_rice_data.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span> <span class="fu">get_rice_data</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 8199 Columns: 23
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (1): DateTime
-dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"get_rice_data.R"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span> <span class="fu">get_rice_data</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>#Bringing in Packages</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'kableExtra'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    group_rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="grahpics" class="level2">
 <h2 class="anchored" data-anchor-id="grahpics">Grahpics</h2>
@@ -155,17 +125,17 @@ Attaching package: 'kableExtra'</code></pre>
 <li>Total Rain for Each Weekday in January.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##standard plot</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>january_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">format</span>(Date, <span class="st">"%B"</span>) <span class="sc">==</span> <span class="st">"January"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(january_data<span class="sc">$</span>Rain_cm,january_data<span class="sc">$</span>Weekday,</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Cm of Rainfall in Jan. 2014 by Weekday"</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Weekday"</span>,</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Rainfall (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##standard plot</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>january_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">format</span>(Date, <span class="st">"%B"</span>) <span class="sc">==</span> <span class="st">"January"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(january_data<span class="sc">$</span>Rain_cm,january_data<span class="sc">$</span>Weekday,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Cm of Rainfall in Jan. 2014 by Weekday"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Weekday"</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Rainfall (cm)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -175,33 +145,17 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">##ggplot</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(january_data, <span class="fu">aes</span>(january_data<span class="sc">$</span>Rain_cm,january_data<span class="sc">$</span>Weekday)) <span class="sc">+</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>( <span class="st">"Rain (cm)"</span>) <span class="sc">+</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>( <span class="st">"Weekday"</span>) <span class="sc">+</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Cm of Rainfall in Jan. 2014 by Weekday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `january_data$Rain_cm` is discouraged.
-ℹ Use `Rain_cm` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `january_data$Weekday` is discouraged.
-ℹ Use `Weekday` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `january_data$Rain_cm` is discouraged.
-ℹ Use `Rain_cm` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `january_data$Weekday` is discouraged.
-ℹ Use `Weekday` instead.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">##ggplot</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(january_data, <span class="fu">aes</span>(january_data<span class="sc">$</span>Rain_cm,january_data<span class="sc">$</span>Weekday)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>( <span class="st">"Rain (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>( <span class="st">"Weekday"</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Cm of Rainfall in Jan. 2014 by Weekday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -214,587 +168,19 @@ Attaching package: 'kableExtra'</code></pre>
 <li>Average daily temperature for weekdays in February</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">##standard plot</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>february_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">format</span>(Date, <span class="st">"%B"</span>) <span class="sc">==</span> <span class="st">"February"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(february_data<span class="sc">$</span>Weekday)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   [1] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [13] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [25] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [37] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [49] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [61] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [73] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [85] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-  [97] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [109] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [121] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [133] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [145] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [157] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [169] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [181] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [193] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [205] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [217] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [229] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [241] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [253] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [265] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [277] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [289] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [301] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [313] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [325] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [337] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [349] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [361] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [373] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [385] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [397] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [409] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [421] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [433] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [445] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [457] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [469] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
- [481] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [493] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [505] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [517] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [529] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [541] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [553] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [565] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
- [577] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [589] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [601] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [613] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [625] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [637] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [649] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [661] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
- [673] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [685] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [697] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [709] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [721] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [733] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [745] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [757] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
- [769] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [781] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [793] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [805] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [817] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [829] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [841] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [853] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
- [865] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [877] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [889] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [901] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [913] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [925] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [937] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [949] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
- [961] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [973] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [985] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
- [997] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1009] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1021] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1033] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1045] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1057] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1069] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1081] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1093] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1105] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1117] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1129] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1141] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1153] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1165] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1177] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1189] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1201] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1213] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1225] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1237] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1249] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1261] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1273] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1285] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1297] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1309] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1321] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1333] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1345] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1357] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1369] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1381] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1393] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1405] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1417] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1429] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[1441] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1453] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1465] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1477] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1489] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1501] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1513] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1525] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[1537] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1549] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1561] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1573] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1585] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1597] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1609] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1621] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[1633] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1645] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1657] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1669] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1681] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1693] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1705] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1717] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[1729] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1741] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1753] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1765] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1777] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1789] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1801] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1813] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[1825] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1837] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1849] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1861] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1873] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1885] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1897] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1909] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[1921] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1933] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1945] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1957] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1969] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1981] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[1993] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2005] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2017] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2029] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2041] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2053] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2065] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2077] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2089] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2101] "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat" "Sat"
-[2113] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2125] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2137] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2149] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2161] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2173] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2185] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2197] "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun" "Sun"
-[2209] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2221] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2233] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2245] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2257] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2269] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2281] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2293] "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon" "Mon"
-[2305] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2317] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2329] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2341] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2353] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2365] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2377] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2389] "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue" "Tue"
-[2401] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2413] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2425] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2437] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2449] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2461] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2473] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2485] "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed" "Wed"
-[2497] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2509] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2521] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2533] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2545] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2557] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2569] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2581] "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu" "Thu"
-[2593] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2605] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2617] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2629] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2641] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2653] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2665] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"
-[2677] "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri" "Fri"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(february_data<span class="sc">$</span>Weekday,february_data<span class="sc">$</span>Rain_cm, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Avg. Daily Temp. F in Feb. 2014 by Weekday"</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Weekday"</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Average Daily Air Temp.(F)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">##standard plot</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>february_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">format</span>(Date, <span class="st">"%B"</span>) <span class="sc">==</span> <span class="st">"February"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">##ggplot</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(february_data, <span class="fu">aes</span>(february_data<span class="sc">$</span>Rain_cm,february_data<span class="sc">$</span>Weekday,)) <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>( <span class="st">"Average Daily Tempurature (F)"</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>( <span class="st">"Weekday"</span>) <span class="sc">+</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Avg. Daily Temp. F in Feb. 2020 by Weekday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `february_data$Rain_cm` is discouraged.
-ℹ Use `Rain_cm` instead.</code></pre>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.character</span>(february_data<span class="sc">$</span>Weekday)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `february_data$Weekday` is discouraged.
-ℹ Use `Weekday` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `february_data$Rain_cm` is discouraged.
-ℹ Use `Rain_cm` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Use of `february_data$Weekday` is discouraged.
-ℹ Use `Weekday` instead.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<ol start="3" type="1">
-<li>Water depth on Valentine’s Day.</li>
-</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">##standard plot </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>valentines_day <span class="ot">&lt;-</span> rice <span class="sc">|&gt;</span> </span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( Date <span class="sc">==</span> <span class="fu">ymd</span>(<span class="st">"2014-02-14"</span>))</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">as.list</span>(valentines_day<span class="sc">$</span>Time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[[1]]
-[1] "12:00:00 AM"
-
-[[2]]
-[1] "12:15:00 AM"
-
-[[3]]
-[1] "12:30:00 AM"
-
-[[4]]
-[1] "12:45:00 AM"
-
-[[5]]
-[1] " 1:00:00 AM"
-
-[[6]]
-[1] " 1:15:00 AM"
-
-[[7]]
-[1] " 1:30:00 AM"
-
-[[8]]
-[1] " 1:45:00 AM"
-
-[[9]]
-[1] " 2:00:00 AM"
-
-[[10]]
-[1] " 2:15:00 AM"
-
-[[11]]
-[1] " 2:30:00 AM"
-
-[[12]]
-[1] " 2:45:00 AM"
-
-[[13]]
-[1] " 3:00:00 AM"
-
-[[14]]
-[1] " 3:15:00 AM"
-
-[[15]]
-[1] " 3:30:00 AM"
-
-[[16]]
-[1] " 3:45:00 AM"
-
-[[17]]
-[1] " 4:00:00 AM"
-
-[[18]]
-[1] " 4:15:00 AM"
-
-[[19]]
-[1] " 4:30:00 AM"
-
-[[20]]
-[1] " 4:45:00 AM"
-
-[[21]]
-[1] " 5:00:00 AM"
-
-[[22]]
-[1] " 5:15:00 AM"
-
-[[23]]
-[1] " 5:30:00 AM"
-
-[[24]]
-[1] " 5:45:00 AM"
-
-[[25]]
-[1] " 6:00:00 AM"
-
-[[26]]
-[1] " 6:15:00 AM"
-
-[[27]]
-[1] " 6:30:00 AM"
-
-[[28]]
-[1] " 6:45:00 AM"
-
-[[29]]
-[1] " 7:00:00 AM"
-
-[[30]]
-[1] " 7:15:00 AM"
-
-[[31]]
-[1] " 7:30:00 AM"
-
-[[32]]
-[1] " 7:45:00 AM"
-
-[[33]]
-[1] " 8:00:00 AM"
-
-[[34]]
-[1] " 8:15:00 AM"
-
-[[35]]
-[1] " 8:30:00 AM"
-
-[[36]]
-[1] " 8:45:00 AM"
-
-[[37]]
-[1] " 9:00:00 AM"
-
-[[38]]
-[1] " 9:15:00 AM"
-
-[[39]]
-[1] " 9:30:00 AM"
-
-[[40]]
-[1] " 9:45:00 AM"
-
-[[41]]
-[1] "10:00:00 AM"
-
-[[42]]
-[1] "10:15:00 AM"
-
-[[43]]
-[1] "10:30:00 AM"
-
-[[44]]
-[1] "10:45:00 AM"
-
-[[45]]
-[1] "11:00:00 AM"
-
-[[46]]
-[1] "11:15:00 AM"
-
-[[47]]
-[1] "11:30:00 AM"
-
-[[48]]
-[1] "11:45:00 AM"
-
-[[49]]
-[1] "12:00:00 PM"
-
-[[50]]
-[1] "12:15:00 PM"
-
-[[51]]
-[1] "12:30:00 PM"
-
-[[52]]
-[1] "12:45:00 PM"
-
-[[53]]
-[1] " 1:00:00 PM"
-
-[[54]]
-[1] " 1:15:00 PM"
-
-[[55]]
-[1] " 1:30:00 PM"
-
-[[56]]
-[1] " 1:45:00 PM"
-
-[[57]]
-[1] " 2:00:00 PM"
-
-[[58]]
-[1] " 2:15:00 PM"
-
-[[59]]
-[1] " 2:30:00 PM"
-
-[[60]]
-[1] " 2:45:00 PM"
-
-[[61]]
-[1] " 3:00:00 PM"
-
-[[62]]
-[1] " 3:15:00 PM"
-
-[[63]]
-[1] " 3:30:00 PM"
-
-[[64]]
-[1] " 3:45:00 PM"
-
-[[65]]
-[1] " 4:00:00 PM"
-
-[[66]]
-[1] " 4:15:00 PM"
-
-[[67]]
-[1] " 4:30:00 PM"
-
-[[68]]
-[1] " 4:45:00 PM"
-
-[[69]]
-[1] " 5:00:00 PM"
-
-[[70]]
-[1] " 5:15:00 PM"
-
-[[71]]
-[1] " 5:30:00 PM"
-
-[[72]]
-[1] " 5:45:00 PM"
-
-[[73]]
-[1] " 6:00:00 PM"
-
-[[74]]
-[1] " 6:15:00 PM"
-
-[[75]]
-[1] " 6:30:00 PM"
-
-[[76]]
-[1] " 6:45:00 PM"
-
-[[77]]
-[1] " 7:00:00 PM"
-
-[[78]]
-[1] " 7:15:00 PM"
-
-[[79]]
-[1] " 7:30:00 PM"
-
-[[80]]
-[1] " 7:45:00 PM"
-
-[[81]]
-[1] " 8:00:00 PM"
-
-[[82]]
-[1] " 8:15:00 PM"
-
-[[83]]
-[1] " 8:30:00 PM"
-
-[[84]]
-[1] " 8:45:00 PM"
-
-[[85]]
-[1] " 9:00:00 PM"
-
-[[86]]
-[1] " 9:15:00 PM"
-
-[[87]]
-[1] " 9:30:00 PM"
-
-[[88]]
-[1] " 9:45:00 PM"
-
-[[89]]
-[1] "10:00:00 PM"
-
-[[90]]
-[1] "10:15:00 PM"
-
-[[91]]
-[1] "10:30:00 PM"
-
-[[92]]
-[1] "10:45:00 PM"
-
-[[93]]
-[1] "11:00:00 PM"
-
-[[94]]
-[1] "11:15:00 PM"
-
-[[95]]
-[1] "11:30:00 PM"
-
-[[96]]
-[1] "11:45:00 PM"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(valentines_day<span class="sc">$</span>Depth_m, </span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Water Depth on Valentines Day 2014"</span>,</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Index"</span>,</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Water Depth in Meters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(february_data<span class="sc">$</span>Weekday,february_data<span class="sc">$</span>Rain_cm, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Avg. Daily Temp. F in Feb. 2014 by Weekday"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Weekday"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Average Daily Air Temp.(F)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -804,409 +190,15 @@ Attaching package: 'kableExtra'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">##ggplot</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(valentines_day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>        PAR WindSpeed_mph WindDir AirTempF RelHumidity BP_HG Salinity_ppt   PH
-1     0.003         6.951  279.60    35.36       85.90 29.41         0.07 7.26
-2     0.007         8.790  281.20    35.65       85.70 29.42         0.07 7.38
-3     0.000         7.632  287.70    35.84       84.80 29.42         0.07 7.42
-4     0.013         9.100  286.40    36.08       83.10 29.43         0.07 7.41
-5     0.000         9.510  288.20    36.43       80.90 29.44         0.07 7.44
-6     0.000         9.580  290.70    36.73       78.70 29.45         0.07 7.43
-7     0.000         8.440  286.00    36.55       78.55 29.45         0.07 7.43
-8     0.000         8.550  287.50    36.50       77.41 29.46         0.07 7.43
-9     0.000         5.384  293.60    36.28       77.09 29.47         0.07 7.45
-10    0.003         6.688  289.60    36.12       75.71 29.46         0.07 7.49
-11    0.000         8.460  286.60    36.36       73.52 29.47         0.07 7.49
-12    0.000         8.850  287.70    36.45       72.91 29.48         0.07 7.53
-13    0.000         8.890  289.00    36.48       72.62 29.50         0.07 7.54
-14    0.000         9.580  285.20    36.70       71.74 29.50         0.07 7.54
-15    0.000         9.270  287.80    36.60       71.07 29.51         0.07 7.50
-16    0.000         8.450  286.20    36.59       71.72 29.51         0.07 7.38
-17    0.000         8.840  288.40    36.51       70.71 29.52         0.07 7.48
-18    0.000         8.950  280.30    36.50       69.73 29.52         0.07 7.36
-19    0.000        11.840  280.20    37.01       68.70 29.52         0.07 7.46
-20    0.000        14.990  253.60    37.35       68.73 29.53         0.07 7.42
-21    0.000        16.270  247.30    37.09       67.88 29.54         0.07 7.36
-22    0.000        16.580  244.90    36.99       66.57 29.53         0.07 7.37
-23    0.000        16.950  247.60    36.64       67.54 29.54         0.07 7.40
-24    0.000        16.410  247.20    36.60       66.73 29.55         0.07 7.42
-25    0.000        16.740  247.90    36.79       65.33 29.57         0.07 7.41
-26    0.000        16.220  243.80    37.03       64.17 29.58         0.07 7.41
-27    0.000        16.660  241.90    37.20       62.85 29.59         0.07 7.35
-28    0.000        14.380  238.00    36.80       62.36 29.60         0.07 7.45
-29    0.000        13.590  239.80    36.54       63.10 29.61         0.07 7.37
-30    0.000        14.690  235.30    36.60       61.49 29.62         0.07 7.41
-31    0.000        14.070  232.30    36.57       60.80 29.62         0.07 7.40
-32    0.176        14.510  237.00    36.65       61.03 29.62         0.07 7.36
-33    3.816        15.310  236.70    37.06       60.10 29.63         0.07 7.37
-34   18.010        18.480  237.60    37.98       58.09 29.63         0.07 7.34
-35   50.900        17.430  233.10    38.36       57.53 29.63         0.07 7.32
-36  120.300        16.080  234.90    38.21       57.73 29.63         0.07 7.34
-37  198.700        16.710  240.10    38.45       57.73 29.64         0.07 7.32
-38  287.900        18.710  241.00    38.99       56.26 29.64         0.07 7.34
-39  384.300        20.300  242.10    39.39       55.86 29.64         0.07 7.36
-40  484.800        20.450  243.00    40.04       54.50 29.64         0.07 7.31
-41  582.300        19.410  243.30    40.22       54.67 29.64         0.07 7.30
-42  675.000        18.280  243.60    40.61       53.97 29.65         0.07 7.34
-43  763.600        17.000  243.50    41.17       54.15 29.64         0.07 7.32
-44  848.000        16.410  240.90    42.03       52.74 29.64         0.07 7.29
-45  931.000        16.500  240.10    43.01       51.13 29.64         0.07 7.36
-46 1016.000        15.350  243.90    43.76       50.69 29.64         0.07 7.37
-47 1109.000        18.610  246.80    44.93       48.51 29.63         0.05 6.62
-48 1170.000        19.300  248.00    45.51       47.92 29.63         0.06 7.04
-49 1224.000        18.510  247.90    45.71       48.17 29.63         0.07 7.33
-50 1269.000        17.610  248.60    46.29       47.28 29.64         0.06 7.17
-51 1307.000        17.940  248.50    46.46       47.37 29.64         0.07 7.30
-52 1334.000        16.960  248.70    46.73       46.54 29.64         0.07 7.33
-53 1357.000        18.810  245.90    47.10       45.43 29.64         0.07 7.41
-54 1371.000        18.300  250.40    47.49       44.59 29.64         0.07 7.38
-55 1377.000        18.380  245.10    48.01       43.98 29.64         0.07 7.39
-56 1371.000        17.190  246.10    47.97       44.41 29.64         0.07 7.49
-57 1358.000        15.860  249.00    48.35       43.75 29.64         0.07 7.47
-58 1339.000        15.020  248.60    48.35       44.50 29.64         0.07 7.48
-59 1312.000        17.190  245.30    49.25       41.72 29.63         0.07 7.48
-60 1269.000        15.210  250.50    49.28       41.61 29.63         0.07 7.47
-61 1227.000        13.870  251.90    49.26       42.47 29.63         0.07 7.49
-62 1174.000        12.000  251.40    49.42       42.08 29.64         0.07 7.50
-63 1119.000        13.990  252.90    50.07       40.73 29.64         0.07 7.52
-64 1055.000        14.200  248.20    49.73       42.03 29.64         0.07 7.50
-65  983.000        14.170  249.40    50.88       39.48 29.64         0.07 7.43
-66  907.000        17.040  247.00    51.17       38.47 29.64         0.07 7.46
-67  821.000        20.070  246.80    52.15       36.03 29.64         0.07 7.52
-68  731.300        17.040  247.80    52.28       36.37 29.64         0.07 7.47
-69  647.400        18.730  243.80    51.75       37.03 29.65         0.07 7.48
-70  547.000        17.220  249.90    52.32       35.76 29.66         0.07 7.53
-71  448.900        19.060  243.50    52.57       35.51 29.66         0.07 7.50
-72  346.800        19.010  244.10    52.73       35.21 29.67         0.07 7.44
-73  226.000        15.910  245.60    52.64       35.72 29.67         0.07 7.41
-74  149.300        13.480  247.90    51.61       37.26 29.68         0.07 7.40
-75   84.000        12.910  249.80    51.93       36.49 29.68         0.07 7.41
-76   29.410        11.940  243.20    51.90       36.68 29.68         0.07 7.43
-77    6.205         8.170  254.60    50.67       39.48 29.68         0.07 7.49
-78    0.398         4.433  255.90    50.02       40.27 29.69         0.07 7.47
-79    0.007         2.368  302.80    48.75       42.25 29.69         0.07 7.53
-80    0.000         2.557   24.95    46.84       45.29 29.70         0.07 7.52
-81    0.000         0.949   36.21    47.10       40.96 29.70         0.07 7.48
-82    0.000         0.546  161.20    46.91       39.37 29.70         0.07 7.50
-83    0.000         1.592   47.09    46.32       40.29 29.69         0.08 7.56
-84    0.000         1.973   31.77    45.80       40.91 29.69         0.07 7.50
-85    0.000         1.761   56.42    45.04       41.41 29.69         0.08 7.56
-86    0.000         1.944   93.50    46.21       39.32 29.69         0.07 7.50
-87    0.000         1.829   42.65    45.41       40.95 29.69         0.07 7.56
-88    0.000         1.833   79.29    45.20       40.62 29.69         0.07 7.52
-89    0.000         2.352   23.55    43.73       44.65 29.70         0.07 7.50
-90    0.000         2.084   40.08    42.26       46.47 29.70         0.07 7.48
-91    0.000         2.018  105.30    43.29       44.91 29.70         0.07 7.50
-92    0.000         3.212  147.30    44.79       43.74 29.70         0.07 7.51
-93    0.000        10.750  223.10    46.88       47.22 29.70         0.07 7.46
-94    0.013         8.440  219.80    46.97       47.18 29.70         0.07 7.51
-95    0.000         4.266  222.40    46.04       49.00 29.70         0.06 7.18
-96    0.000         2.312  301.70    44.49       52.57 29.69         0.07 7.44
-   Turbidity_ntu Chla_ugl BGAPC_CML BGAPC_rfu ODO_sat ODO_mgl  Depth_m
-1           23.9    305.9    345307     163.6    95.7   13.32 4.850587
-2           23.2    306.9    345251     163.6    96.6   13.39 4.885030
-3           23.6    304.9    345232     163.6    96.8   13.41 4.910328
-4           25.8    309.5    345191     163.6    96.8   13.38 4.936846
-5           25.8    302.5    345225     163.6    97.3   13.42 4.954524
-6           26.1    304.2    345218     163.6    97.1   13.39 4.981956
-7           27.7    300.6    345190     163.6    97.1   13.39 4.992014
-8           25.7    307.4    345355     163.7    97.5   13.42 5.008779
-9           26.7    303.7    345201     163.6    97.5   13.41 5.010303
-10          23.9    307.8    345211     163.6    98.1   13.44 5.022495
-11          24.8    299.9    345196     163.6    98.2   13.45 5.023714
-12          22.1    311.5    345211     163.6    98.7   13.47 5.032857
-13          22.0    311.1    345249     163.6    98.7   13.46 5.024933
-14          22.4    302.2    345277     163.6    98.6   13.47 5.014570
-15          24.5    306.3    345265     163.6    97.9   13.46 5.001768
-16          26.7    306.2    345220     163.6    96.8   13.38 4.983785
-17          22.1    307.0    345180     163.6    98.5   13.45 4.967630
-18          30.1    301.5    345214     163.6    96.2   13.37 4.949343
-19          24.6    305.3    345234     163.6    98.0   13.40 4.926787
-20          28.4    306.7    345212     163.6    97.2   13.44 4.904537
-21          35.4    305.5    345246     163.6    96.6   13.46 4.877715
-22          35.4    299.5    345213     163.6    96.6   13.45 4.846320
-23          36.3    300.8    345297     163.6    96.6   13.47 4.813097
-24          34.7    310.7    345209     163.6    97.3   13.55 4.777740
-25          34.4    311.6    345219     163.6    97.2   13.57 4.743602
-26          35.3    305.5    345221     163.6    97.0   13.56 4.710989
-27          33.4    304.9    345223     163.6    96.6   13.53 4.674717
-28          33.9    303.1    345200     163.6    97.3   13.61 4.641494
-29          35.9    298.2    345239     163.6    96.5   13.55 4.608272
-30          34.0    306.0    345298     163.6    97.0   13.61 4.578706
-31          35.1    313.4    345213     163.6    96.9   13.62 4.544568
-32          36.2    308.2    345369     163.7    96.5   13.59 4.513478
-33          35.3    310.4    345227     163.6    96.4   13.58 4.486047
-34          36.4    306.8    345278     163.6    96.2   13.58 4.458310
-35          36.7    307.9    345230     163.6    96.3   13.59 4.432706
-36          39.9    305.8    345245     163.6    96.3   13.59 4.401007
-37          46.1    304.6    345305     163.6    96.1   13.60 4.383329
-38          38.8    306.7    345216     163.6    95.8   13.55 4.365955
-39          41.2    297.5    345350     163.7    95.8   13.55 4.349801
-40          49.1    317.7    345222     163.6    95.9   13.57 4.339743
-41          49.6    308.2    345231     163.6    96.0   13.59 4.335475
-42          48.7    304.3    345255     163.6    96.4   13.63 4.335780
-43          55.0    304.8    345271     163.6    96.6   13.65 4.354678
-44          86.4    303.9    345249     163.6    97.4   13.72 4.384853
-45          45.1    309.9    345252     163.6    96.8   13.63 4.421734
-46          48.4    307.8    344387     163.2    97.4   13.65 4.462882
-47         187.7    307.9    345278     163.6    96.0   13.36 4.511345
-48          82.0    314.0    345309     163.7    97.8   13.59 4.557980
-49          64.7    302.2    345243     163.6    98.2   13.66 4.597908
-50         111.7    303.5    345238     163.6    98.1   13.60 4.640885
-51          82.4    307.6    345201     163.6    98.5   13.64 4.679899
-52          67.5    308.4    345249     163.6    98.9   13.66 4.714951
-53          47.7    308.2    345199     163.6    99.6   13.69 4.753661
-54          47.2    301.7    345206     163.6    99.5   13.66 4.788103
-55          43.8    312.8    345209     163.6   100.5   13.71 4.815840
-56          36.2    300.5    345356     163.7   101.1   13.73 4.849977
-57          38.1    305.4    345193     163.6   101.0   13.72 4.875885
-58          33.1    304.1    345218     163.6   101.1   13.74 4.904841
-59          33.1    303.0    345234     163.6   101.4   13.76 4.923739
-60          34.3    300.0    345225     163.6   101.4   13.74 4.953305
-61          30.1    303.6    345208     163.6   101.4   13.75 4.963059
-62          32.4    307.1    345274     163.6   101.6   13.75 4.975860
-63          27.5    299.9    345210     163.6   101.7   13.74 4.983785
-64          29.6    302.0    345211     163.6   101.9   13.75 4.990490
-65          40.5    303.1    345268     163.6   102.1   13.69 4.991710
-66          34.9    313.0    345233     163.6   102.5   13.75 4.989271
-67          26.9    304.4    345324     163.7   102.5   13.79 4.972812
-68          36.0    306.0    345207     163.6   102.8   13.73 4.957572
-69          31.6    303.2    345211     163.6   102.3   13.71 4.937455
-70          31.9    305.1    345252     163.6   102.6   13.72 4.917338
-71          36.8    302.7    345211     163.6   102.9   13.76 4.886554
-72          47.0    311.8    345208     163.6   103.1   13.67 4.854855
-73          51.5    302.4    345205     163.6   102.9   13.60 4.823460
-74          57.7    308.7    345265     163.6   102.8   13.56 4.789627
-75          78.0    308.0    345221     163.6   102.7   13.55 4.751832
-76          68.7    301.2    345197     163.6   103.4   13.48 4.717694
-77          70.6    297.5    345306     163.6   103.9   13.51 4.676547
-78          64.5    302.5    345190     163.6   103.6   13.45 4.643933
-79          65.9    306.4    345222     163.6   104.7   13.47 4.605833
-80          64.8    300.2    345230     163.6   104.3   13.45 4.572000
-81          61.8    307.1    344373     163.2   104.0   13.42 4.537253
-82          59.1    305.6    345138     163.6   103.9   13.44 4.506773
-83          51.5    300.3    345242     163.6   105.3   13.44 4.476293
-84          52.0    302.8    345193     163.6   103.6   13.45 4.447642
-85          46.4    302.1    345245     163.6   105.0   13.39 4.422039
-86          48.1    306.3    345180     163.6   103.3   13.30 4.397655
-87          43.0    301.9    345219     163.6   104.9   13.39 4.374185
-88          42.1    299.1    345145     163.6   104.4   13.36 4.354373
-89          44.7    307.9    345203     163.6   103.7   13.31 4.337304
-90          44.8    299.9    345217     163.6   103.3   13.30 4.328465
-91          38.3    300.6    345228     163.6   104.1   13.28 4.326941
-92          39.0    304.1    345148     163.6   104.1   13.28 4.335475
-93          41.7    307.8    345279     163.6   103.4   13.27 4.355287
-94          33.3    306.9    345232     163.6   104.6   13.36 4.386377
-95          44.2    306.1    345228     163.6   101.6   13.33 4.427525
-96          33.7    305.7    345201     163.6   104.1   13.35 4.477512
-   SurfaceWaterElev_m_levelNad83m H2O_TempF Rain_cm       Date        Time
-1                       -31.37941    35.186       0 2014-02-14 12:00:00 AM
-2                       -31.34497    35.402       0 2014-02-14 12:15:00 AM
-3                       -31.31967    35.474       0 2014-02-14 12:30:00 AM
-4                       -31.29315    35.618       0 2014-02-14 12:45:00 AM
-5                       -31.27547    35.726       0 2014-02-14  1:00:00 AM
-6                       -31.24804    35.780       0 2014-02-14  1:15:00 AM
-7                       -31.23799    35.762       0 2014-02-14  1:30:00 AM
-8                       -31.22122    35.888       0 2014-02-14  1:45:00 AM
-9                       -31.21970    35.978       0 2014-02-14  2:00:00 AM
-10                      -31.20750    36.194       0 2014-02-14  2:15:00 AM
-11                      -31.20629    36.212       0 2014-02-14  2:30:00 AM
-12                      -31.19714    36.446       0 2014-02-14  2:45:00 AM
-13                      -31.20507    36.500       0 2014-02-14  3:00:00 AM
-14                      -31.21543    36.392       0 2014-02-14  3:15:00 AM
-15                      -31.22823    35.996       0 2014-02-14  3:30:00 AM
-16                      -31.24622    35.564       0 2014-02-14  3:45:00 AM
-17                      -31.26237    36.428       0 2014-02-14  4:00:00 AM
-18                      -31.28066    35.276       0 2014-02-14  4:15:00 AM
-19                      -31.30321    36.320       0 2014-02-14  4:30:00 AM
-20                      -31.32546    35.564       0 2014-02-14  4:45:00 AM
-21                      -31.35229    35.114       0 2014-02-14  5:00:00 AM
-22                      -31.38368    35.132       0 2014-02-14  5:15:00 AM
-23                      -31.41690    35.060       0 2014-02-14  5:30:00 AM
-24                      -31.45226    35.078       0 2014-02-14  5:45:00 AM
-25                      -31.48640    34.952       0 2014-02-14  6:00:00 AM
-26                      -31.51901    34.880       0 2014-02-14  6:15:00 AM
-27                      -31.55528    34.736       0 2014-02-14  6:30:00 AM
-28                      -31.58850    34.826       0 2014-02-14  6:45:00 AM
-29                      -31.62173    34.574       0 2014-02-14  7:00:00 AM
-30                      -31.65129    34.646       0 2014-02-14  7:15:00 AM
-31                      -31.68543    34.484       0 2014-02-14  7:30:00 AM
-32                      -31.71652    34.412       0 2014-02-14  7:45:00 AM
-33                      -31.74395    34.322       0 2014-02-14  8:00:00 AM
-34                      -31.77169    34.232       0 2014-02-14  8:15:00 AM
-35                      -31.79729    34.250       0 2014-02-14  8:30:00 AM
-36                      -31.82899    34.250       0 2014-02-14  8:45:00 AM
-37                      -31.84667    34.088       0 2014-02-14  9:00:00 AM
-38                      -31.86404    34.124       0 2014-02-14  9:15:00 AM
-39                      -31.88020    34.124       0 2014-02-14  9:30:00 AM
-40                      -31.89026    34.052       0 2014-02-14  9:45:00 AM
-41                      -31.89452    34.016       0 2014-02-14 10:00:00 AM
-42                      -31.89422    34.142       0 2014-02-14 10:15:00 AM
-43                      -31.87532    34.196       0 2014-02-14 10:30:00 AM
-44                      -31.84515    34.376       0 2014-02-14 10:45:00 AM
-45                      -31.80827    34.412       0 2014-02-14 11:00:00 AM
-46                      -31.76712    34.682       0 2014-02-14 11:15:00 AM
-47                      -31.71865    35.150       0 2014-02-14 11:30:00 AM
-48                      -31.67202    35.222       0 2014-02-14 11:45:00 AM
-49                      -31.63209    35.222       0 2014-02-14 12:00:00 PM
-50                      -31.58912    35.438       0 2014-02-14 12:15:00 PM
-51                      -31.55010    35.474       0 2014-02-14 12:30:00 PM
-52                      -31.51505    35.636       0 2014-02-14 12:45:00 PM
-53                      -31.47634    35.996       0 2014-02-14  1:00:00 PM
-54                      -31.44190    36.086       0 2014-02-14  1:15:00 PM
-55                      -31.41416    36.464       0 2014-02-14  1:30:00 PM
-56                      -31.38002    36.752       0 2014-02-14  1:45:00 PM
-57                      -31.35411    36.770       0 2014-02-14  2:00:00 PM
-58                      -31.32516    36.698       0 2014-02-14  2:15:00 PM
-59                      -31.30626    36.860       0 2014-02-14  2:30:00 PM
-60                      -31.27670    36.896       0 2014-02-14  2:45:00 PM
-61                      -31.26694    36.878       0 2014-02-14  3:00:00 PM
-62                      -31.25414    37.004       0 2014-02-14  3:15:00 PM
-63                      -31.24622    37.130       0 2014-02-14  3:30:00 PM
-64                      -31.23951    37.238       0 2014-02-14  3:45:00 PM
-65                      -31.23829    37.634       0 2014-02-14  4:00:00 PM
-66                      -31.24073    37.598       0 2014-02-14  4:15:00 PM
-67                      -31.25719    37.382       0 2014-02-14  4:30:00 PM
-68                      -31.27243    37.904       0 2014-02-14  4:45:00 PM
-69                      -31.29255    37.688       0 2014-02-14  5:00:00 PM
-70                      -31.31266    37.814       0 2014-02-14  5:15:00 PM
-71                      -31.34344    37.832       0 2014-02-14  5:30:00 PM
-72                      -31.37514    38.372       0 2014-02-14  5:45:00 PM
-73                      -31.40654    38.606       0 2014-02-14  6:00:00 PM
-74                      -31.44037    38.732       0 2014-02-14  6:15:00 PM
-75                      -31.47817    38.732       0 2014-02-14  6:30:00 PM
-76                      -31.51231    39.524       0 2014-02-14  6:45:00 PM
-77                      -31.55345    39.758       0 2014-02-14  7:00:00 PM
-78                      -31.58607    39.866       0 2014-02-14  7:15:00 PM
-79                      -31.62417    40.478       0 2014-02-14  7:30:00 PM
-80                      -31.65800    40.280       0 2014-02-14  7:45:00 PM
-81                      -31.69275    40.280       0 2014-02-14  8:00:00 PM
-82                      -31.72323    40.064       0 2014-02-14  8:15:00 PM
-83                      -31.75371    41.018       0 2014-02-14  8:30:00 PM
-84                      -31.78236    39.866       0 2014-02-14  8:45:00 PM
-85                      -31.80796    41.090       0 2014-02-14  9:00:00 PM
-86                      -31.83234    40.388       0 2014-02-14  9:15:00 PM
-87                      -31.85582    41.018       0 2014-02-14  9:30:00 PM
-88                      -31.87563    40.838       0 2014-02-14  9:45:00 PM
-89                      -31.89270    40.586       0 2014-02-14 10:00:00 PM
-90                      -31.90154    40.424       0 2014-02-14 10:15:00 PM
-91                      -31.90306    41.036       0 2014-02-14 10:30:00 PM
-92                      -31.89452    41.036       0 2014-02-14 10:45:00 PM
-93                      -31.87471    40.586       0 2014-02-14 11:00:00 PM
-94                      -31.84362    40.928       0 2014-02-14 11:15:00 PM
-95                      -31.80247    39.110       0 2014-02-14 11:30:00 PM
-96                      -31.75249    40.694       0 2014-02-14 11:45:00 PM
-   Weekday
-1      Fri
-2      Fri
-3      Fri
-4      Fri
-5      Fri
-6      Fri
-7      Fri
-8      Fri
-9      Fri
-10     Fri
-11     Fri
-12     Fri
-13     Fri
-14     Fri
-15     Fri
-16     Fri
-17     Fri
-18     Fri
-19     Fri
-20     Fri
-21     Fri
-22     Fri
-23     Fri
-24     Fri
-25     Fri
-26     Fri
-27     Fri
-28     Fri
-29     Fri
-30     Fri
-31     Fri
-32     Fri
-33     Fri
-34     Fri
-35     Fri
-36     Fri
-37     Fri
-38     Fri
-39     Fri
-40     Fri
-41     Fri
-42     Fri
-43     Fri
-44     Fri
-45     Fri
-46     Fri
-47     Fri
-48     Fri
-49     Fri
-50     Fri
-51     Fri
-52     Fri
-53     Fri
-54     Fri
-55     Fri
-56     Fri
-57     Fri
-58     Fri
-59     Fri
-60     Fri
-61     Fri
-62     Fri
-63     Fri
-64     Fri
-65     Fri
-66     Fri
-67     Fri
-68     Fri
-69     Fri
-70     Fri
-71     Fri
-72     Fri
-73     Fri
-74     Fri
-75     Fri
-76     Fri
-77     Fri
-78     Fri
-79     Fri
-80     Fri
-81     Fri
-82     Fri
-83     Fri
-84     Fri
-85     Fri
-86     Fri
-87     Fri
-88     Fri
-89     Fri
-90     Fri
-91     Fri
-92     Fri
-93     Fri
-94     Fri
-95     Fri
-96     Fri</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(valentines_day, </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Depth_m, </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> Time)) <span class="sc">+</span>  </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Depth (meters)"</span>)  <span class="co"># Adjust x-axis label if needed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_line()`: Each group consists of only one observation.
-ℹ Do you need to adjust the group aesthetic?</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">##ggplot</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(february_data, <span class="fu">aes</span>(february_data<span class="sc">$</span>Rain_cm,february_data<span class="sc">$</span>Weekday,)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>( <span class="st">"Average Daily Tempurature (F)"</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>( <span class="st">"Weekday"</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Avg. Daily Temp. F in Feb. 2020 by Weekday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1214,7 +206,52 @@ Attaching package: 'kableExtra'</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Time"</span>)  <span class="co"># Add appropriate y-axis label based on your data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Water depth on Valentine’s Day.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##standard plot </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>valentines_day <span class="ot">&lt;-</span> rice <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( Date <span class="sc">==</span> <span class="fu">ymd</span>(<span class="st">"2014-02-14"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.list</span>(valentines_day<span class="sc">$</span>Time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(valentines_day<span class="sc">$</span>Depth_m, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Water Depth on Valentines Day 2014"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Index"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Water Depth in Meters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">##ggplot</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.frame</span>(valentines_day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(valentines_day, </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Depth_m, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> Time)) <span class="sc">+</span>  </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Depth (meters)"</span>)  <span class="co"># Adjust x-axis label if needed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Time"</span>)  <span class="co"># Add appropriate y-axis label based on your data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$y
 [1] "Time"
@@ -1222,7 +259,7 @@ Attaching package: 'kableExtra'</code></pre>
 attr(,"class")
 [1] "labels"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Water Depth on Febuary 14th 2014"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Water Depth on Febuary 14th 2014"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$title
 [1] "Water Depth on Febuary 14th 2014"
@@ -1235,97 +272,97 @@ attr(,"class")
 <li>Scatter plot of Daily Total Rain and Daily Median Temperature grouped by month (label the centroid of months).</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with base plot </span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>rice<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">format</span>(rice<span class="sc">$</span>Date, <span class="st">"%B"</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>grouped_rainbytemp <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">%&gt;%</span></span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_rain =</span> <span class="fu">mean</span>(Rain_cm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_temp =</span> <span class="fu">mean</span>(AirTempF, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rice, <span class="fu">aes</span>(<span class="at">x =</span> AirTempF, <span class="at">y =</span> Rain_cm, <span class="at">color =</span> Month)) <span class="sc">+</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> grouped_rainbytemp, <span class="fu">aes</span>(<span class="at">x =</span> mean_temp, <span class="at">y =</span> mean_rain, <span class="at">label =</span> Month), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatter Plot of Daily Total Rain vs. Daily Median Temperature"</span>,</span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Daily Median Temperature (°F)"</span>,</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Daily Total Rain (cm)"</span>) <span class="sc">+</span></span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#with base plot </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>rice<span class="sc">$</span>Month <span class="ot">&lt;-</span> <span class="fu">format</span>(rice<span class="sc">$</span>Date, <span class="st">"%B"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>grouped_rainbytemp <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Month) <span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_rain =</span> <span class="fu">mean</span>(Rain_cm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">mean_temp =</span> <span class="fu">mean</span>(AirTempF, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rice, <span class="fu">aes</span>(<span class="at">x =</span> AirTempF, <span class="at">y =</span> Rain_cm, <span class="at">color =</span> Month)) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> grouped_rainbytemp, <span class="fu">aes</span>(<span class="at">x =</span> mean_temp, <span class="at">y =</span> mean_rain, <span class="at">label =</span> Month), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatter Plot of Daily Total Rain vs. Daily Median Temperature"</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Daily Median Temperature (°F)"</span>,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Daily Total Rain (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#in ggplot</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rice, <span class="fu">aes</span>(<span class="at">x =</span> AirTempF, <span class="at">y =</span> Rain_cm, <span class="at">color =</span> Month)) <span class="sc">+</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> grouped_rainbytemp, <span class="fu">aes</span>(<span class="at">x =</span> mean_temp, <span class="at">y =</span> mean_rain, <span class="at">label =</span> Month), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatter Plot of Daily Total Rain vs. Daily Median Temperature"</span>,</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Daily Median Temperature (°F)"</span>,</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Daily Total Rain (cm)"</span>) <span class="sc">+</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#in ggplot</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(rice, <span class="fu">aes</span>(<span class="at">x =</span> AirTempF, <span class="at">y =</span> Rain_cm, <span class="at">color =</span> Month)) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> grouped_rainbytemp, <span class="fu">aes</span>(<span class="at">x =</span> mean_temp, <span class="at">y =</span> mean_rain, <span class="at">label =</span> Month), <span class="at">vjust =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scatter Plot of Daily Total Rain vs. Daily Median Temperature"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Daily Median Temperature (°F)"</span>,</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Daily Total Rain (cm)"</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>5.Wind Direction during the week containing the 8th of January.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#in base R</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>rice<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(rice<span class="sc">$</span>Date)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>week_start <span class="ot">&lt;-</span> <span class="fu">floor_date</span>(<span class="fu">as.Date</span>(<span class="st">"2014-01-08"</span>), <span class="at">unit =</span> <span class="st">"week"</span>)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>week_end <span class="ot">&lt;-</span> week_start <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">6</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Date <span class="sc">&gt;=</span> week_start <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> week_end)</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(filtered_data)</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(filtered_data<span class="sc">$</span>Date, filtered_data<span class="sc">$</span>WindDir, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> filtered_data<span class="sc">$</span>WindDir,</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Wind Direction (Week of January 8th)"</span>,</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Date"</span>,</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Wind Direction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#in base R</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>rice<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(rice<span class="sc">$</span>Date)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>week_start <span class="ot">&lt;-</span> <span class="fu">floor_date</span>(<span class="fu">as.Date</span>(<span class="st">"2014-01-08"</span>), <span class="at">unit =</span> <span class="st">"week"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>week_end <span class="ot">&lt;-</span> week_start <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">6</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Date <span class="sc">&gt;=</span> week_start <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> week_end)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(filtered_data)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(filtered_data<span class="sc">$</span>Date, filtered_data<span class="sc">$</span>WindDir, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">col =</span> filtered_data<span class="sc">$</span>WindDir,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Wind Direction (Week of January 8th)"</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Date"</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Wind Direction"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#in ggplot </span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>rice<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(rice<span class="sc">$</span>Date)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>week_start <span class="ot">&lt;-</span> <span class="fu">floor_date</span>(<span class="fu">as.Date</span>(<span class="st">"2014-01-08"</span>), <span class="at">unit =</span> <span class="st">"week"</span>)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>week_end <span class="ot">&lt;-</span> week_start <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">6</span>)</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Date <span class="sc">&gt;=</span> week_start <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> week_end)</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(filtered_data)</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> WindDir, <span class="at">fill =</span> WindDir)) <span class="sc">+</span></span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>() <span class="sc">+</span></span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">180</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wind Direction (Week of January 8th)"</span>,</span>
-<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Wind Direction"</span>) <span class="sc">+</span></span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#in ggplot </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>rice<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(rice<span class="sc">$</span>Date)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>week_start <span class="ot">&lt;-</span> <span class="fu">floor_date</span>(<span class="fu">as.Date</span>(<span class="st">"2014-01-08"</span>), <span class="at">unit =</span> <span class="st">"week"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>week_end <span class="ot">&lt;-</span> week_start <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">6</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> rice <span class="sc">%&gt;%</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Date <span class="sc">&gt;=</span> week_start <span class="sc">&amp;</span> Date <span class="sc">&lt;=</span> week_end)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>filtered_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(filtered_data)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(filtered_data, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> WindDir, <span class="at">fill =</span> WindDir)) <span class="sc">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>() <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">180</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Wind Direction (Week of January 8th)"</span>,</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Wind Direction"</span>) <span class="sc">+</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Graphics_HW_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
