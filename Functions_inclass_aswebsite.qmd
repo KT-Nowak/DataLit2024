@@ -7,7 +7,6 @@ editor: visual
 
 ## The Following Function Calls in Rice Data
 
-
 ```{r}
 source("functions.R")
 data <- get_rice_data()
@@ -55,4 +54,3 @@ rice$Weekday <-wday(
 }
 
 ```
-

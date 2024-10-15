@@ -5,23 +5,45 @@ format: html
 editor: visual
 ---
 
-## Grahpics 
+```{r}
+source("get_rice_data.R")
+rice <- get_rice_data()
+```
 
-1. Total Rain for Each Weekday in January.  
+#Bringing in Packages
+
+```{r}
+library(tidyverse)
+
+library(dplyr)
+
+library(knitr)
+
+library(kableExtra)
+
+library(lubridate)
+```
+
+## Grahpics
+
+1.  Total Rain for Each Weekday in January.
 
 ```{r}
 
 ##standard plot
+
 january_data <- rice %>%
   filter(format(Date, "%B") == "January")
 
+
+
 plot(january_data$Rain_cm,january_data$Weekday,
-     main = "Cm of Rainfall in Jan. 2020 by Weekday",
+     main = "Cm of Rainfall in Jan. 2014 by Weekday",
      xlab = "Weekday",
      ylab = "Rainfall (cm)")
 
-
 ```
+
 ```{r}
 
 ##ggplot
@@ -34,12 +56,12 @@ ggplot(january_data, aes(january_data$Rain_cm,january_data$Weekday)) +
   geom_line(color = "red") +
   geom_point(color = "blue") +
   scale_x_continuous(breaks = seq(0, 10, by = 2)) +
-  ggtitle("Cm of Rainfall in Jan.2020 Enhanced by Weekday")
+  ggtitle("Cm of Rainfall in Jan. 2014 by Weekday")
 
 
 ```
 
-2. Average daily temperature for weekdays in February
+2.  Average daily temperature for weekdays in February
 
 ```{r}
 ##standard plot
@@ -47,13 +69,16 @@ ggplot(january_data, aes(january_data$Rain_cm,january_data$Weekday)) +
 february_data <- rice %>%
   filter(format(Date, "%B") == "February")
 
+as.character(february_data$Weekday)
+
 plot(february_data$Weekday,february_data$Rain_cm, 
-     main = "Avg. Daily Temp. F in Feb. 2020 by Weekday",
+     main = "Avg. Daily Temp. F in Feb. 2014 by Weekday",
      xlab = "Weekday",
      ylab = "Average Daily Air Temp.(F)")
 
 
 ```
+
 ```{r}
 
 ##ggplot
@@ -69,20 +94,78 @@ ggplot(february_data, aes(february_data$Rain_cm,february_data$Weekday,)) +
 
 ```
 
-3. Water depth on Valentine's Day.
+3.  Water depth on Valentine's Day.
 
 ```{r}
 
 ##standard plot 
 
 valentines_day <- rice |> 
-  filter( Date > ymd("2014-02-14"))
+  filter( Date == ymd("2014-02-14"))
+
+as.list(valentines_day$Time)
+
+
+plot(valentines_day$Depth_m, 
+     main = "Water Depth on Valentines Day 2014",
+     xlab = "Index",
+     ylab = "Water Depth in Meters")
 
 ```
 
-4. Scatter plot of Daily Total Rain and Daily Median Temperature grouped by month (label the centroid of months).
+```{r}
+
+##ggplot
+
+as.data.frame(valentines_day)
+
+ggplot(valentines_day, 
+       aes(x = Depth_m, 
+       y = Time)) +  
+  geom_line(color = "red") +
+  geom_point(color = "blue") +
+  xlab("Depth (meters)")  # Adjust x-axis label if needed
+  ylab("Time")  # Add appropriate y-axis label based on your data
+  ggtitle("Water Depth on Febuary 14th 2014")
+
+
+```
+
+4.  Scatter plot of Daily Total Rain and Daily Median Temperature grouped by month (label the centroid of months).
 
 ```{r}
+#with base plot 
+
+rice$Month <- format(rice$Date, "%B")
+
+grouped_rainbytemp <- rice %>%
+  group_by(Month) %>%
+  summarize(mean_rain = mean(Rain_cm, na.rm = TRUE),
+            mean_temp = mean(AirTempF, na.rm = TRUE))
+
+ggplot(rice, aes(x = AirTempF, y = Rain_cm, color = Month)) +
+  geom_point() +
+  geom_text(data = grouped_rainbytemp, aes(x = mean_temp, y = mean_rain, label = Month), vjust = -1) +
+  labs(title = "Scatter Plot of Daily Total Rain vs. Daily Median Temperature",
+       x = "Daily Median Temperature (°F)",
+       y = "Daily Total Rain (cm)") +
+  theme_classic()
+
+
+```
+
+```{r}
+#in ggplot
+
+ggplot(rice, aes(x = AirTempF, y = Rain_cm, color = Month)) +
+  geom_point() +
+  geom_text(data = grouped_rainbytemp, aes(x = mean_temp, y = mean_rain, label = Month), vjust = -1) +
+  labs(title = "Scatter Plot of Daily Total Rain vs. Daily Median Temperature",
+       x = "Daily Median Temperature (°F)",
+       y = "Daily Total Rain (cm)") +
+  theme_classic()
+
+
 
 ```
 
@@ -90,6 +173,46 @@ valentines_day <- rice |>
 
 ```{r}
 
+#in base R
+rice$Date <- as.Date(rice$Date)
+
+week_start <- floor_date(as.Date("2014-01-08"), unit = "week")
+week_end <- week_start + days(6)
+filtered_data <- rice %>%
+  filter(Date >= week_start & Date <= week_end)
+
+filtered_data <- as.data.frame(filtered_data)
+
+
+plot(filtered_data$Date, filtered_data$WindDir, type = "l", col = filtered_data$WindDir,
+     main = "Wind Direction (Week of January 8th)",
+     xlab = "Date",
+     ylab = "Wind Direction")
+
 
 ```
 
+```{r}
+#in ggplot 
+
+rice$Date <- as.Date(rice$Date)
+
+week_start <- floor_date(as.Date("2014-01-08"), unit = "week")
+week_end <- week_start + days(6)
+filtered_data <- rice %>%
+  filter(Date >= week_start & Date <= week_end)
+
+filtered_data <- as.data.frame(filtered_data)
+
+ggplot(filtered_data, aes(x = Date, y = WindDir, fill = WindDir)) +
+  geom_area() +
+   geom_line() +
+  geom_hline(yintercept = 180, linetype = "dashed") +
+  labs(title = "Wind Direction (Week of January 8th)",
+       x = "Date",
+       y = "Wind Direction") +
+  theme_classic()
+
+
+
+```
