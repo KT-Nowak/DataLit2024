@@ -136,7 +136,7 @@ str_view(envs, "[A-Z]{4} [0-9]{3}")
 
 #match the above specification only at the start of a line
 
-
+str_view(envs, "^[A-Z]{4} [0-9]{3}")
 
 
 ```
