@@ -1,0 +1,100 @@
+---
+title: "Code Along 10/24"
+format: html
+editor: visual
+warning: FALSE
+---
+
+# Textual Data 
+
+## Bringing in Packages
+
+```{r}
+library(tidyverse)
+
+library(dplyr)
+
+library(knitr)
+
+library(kableExtra)
+
+library(lubridate)
+
+library(stringr)
+
+library(readr)
+```
+
+## Sourcing Data 
+
+```{r}
+
+url <- "https://raw.githubusercontent.com/DyerlabTeaching/Textual-Data/refs/heads/main/data/ENVSclasses.txt?token=GHSAT0AAAAAACWO27UIA46V72P7DBZEP5EKZYZFFXQ"
+
+```
+
+## Creating Textual Variables
+
+```{r}
+
+paste("I","would","like","a","nap")
+
+paste("I","would","like","a","nap", sep = "-")
+
+paste("I","would","like","a","nap", 42, "!", sep = " ")
+
+x <- "birds"
+
+y <- "dogs"
+
+vec <- c( x, y )
+
+print(length( vec ))
+
+print(str_length( vec ))
+
+
+z <- LETTERS[1:10]
+
+print(z)
+
+paste(z, sep = "/" )
+
+str_c(z)
+
+print(str_c(z))
+
+```
+
+
+## Finding things in strings of charecters
+
+```{r}
+
+str_detect( z, "D")
+
+#note that stringer detect is case sensitive
+
+str_detect( z, "d")
+
+
+str_locate(z, "D")
+
+str_locate( vec, "o")
+
+
+```
+## Substitutions
+
+```{r}
+
+str_sub(z, 3, 4) <- "hey"
+
+print(z, 3)
+
+
+str_remove(z, "Chey")
+
+
+```
+
