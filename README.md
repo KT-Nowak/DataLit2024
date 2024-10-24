@@ -22,6 +22,8 @@ please.
 
 - [Graphics Homework](https://kt-nowak.github.io/DataLit2024/Graphics_HW.html)
 
+- [In Class Cat Assignment](https://kt-nowak.github.io/DataLit2024/Cat_Data_InClass.html)
+
 
 
 
