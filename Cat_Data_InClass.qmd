@@ -3,6 +3,76 @@ title: "Cat_Data_InClass"
 author: "Kt Nowak"
 format: html
 editor: visual
+echo: FALSE
 ---
 
-## 
+# Bringing in Packages
+
+```{r}
+library(tidyverse)
+
+library(dplyr)
+
+library(knitr)
+
+library(kableExtra)
+
+library(lubridate)
+
+library(lunar)
+```
+
+# Function to Bring in R
+
+```{r}
+source("get_rice_data.R")
+rice <- get_rice_data()
+
+```
+
+# Change the order of the weekdays to start with Monday.
+
+```{r}
+
+rice$Weekday <- factor(rice$Weekday)
+
+rice$Weekday <- as.character(rice$Weekday)
+
+weekdays_order <- c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+
+sorted_data <- rice %>%
+  mutate(Weekday = factor(Weekday, levels = weekdays_order, ordered = TRUE)) %>%
+  arrange(Weekday)
+
+
+```
+
+# Create a weekday/weekend column 
+
+```{r}
+
+sorted_data <- rice %>%
+  mutate(is_weekday = Weekday %in% c("Mon", "Tue", "Wed", "Thu", "Fri")) 
+
+
+```
+
+# Create a lunar phase column 
+
+```{r}
+
+sorted_data$LunarPhase <- lunar::lunar.phase(sorted_data$Date, shift = 0, name = TRUE)
+
+
+
+```
+# Create a column that indicates whether the tide is coming in (Incoming) or going out (Outgoing) 
+
+```{r}
+
+
+
+
+
+
+```
