@@ -24,6 +24,8 @@ please.
 
 - [In Class Cat Assignment](https://kt-nowak.github.io/DataLit2024/Cat_Data_InClass.html)
 
+- [Spatial Data Homework](https://kt-nowak.github.io/DataLit2024/spatial_data_hw.html)
+
 
 
 
