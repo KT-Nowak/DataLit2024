@@ -2,7 +2,6 @@
 title: "In Class Activity"
 format: html
 code-tools: true
-toc: false
 ---
 <center>
 ![*Araptus attenuatus* the enigmatic Sonoran Desert Bark
