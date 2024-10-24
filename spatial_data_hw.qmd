@@ -3,7 +3,7 @@ title: "Spatial Data HW"
 author: KT Nowak
 format: html
 code-tools: true
-echo: FALSE
+warning: FALSE
 ---
 <center>
 ![*Araptus attenuatus* the enigmatic Sonoran Desert Bark
