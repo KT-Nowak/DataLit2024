@@ -1,7 +1,6 @@
 ---
 title: "In Class Activity"
-format:
-html:
+format: html
 code-tools: true
 toc: false
 ---
