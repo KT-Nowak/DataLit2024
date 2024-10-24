@@ -219,9 +219,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Ahey" "Bhey" ""     "Dhey" "Ehey" "Fhey" "Ghey" "Hhey" "Ihey" "Jhey"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="regular-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="regular-expressions">Regular Expressions</h2>
+<ul>
+<li>Make a graphical display of the number of coursed in ENVS bby course level 100, 200, ect.</li>
+<li>Make a wordcloud from the titles</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>envs <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(url)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( envs, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "Ahey" "Bhey" "Chey" "Dhey" "Ehey" "Fhey" "Ghey" "Hhey" "Ihey" "Jhey"</code></pre>
+<pre><code>[1] "ENVS 101. Introduction to Environmental Studies I. 3 Hours."             
+[2] "Semester course; 3 lecture hours. 3 credits. Enrollment is restricted to"
+[3] "environmental studies majors. Study of contemporary issues related to"   
+[4] "environmental studies including sustainability, biological conservation,"
+[5] "global change and an overview of the core earth systems."                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(envs, <span class="st">"ENVS"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>envs[index]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ENVS 101. Introduction to Environmental Studies I. 3 Hours."             
+ [2] "ENVS 102. Introduction to Environmental Studies II. 3 Hours."            
+ [3] "Semester course; 3 lecture hours. 3 credits. Prerequisite: ENVS 101 or"  
+ [4] "ENVS 105. Physical Geology. 3 Hours."                                    
+ [5] "ENVS 201. Earth System Science. 3 Hours."                                
+ [6] "ENVS 222. Electronic Portfolios. 1 Hour."                                
+ [7] "ENVS 260. Outdoor Leadership. 3 Hours."                                  
+ [8] "ENVS 265. Paths to Environmental Leadership. 2 Hours."                   
+ [9] "Semester course; 2 lecture hours. 2 credits. Prerequisites: ENVS 101"    
+[10] "and ENVS 102, both with a minimum grade of B. This course focuses"       
+[11] "ENVS 291. Special Topics in Environmental Studies. 1-4 Hours."           
+[12] "ENVS 300. Sustainable Societies: James River Basin. 3 Hours."            
+[13] "ENVS 301. Introduction to Meteorology. 3 Hours."                         
+[14] "ENVS 310. Introduction to Oceanography. 3 Hours."                        
+[15] "ENVS 311. Politics of the Environment. 3 Hours."                         
+[16] "ENVS 314. Human-Environment Interactions: Foundations and"               
+[17] "ENVS 315. Energy and the Environment. 3 Hours."                          
+[18] "ENVS 321. Cartography. 3 Hours."                                         
+[19] "ENVS 330. Environmental Pollution. 3 Hours."                             
+[20] "ENVS 332. Environmental Management. 3 Hours."                            
+[21] "ENVS 335. Environmental Geology. 3 Hours."                               
+[22] "Semester course; 3 lecture hours. 3 credits. Prerequisite: ENVS 105"     
+[23] "ENVS 343. Data Literacy. 4 Hours."                                       
+[24] "Semester course; 4 lecture hours. 4 credits. Prerequisites: ENVS 102"    
+[25] "ENVS 355. Water. 3 Hours."                                               
+[26] "ENVS 330 or permission of instructor. The course takes an ecosystem"     
+[27] "ENVS 360. Outdoor Programming and Event Management. 3 Hours."            
+[28] "ENVS 361. Outdoor Team Building and Group Facilitation. 3 Hours."        
+[29] "ENVS 368. Nature Writing. 3 Hours."                                      
+[30] "ENVS 370. Applications of Conservation Science. 3 Hours."                
+[31] "Semester course; 3 lecture hours. 3 credits. Prerequisite: ENVS 343."    
+[32] "ENVS 391. Special Topics in Environmental Studies. 1-4 Hours."           
+[33] "ENVS 401. Meteorology and Climatology. 3 Hours."                         
+[34] "ENVS 411. Oceanography. 3 Hours."                                        
+[35] "ENVS 421. Environmental Data Visualization. 3 Hours."                    
+[36] "ENVS 430. Invasive Species Management. 3 Hours."                         
+[37] "ENVS 460. Wilderness First Responder. 3 Hours."                          
+[38] "ENVS 461. Wilderness Policy and Practice. 3 Hours."                      
+[39] "ENVS 490. Research Seminar in Environmental Studies. 3 Hours."           
+[40] "ENVS 491. Topics in Environmental Studies. 1-4 Hours."                   
+[41] "ENVS 492. Independent Study. 1-3 Hours."                                 
+[42] "ENVS 493. Environmental Studies Internship. 1-3 Hours."                  
+[43] "ENVS 499. Environmental Studies Capstone Experience. 0 Hours."           
+[44] "Semester course; variable hours. 0 credits. Corequisite: ENVS 490,"      
+[45] "ENVS 491 (when topics implement core competencies required for a"        
+[46] "Environmental Studies), ENVS 492 or ENVS 493. Enrollment restricted to"  
+[47] "ENVS 105, an optional laboratory course consisting of experiments and"   
+[48] "activities related to ENVS 105."                                         
+[49] "Semester course; 2 laboratory hours. 1 credit. Corequisite: ENVS 335."   
+[50] "Required for environmental science majors enrolled in ENVS 335; optional"
+[51] "Laboratory exercises coordinated with ENVS 335 lectures."                
+[52] "ENVS 401. A series of laboratory and field experiments designed to"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>envs101 <span class="ot">&lt;-</span> envs[<span class="dv">1</span>]</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ ENVS 101. Introduction to Environmental Studies I. 3 Hours.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101,<span class="st">"ENVS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ &lt;ENVS&gt; 101. Introduction to Environmental Studies I. 3 Hours.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101, <span class="st">"[:digit:]{3}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ ENVS &lt;101&gt;. Introduction to Environmental Studies I. 3 Hours.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:punct:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ ENVS 101&lt;.&gt; Introduction to Environmental Studies I&lt;.&gt; 3 Hours&lt;.&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:alpha:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ &lt;E&gt;&lt;N&gt;&lt;V&gt;&lt;S&gt; 101. &lt;I&gt;&lt;n&gt;&lt;t&gt;&lt;r&gt;&lt;o&gt;&lt;d&gt;&lt;u&gt;&lt;c&gt;&lt;t&gt;&lt;i&gt;&lt;o&gt;&lt;n&gt; &lt;t&gt;&lt;o&gt; &lt;E&gt;&lt;n&gt;&lt;v&gt;&lt;i&gt;&lt;r&gt;&lt;o&gt;&lt;n&gt;&lt;m&gt;&lt;e&gt;&lt;n&gt;&lt;t&gt;&lt;a&gt;&lt;l&gt; &lt;S&gt;&lt;t&gt;&lt;u&gt;&lt;d&gt;&lt;i&gt;&lt;e&gt;&lt;s&gt; &lt;I&gt;. 3 &lt;H&gt;&lt;o&gt;&lt;u&gt;&lt;r&gt;&lt;s&gt;.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ &lt;E&gt;&lt;N&gt;&lt;V&gt;&lt;S&gt; 101. &lt;I&gt;ntroduction to &lt;E&gt;nvironmental &lt;S&gt;tudies &lt;I&gt;. 3 &lt;H&gt;ours.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:space:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ ENVS&lt; &gt;101.&lt; &gt;Introduction&lt; &gt;to&lt; &gt;Environmental&lt; &gt;Studies&lt; &gt;I.&lt; &gt;3&lt; &gt;Hours.</code></pre>
 </div>
 </div>
 </section>

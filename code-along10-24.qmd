@@ -97,4 +97,46 @@ str_remove(z, "Chey")
 
 
 ```
+## Regular Expressions
 
+  - Make a graphical display of the number of coursed in ENVS bby course level 100, 200, ect.
+  - Make a wordcloud from the titles
+```{r}
+
+envs <- read_lines(url)
+
+head( envs, 5)
+ 
+index <- str_detect(envs, "ENVS")
+
+envs[index]
+
+
+envs101 <- envs[1]
+
+str_view(envs101)
+
+str_view(envs101,"ENVS")
+
+str_view(envs101, "[:digit:]{3}")
+
+str_view( envs101, "[:punct:]")
+
+str_view( envs101, "[:alpha:]")
+
+str_view( envs101, "[:upper:]")
+
+str_view( envs101, "[:space:]")
+
+#we are looking for 4 uppercase letters and then a space and then 3 digits
+
+str_view(envs, "[:alpha:]{4}[:digit:]{3}")
+
+str_view(envs, "[A-Z]{4} [0-9]{3}")
+
+#match the above specification only at the start of a line
+
+
+
+
+```

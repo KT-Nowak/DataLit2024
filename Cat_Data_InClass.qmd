@@ -73,10 +73,13 @@ sorted_data$LunarPhase <- lunar::lunar.phase(sorted_data$Date, shift = 0, name =
 sorted_data <- sorted_data %>%
   mutate(Tide = "Not specified") 
 
-sorted_data <- sorted_data %>%
-  mutate(LunarPhase = case_when(
-    LunarPhase < 0.03 ~ "First Quarter",
-    TRUE ~ LunarPhase
+sorted_data$Tide <- sorted_data %>%
+  mutate(is_decreasing = lag(Depth_m) > Depth_m) %>%
+  mutate(value_type = case_when(
+    is_decreasing ~ "Outgoing",
+    TRUE ~ "Incoming"))
+
+
 
 
 
