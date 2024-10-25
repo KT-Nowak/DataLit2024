@@ -164,45 +164,55 @@ window.Quarto = {
 </figure>
 </div>
 </center>
-<p>This homework is a bit quick but is designed to make sure that: 1. To make sure everyone can get their computer up-to-date with the proper set of libraries so that we can work with geospatial data, and 2. Give you some practice turning normal numerical data into geospatial coordinates and performing basic operations.</p>
 <section id="the-data---preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="the-data---preprocessing">The Data - Preprocessing</h2>
 <p>The data for this is some site-level data from the Sonoran Desert bark beetle. The URL is in the next chunk, and is currently being hosted on my class <a href="https://github.com/dyerlab/ENVS-Lectures">Github repository</a>. Load it in.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/dyerlab/ENVS-Lectures/master/data/Araptus_Disperal_Bias.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>beetle <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="bringing-in-packages" class="level1">
 <h1>Bringing in Packages</h1>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-
-Attaching package: 'kableExtra'
-
-
-The following object is masked from 'package:dplyr':
-
-    group_rows
-
-
-Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet.providers)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="interactive-map" class="level3">
 <h3 class="anchored" data-anchor-id="interactive-map">Interactive Map</h3>
 <p>Use the <code>leaflet</code> library and make an interactive map. If you can, add a label to each marker with the ID of the site. You can look at the provider tiles [here] (https://leaflet-extras.github.io/leaflet-providers/preview/) and use on in the <code>addProviderTiles()</code> function.</p>
 <p>There is a great tutorial <a href="https://rstudio.github.io/leaflet/map_widget.html">here</a> on how to customize the leaflet display. You may want to go look at it and see what you can use to make a better display.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a quick leaflet map here to get an idea of</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>beetle <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">Label =</span> <span class="fu">paste</span>( <span class="st">"Site:"</span>, Site, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;hr&gt;</span><span class="sc">\n</span><span class="st">Females:"</span>, Females, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;br&gt;Males: "</span>, Males,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;br&gt;Suitability:"</span>, Suitability) ) <span class="ot">-&gt;</span> df</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( leaflet )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>( <span class="sc">~</span>Longitude, <span class="sc">~</span>Latitude, <span class="at">popup =</span> <span class="sc">~</span>Label ) <span class="sc">%&gt;%</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>( <span class="st">"OpenTopoMap"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-d9904ceed365a19a14c4" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-d9904ceed365a19a14c4">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[26.63783,24.00789,26.94589,25.0247,27.52944,29.32541,28.66056,25.91409,27.0367,25.60521,26.20876,27.3632,27.18232,27.40498,28.96651,28.03661,25.34819,28.72796,24.87611,24.2115,28.22308,25.55757,28.40846,29.01457,27.2028,24.21441,23.2855,24.13389,24.58843,24.0195,26.0155],[-109.327,-109.85071,-112.04613,-111.675,-113.31609,-114.29353,-113.99141,-112.08062,-112.986,-111.32638,-111.37833,-112.964,-112.66552,-112.52959,-113.66787,-113.39991,-111.60056,-113.48973,-110.69175,-110.951,-113.18263,-111.21563,-112.86985,-113.94486,-112.408,-110.27252,-110.10429,-110.46236,-110.74599,-110.096,-111.35475],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Site: 32 <hr>\nFemales: 27 <br>Males:  40 <br>Suitability: 0.0563","Site: 73 <hr>\nFemales: 5 <br>Males:  11 <br>Suitability: 0.1455","Site: 93 <hr>\nFemales: 21 <br>Males:  25 <br>Suitability: 0.1627","Site: const <hr>\nFemales: 11 <br>Males:  18 <br>Suitability: 0.1744","Site: 159 <hr>\nFemales: 15 <br>Males:  22 <br>Suitability: 0.188","Site: 88 <hr>\nFemales: 18 <br>Males:  23 <br>Suitability: 0.2186","Site: 177 <hr>\nFemales: 50 <br>Males:  49 <br>Suitability: 0.2618","Site: 166 <hr>\nFemales: 26 <br>Males:  19 <br>Suitability: 0.2673","Site: 161 <hr>\nFemales: 63 <br>Males:  64 <br>Suitability: 0.2791","Site: 64 <hr>\nFemales: 19 <br>Males:  16 <br>Suitability: 0.2876","Site: 169 <hr>\nFemales: 28 <br>Males:  47 <br>Suitability: 0.3132","Site: sfran <hr>\nFemales: 16 <br>Males:  26 <br>Suitability: 0.3211","Site: 12 <hr>\nFemales: 21 <br>Males:  24 <br>Suitability: 0.3519","Site: 160 <hr>\nFemales: 36 <br>Males:  48 <br>Suitability: 0.3652","Site: 84 <hr>\nFemales: 17 <br>Males:  13 <br>Suitability: 0.3953","Site: 89 <hr>\nFemales: 19 <br>Males:  18 <br>Suitability: 0.3975","Site: 51 <hr>\nFemales: 11 <br>Males:  9 <br>Suitability: 0.4125","Site: 175 <hr>\nFemales: 8 <br>Males:  13 <br>Suitability: 0.4214","Site: 77 <hr>\nFemales: 16 <br>Males:  19 <br>Suitability: 0.4226","Site: 163 <hr>\nFemales: 21 <br>Males:  21 <br>Suitability: 0.4329","Site: 171 <hr>\nFemales: 39 <br>Males:  38 <br>Suitability: 0.4614","Site: 168 <hr>\nFemales: 25 <br>Males:  28 <br>Suitability: 0.4965","Site: 173 <hr>\nFemales: 32 <br>Males:  19 <br>Suitability: 0.5243","Site: 9 <hr>\nFemales: 10 <br>Males:  11 <br>Suitability: 0.5641","Site: 162 <hr>\nFemales: 41 <br>Males:  57 <br>Suitability: 0.6136","Site: 48 <hr>\nFemales: 27 <br>Males:  18 <br>Suitability: 0.6195","Site: Aqu <hr>\nFemales: 9 <br>Males:  12 <br>Suitability: 0.7217","Site: 153 <hr>\nFemales: 41 <br>Males:  35 <br>Suitability: 0.7325","Site: 75 <hr>\nFemales: 18 <br>Males:  16 <br>Suitability: 0.8656","Site: 157 <hr>\nFemales: 30 <br>Males:  26 <br>Suitability: 0.881","Site: 58 <hr>\nFemales: 9 <br>Males:  11 <br>Suitability: 0.9019"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["OpenTopoMap",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"limits":{"lat":[23.2855,29.32541],"lng":[-114.29353,-109.327]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-d092e24e42141ee47b7a" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-d092e24e42141ee47b7a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[26.63783,24.00789,26.94589,25.0247,27.52944,29.32541,28.66056,25.91409,27.0367,25.60521,26.20876,27.3632,27.18232,27.40498,28.96651,28.03661,25.34819,28.72796,24.87611,24.2115,28.22308,25.55757,28.40846,29.01457,27.2028,24.21441,23.2855,24.13389,24.58843,24.0195,26.0155],[-109.327,-109.85071,-112.04613,-111.675,-113.31609,-114.29353,-113.99141,-112.08062,-112.986,-111.32638,-111.37833,-112.964,-112.66552,-112.52959,-113.66787,-113.39991,-111.60056,-113.48973,-110.69175,-110.951,-113.18263,-111.21563,-112.86985,-113.94486,-112.408,-110.27252,-110.10429,-110.46236,-110.74599,-110.096,-111.35475],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Site: 32 <hr>\nFemales: 27 <br>Males:  40 <br>Suitability: 0.0563","Site: 73 <hr>\nFemales: 5 <br>Males:  11 <br>Suitability: 0.1455","Site: 93 <hr>\nFemales: 21 <br>Males:  25 <br>Suitability: 0.1627","Site: const <hr>\nFemales: 11 <br>Males:  18 <br>Suitability: 0.1744","Site: 159 <hr>\nFemales: 15 <br>Males:  22 <br>Suitability: 0.188","Site: 88 <hr>\nFemales: 18 <br>Males:  23 <br>Suitability: 0.2186","Site: 177 <hr>\nFemales: 50 <br>Males:  49 <br>Suitability: 0.2618","Site: 166 <hr>\nFemales: 26 <br>Males:  19 <br>Suitability: 0.2673","Site: 161 <hr>\nFemales: 63 <br>Males:  64 <br>Suitability: 0.2791","Site: 64 <hr>\nFemales: 19 <br>Males:  16 <br>Suitability: 0.2876","Site: 169 <hr>\nFemales: 28 <br>Males:  47 <br>Suitability: 0.3132","Site: sfran <hr>\nFemales: 16 <br>Males:  26 <br>Suitability: 0.3211","Site: 12 <hr>\nFemales: 21 <br>Males:  24 <br>Suitability: 0.3519","Site: 160 <hr>\nFemales: 36 <br>Males:  48 <br>Suitability: 0.3652","Site: 84 <hr>\nFemales: 17 <br>Males:  13 <br>Suitability: 0.3953","Site: 89 <hr>\nFemales: 19 <br>Males:  18 <br>Suitability: 0.3975","Site: 51 <hr>\nFemales: 11 <br>Males:  9 <br>Suitability: 0.4125","Site: 175 <hr>\nFemales: 8 <br>Males:  13 <br>Suitability: 0.4214","Site: 77 <hr>\nFemales: 16 <br>Males:  19 <br>Suitability: 0.4226","Site: 163 <hr>\nFemales: 21 <br>Males:  21 <br>Suitability: 0.4329","Site: 171 <hr>\nFemales: 39 <br>Males:  38 <br>Suitability: 0.4614","Site: 168 <hr>\nFemales: 25 <br>Males:  28 <br>Suitability: 0.4965","Site: 173 <hr>\nFemales: 32 <br>Males:  19 <br>Suitability: 0.5243","Site: 9 <hr>\nFemales: 10 <br>Males:  11 <br>Suitability: 0.5641","Site: 162 <hr>\nFemales: 41 <br>Males:  57 <br>Suitability: 0.6136","Site: 48 <hr>\nFemales: 27 <br>Males:  18 <br>Suitability: 0.6195","Site: Aqu <hr>\nFemales: 9 <br>Males:  12 <br>Suitability: 0.7217","Site: 153 <hr>\nFemales: 41 <br>Males:  35 <br>Suitability: 0.7325","Site: 75 <hr>\nFemales: 18 <br>Males:  16 <br>Suitability: 0.8656","Site: 157 <hr>\nFemales: 30 <br>Males:  26 <br>Suitability: 0.881","Site: 58 <hr>\nFemales: 9 <br>Males:  11 <br>Suitability: 0.9019"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["OpenTopoMap",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"limits":{"lat":[23.2855,29.32541],"lng":[-114.29353,-109.327]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -210,6 +220,13 @@ Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE</code></pre>
 <h3 class="anchored" data-anchor-id="converting-to-sf-objects">Converting to <code>sf</code> Objects</h3>
 <p>Convert the spatial data in the beetle data.frame into an <code>sf</code> object. Make sure you set the Coordinate Reference System to <span class="math inline">\(4326\)</span>.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert raw data to simple features in your data.frame</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>beetle <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>( <span class="at">coords=</span><span class="fu">c</span>(<span class="st">"Longitude"</span>,<span class="st">"Latitude"</span>), <span class="at">crs=</span><span class="dv">4326</span> ) <span class="ot">-&gt;</span> beetle</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(beetle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 6 features and 7 fields
 Geometry type: POINT
@@ -727,121 +744,117 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb3" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Spatial Data HW"</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> KT Nowak</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="an">echo:</span><span class="co"> FALSE</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>&lt;center&gt;</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>![*Araptus attenuatus* the enigmatic Sonoran Desert Bark</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>Beetle.](https://live.staticflickr.com/65535/50441339417_74e04216fa_w_d.jpg)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>&lt;/center&gt;</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>This homework is a bit quick but is designed to make sure that:</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>To make sure everyone can get their computer up-to-date with the proper set of</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>libraries so that we can work with geospatial data, and</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Give you some practice turning normal numerical data into geospatial coordinates</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>and performing basic operations.</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Data - Preprocessing</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>The data for this is some site-level data from the Sonoran Desert bark beetle. The</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>URL is in the next chunk, and is currently being hosted on my class [Github</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>repository](https://github.com/dyerlab/ENVS-Lectures). Load it in.</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/dyerlab/ENVS-Lectures/master/data/Araptus_Disperal_Bias.csv"</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>beetle <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Bringing in Packages</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet.providers)</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interactive Map</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>Use the <span class="in">`leaflet`</span> library and make an interactive map. If you can, add a label to</span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>each marker with the ID of the site. You can look at the provider tiles <span class="co">[</span><span class="ot">here</span><span class="co">]</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>(https://leaflet-extras.github.io/leaflet-providers/preview/) and use on in the</span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="in">`addProviderTiles()`</span> function.</span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>There is a great tutorial <span class="co">[</span><span class="ot">here</span><span class="co">](https://rstudio.github.io/leaflet/map_widget.html)</span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>on how to customize the leaflet display. You may want to go look at it and see</span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>what you can use to make a better display.</span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="co"># make a quick leaflet map here to get an idea of</span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>beetle <span class="sc">%&gt;%</span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">Label =</span> <span class="fu">paste</span>( <span class="st">"Site:"</span>, Site, </span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;hr&gt;</span><span class="sc">\n</span><span class="st">Females:"</span>, Females, </span>
-<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;br&gt;Males: "</span>, Males,</span>
-<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;br&gt;Suitability:"</span>, Suitability) ) <span class="ot">-&gt;</span> df</span>
-<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( leaflet )</span>
-<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>( <span class="sc">~</span>Longitude, <span class="sc">~</span>Latitude, <span class="at">popup =</span> <span class="sc">~</span>Label ) <span class="sc">%&gt;%</span></span>
-<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>( <span class="st">"OpenTopoMap"</span> )</span>
-<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### Converting to `sf` Objects</span></span>
-<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>Convert the spatial data in the beetle data.frame into an <span class="in">`sf`</span> object. Make sure</span>
-<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>you set the Coordinate Reference System to $4326$.</span>
-<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a><span class="co"># convert raw data to simple features in your data.frame</span></span>
-<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>beetle <span class="sc">%&gt;%</span> </span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>( <span class="at">coords=</span><span class="fu">c</span>(<span class="st">"Longitude"</span>,<span class="st">"Latitude"</span>), <span class="at">crs=</span><span class="dv">4326</span> ) <span class="ot">-&gt;</span> beetle</span>
-<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(beetle)</span>
-<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a><span class="fu">### Questions</span></span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>For these questions, you may want to look at the <span class="in">`sf`</span> cheat sheet</span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">here</span><span class="co">](https://github.com/rstudio/cheatsheets/raw/main/sf.pdf)</span> to find the</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>appropriate geospatial function.</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>How far apart (in km) are the sites Constitución (<span class="in">`const`</span>) and San Francisquito</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>(<span class="in">`sfran`</span>)?</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Is there a correlation between habitat suitability and the ratio of males to</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>female beetles sampled at each locale?</span>
-<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Make a plot using <span class="in">`ggplot`</span> of the data with suitability as the size of the</span>
-<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>points and the sex ratio as the fill color.</span>
-<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Reproject the data and plot it again using an EPSG code defined for Mexico UTM</span>
-<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>zone 12N (see <span class="co">[</span><span class="ot">epgs.io</span><span class="co">](https://epsg.io)</span> for projections).</span>
-<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>cor.response <span class="ot">&lt;-</span> <span class="fu">cor.test</span>( iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Sepal.Width)</span>
-<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a>We failed to find a significant relationship between sepal length and width</span>
-<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a>(Pearson Correlation, $\rho$ = <span class="in">`r cor.response$estimate`</span>, P = `r</span>
-<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a>cor.response$p.value`).</span>
+<div class="sourceCode" id="cb6" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Spatial Data HW"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> KT Nowak</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="an">code-tools:</span><span class="co"> true</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="an">warning:</span><span class="co"> FALSE</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>&lt;center&gt;</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>![*Araptus attenuatus* the enigmatic Sonoran Desert Bark</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Beetle.](https://live.staticflickr.com/65535/50441339417_74e04216fa_w_d.jpg)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>&lt;/center&gt;</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Data - Preprocessing</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>The data for this is some site-level data from the Sonoran Desert bark beetle. The</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>URL is in the next chunk, and is currently being hosted on my class [Github</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>repository](https://github.com/dyerlab/ENVS-Lectures). Load it in.</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/dyerlab/ENVS-Lectures/master/data/Araptus_Disperal_Bias.csv"</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>beetle <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(url)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu"># Bringing in Packages</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet.providers)</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interactive Map</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>Use the <span class="in">`leaflet`</span> library and make an interactive map. If you can, add a label to</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>each marker with the ID of the site. You can look at the provider tiles <span class="co">[</span><span class="ot">here</span><span class="co">]</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>(https://leaflet-extras.github.io/leaflet-providers/preview/) and use on in the</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="in">`addProviderTiles()`</span> function.</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>There is a great tutorial <span class="co">[</span><span class="ot">here</span><span class="co">](https://rstudio.github.io/leaflet/map_widget.html)</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>on how to customize the leaflet display. You may want to go look at it and see</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>what you can use to make a better display.</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co"># make a quick leaflet map here to get an idea of</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>beetle <span class="sc">%&gt;%</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">Label =</span> <span class="fu">paste</span>( <span class="st">"Site:"</span>, Site, </span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;hr&gt;</span><span class="sc">\n</span><span class="st">Females:"</span>, Females, </span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;br&gt;Males: "</span>, Males,</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"&lt;br&gt;Suitability:"</span>, Suitability) ) <span class="ot">-&gt;</span> df</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( leaflet )</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>( <span class="sc">~</span>Longitude, <span class="sc">~</span>Latitude, <span class="at">popup =</span> <span class="sc">~</span>Label ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>( <span class="st">"OpenTopoMap"</span> )</span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="fu">### Converting to `sf` Objects</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>Convert the spatial data in the beetle data.frame into an <span class="in">`sf`</span> object. Make sure</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>you set the Coordinate Reference System to $4326$.</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a><span class="co"># convert raw data to simple features in your data.frame</span></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>beetle <span class="sc">%&gt;%</span> </span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>( <span class="at">coords=</span><span class="fu">c</span>(<span class="st">"Longitude"</span>,<span class="st">"Latitude"</span>), <span class="at">crs=</span><span class="dv">4326</span> ) <span class="ot">-&gt;</span> beetle</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(beetle)</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### Questions</span></span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>For these questions, you may want to look at the <span class="in">`sf`</span> cheat sheet</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">here</span><span class="co">](https://github.com/rstudio/cheatsheets/raw/main/sf.pdf)</span> to find the</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>appropriate geospatial function.</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>How far apart (in km) are the sites Constitución (<span class="in">`const`</span>) and San Francisquito</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>(<span class="in">`sfran`</span>)?</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Is there a correlation between habitat suitability and the ratio of males to</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a>female beetles sampled at each locale?</span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Make a plot using <span class="in">`ggplot`</span> of the data with suitability as the size of the</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>points and the sex ratio as the fill color.</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Reproject the data and plot it again using an EPSG code defined for Mexico UTM</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>zone 12N (see <span class="co">[</span><span class="ot">epgs.io</span><span class="co">](https://epsg.io)</span> for projections).</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>cor.response <span class="ot">&lt;-</span> <span class="fu">cor.test</span>( iris<span class="sc">$</span>Petal.Length, iris<span class="sc">$</span>Sepal.Width)</span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>We failed to find a significant relationship between sepal length and width</span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>(Pearson Correlation, $\rho$ = <span class="in">`r cor.response$estimate`</span>, P = `r</span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>cor.response$p.value`).</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
