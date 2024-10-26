@@ -117,7 +117,6 @@ valentines_day <- rice |>
 as.list(valentines_day$Time)
 ```
 
-
 ```{r results="hide"}
 
 
@@ -134,7 +133,6 @@ plot(valentines_day$Depth_m,
 
 as.data.frame(valentines_day)
 ```
-
 
 ```{r}
 

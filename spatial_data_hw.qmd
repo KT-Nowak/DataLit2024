@@ -88,24 +88,70 @@ appropriate geospatial function.
 1. How far apart (in km) are the sites Constitución (`const`) and San Francisquito
 (`sfran`)?
 
+The 2 sites are 2.670225 meters apart.
+
 ```{r}
 
+const <- st_as_sf(data.frame(latitude = 25.02470, longitude = -111.6750), coords = c("longitude", "latitude"))
+
+sfran <- st_as_sf(data.frame(latitude = 27.36320, longitude = -112.9640), coords = c("longitude", "latitude"))
+
+distance <- st_distance(const, sfran)
+print(distance)
 ```
 
 2. Is there a correlation between habitat suitability and the ratio of males to
 female beetles sampled at each locale?
+
+There is a moderately significant negative correlation. 
+
 ```{r}
+
+correlation_coefficient <- cor.test(df$Suitability, df$MFRatio)
+
+print(correlation_coefficient)
+
+
 
 ```
 
 3. Make a plot using `ggplot` of the data with suitability as the size of the
 points and the sex ratio as the fill color.
+
 ```{r}
 
+ggplot(df, aes(x = df$Latitude, y = df$Longitude,fill = df$MFRatio, size = df$Suitability)) +
+  scale_fill_gradient2(name = "Sex Ratio", limits = c(0, 3)) +
+  geom_point(shape = 21) + 
+  scale_size(name = "Suitability") +
+  labs(title = "Suitability and Male to Female Ratio of the Sonoran Desert Bark Beetle ",
+       x = "Latitude",
+       y = "Longitude")
+
 ```
+
+
 4. Reproject the data and plot it again using an EPSG code defined for Mexico UTM
 zone 12N (see [epgs.io](https://epsg.io) for projections).
 ```{r}
+
+sf_df <- st_as_sf(df, coords = c("Longitude", "Latitude"), crs = 4326) 
+
+sf_df_utm <- st_transform(sf_df, crs = 32613)
+
+sf_df_utm <- df %>%
+  mutate(MFRatio_category = cut(MFRatio, breaks = c(-Inf, 0.5, 1, 2, Inf), 
+                               labels = c("Low", "Medium", "High", "Very High")))
+
+
+ggplot(sf_df_utm, aes(x = Longitude, y = Latitude, fill = MFRatio_category, size = Suitability)) +
+  geom_point(shape = 21) +
+  scale_fill_discrete(name = "Sex Ratio Category") +
+  scale_size(name = "Suitability") +
+  labs(title = "Suitability and Sex Ratio of the Sonoran Desert Bark Beetle ",
+       x = "Longitude",
+       y = "Latitude")
+
 #| echo: false
 cor.response <- cor.test( iris$Petal.Length, iris$Sepal.Width)
 ```
