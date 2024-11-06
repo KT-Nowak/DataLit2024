@@ -28,5 +28,5 @@ please.
 
 - [Raster Data Homework](https://kt-nowak.github.io/DataLit2024/Raster_HW.html)
 
-
+- [Text Data Homework](https://kt-nowak.github.io/DataLit2024/code-along10-24.html)
 
