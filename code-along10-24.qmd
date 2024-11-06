@@ -29,7 +29,7 @@ library(readr)
 
 ```{r}
 
-url <- "https://raw.githubusercontent.com/DyerlabTeaching/Textual-Data/refs/heads/main/data/ENVSclasses.txt?token=GHSAT0AAAAAACWO27UIA46V72P7DBZEP5EKZYZFFXQ"
+url <- "home/R/DataLit2024/LifeSciencesCurriculum.txt"
 
 ```
 
@@ -99,7 +99,7 @@ str_remove(z, "Chey")
 ```
 ## Regular Expressions
 
-  - Make a graphical display of the number of coursed in ENVS bby course level 100, 200, ect.
+  - Make a graphical display of the number of coursed in ENVS by course level 100, 200, ect.
   - Make a wordcloud from the titles
 ```{r}
 
