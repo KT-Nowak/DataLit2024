@@ -30,3 +30,6 @@ please.
 
 - [Text Data Homework](https://kt-nowak.github.io/DataLit2024/code-along10-24.html)
 
+- [Text File for HW](https://kt-nowak.github.io/DataLit2024/LifeSciencesCurriculum.html)
+
+
