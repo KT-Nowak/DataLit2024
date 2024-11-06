@@ -26,7 +26,7 @@ please.
 
 - [Spatial Data Homework](https://kt-nowak.github.io/DataLit2024/spatial_data_hw.html)
 
-
+- [Raster Data Homework](https://kt-nowak.github.io/DataLit2024/Raster_HW.html)
 
 
 
