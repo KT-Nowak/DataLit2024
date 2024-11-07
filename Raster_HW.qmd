@@ -27,6 +27,8 @@ beetle_url <- "https://raw.githubusercontent.com/DyerlabTeaching/Raster-Data/mai
 library( tidyverse )
 library( raster )
 library( sf ) 
+library(dplyr)
+library(ggspatial)
 
 elev <- raster( raster_url )
 
@@ -61,7 +63,7 @@ plot( baja_elev)
 
 ```{r}
 plot( baja_elev, xlab="Longitude", ylab="Latitude")
-text( beetles, add=TRUE, pch=16, col="red" )
+#text( beetles, add=TRUE, pch=16, col="red" )
 ```
 
 
@@ -84,11 +86,29 @@ baja_elev %>%
 
 ```{r}
 
-site75 -> 
+site_75 <- beetles[beetles$Site == 75, ]
+
+southernmost_lat <- st_coordinates(site_75)[1, 2]
+
+extent_south <- extent(xmin(elev), xmax(elev), -Inf, southernmost_lat)
+
+elevation_cropped <- crop(elev, extent_south)
+
+extent_poly <- as(extent(elevation_cropped), "SpatialPolygons")
+
+extent_poly_sf <- st_as_sf(extent_poly)
+
+beetles_sf <- st_as_sf(beetles, coords = c("longitude", "latitude"), crs = 4326)
+
+st_crs(beetles_sf) <- st_crs(extent_poly_sf)
+
+cape_sites <- st_intersection(beetles_sf, extent_poly_sf)
+
+elevation_values <- values(elevation_cropped)
 
 cape_map <- elev + 
   scale_fill_gradient2(low = "darkolivegreen", mid = "yellow", high = "brown", midpoint = 1000) +
-  geom_sf(data = cape_sites, aes(size = MFRatio), color = "dodgerblue2", alpha = 0.75) + 
+  geom_sf(data = cape_sites, aes(size = MFRatio), alpha = 0.75) + 
   annotation_scale(location = "bl", width_hint = 0.5) +
   annotation_north_arrow(location = "bl", which_north = "true", style = north_arrow_fancy_orienteering()) +
   ggtitle("Site Map for Cape Region") +
@@ -101,6 +121,15 @@ cape_map <- elev +
                   size = 4, 
                   color = "black") + 
   coord_sf()
+
+
+ggplot() +
+  geom_raster(data = (elevation_cropped, xy = TRUE), 
+               aes(x = x, y = y, fill = values)) +
+  geom_point(data = beetles, aes(x = longitude, y = latitude, size = MFRatio, color = SexRatio)) +
+  scale_fill_gradient(name = "Elevation") +
+  scale_size(name = "Sex Ratio") +
+  labs(title = "Elevation and Site Locations", x = "Longitude", y = "Latitude")
 
 
 

@@ -29,7 +29,7 @@ library(readr)
 
 ```{r}
 
-url <- "home/R/DataLit2024/LifeSciencesCurriculum.txt"
+url <- "https://raw.githubusercontent.com/DyerlabTeaching/Textual-Data/refs/heads/main/data/ENVSclasses.txt?token=GHSAT0AAAAAACWO27UIA46V72P7DBZEP5EKZYZFFXQ"
 
 ```
 
