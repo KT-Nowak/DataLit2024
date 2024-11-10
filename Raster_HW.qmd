@@ -5,6 +5,7 @@ format:
   html:
     code-tools: true
     toc: false
+    echo: true
 ---
 
 Rasters are spatial continuous distributions of geospatial data.  We have been shown that we an work with data in raster format using either `raster` and working on object directly, or via `dplyr` and using the normal data manipulation routines that we've learned for non-spatial data.  In this *in class* exercise, you may use both of these techniques to load, manipulate, and display geospatial data.
@@ -124,7 +125,7 @@ cape_map <- elev +
 
 
 ggplot() +
-  geom_raster(data = (elevation_cropped, xy = TRUE), 
+  geom_raster(data = ( xy = TRUE), 
                aes(x = x, y = y, fill = values)) +
   geom_point(data = beetles, aes(x = longitude, y = latitude, size = MFRatio, color = SexRatio)) +
   scale_fill_gradient(name = "Elevation") +
@@ -137,13 +138,22 @@ print(cape_map)
 
 ```
 
-
-
-
-
-
-
 3. The peninsula of Baja California is divided into the States of Baja California Norte and Baja California Sur. The border between these states is at 28° Latitude. Divide the sample locations into groups based on which state they are located in and plot the average sex ratio of the sample sites partitioned by each site.  
+
+```{r}
+
+beetles <- beetles %>%
+  mutate(
+    longitude = str_extract(geometry, "-?\\d+\\.\\d+"),
+    latitude = str_extract(geometry, "(?<= )-?\\d+\\.\\d+")
+  ) %>%
+  select(-geometry)
+
+new_beetles <- beetles %>%
+  mutate(State = ifelse(latitude > 28, "Baja California Norte", "Baja California Sur"))
+
+
+```
 
 4. Is there a relationship between the observed sex ratio and the elevation at that site?  Plot these, and in the text, perform a correlation test (cor.test()) and report the values as if you were writing them up in a results section.
 
