@@ -103,7 +103,9 @@ str_remove(z, "Chey")
   - Make a wordcloud from the titles
 ```{r}
 
-envs <- read_lines(url)
+envs <- readLines(url)
+
+class(envs)
 
 head( envs, 5)
  
@@ -143,7 +145,7 @@ str_view(envs, "^[A-Z]{4} [0-9]{3}")
 ```{r}
 #This chunk is not working
 
-pattern <- "^[A-Z]{4} [0-9]{3}.+[0-9] Hours[s]\\.$" 
+pattern <- "^[A-Z]{4} [0-9]{3}.+[0-9] Hours.$"
 
 grepl( pattern, envs ) -> idx
 
@@ -157,18 +159,32 @@ titles
 
 raw <- str_split(titles, pattern="\\.", simplify = TRUE)
 
-class(raw)
+dim(raw)
 
+head(raw)
 
-data <- data.frame( course = raw[,1],
-                    title = str_trim(raw[,2]),
-                    hours = str_trim(raw[,3]), "Hours") |>
-  mutate( hours = str_remove( hours, "Hours")) |>
-  mutate( hours = str_remove(hours, "s")) |>
-  mutate( program = str_split( course, " ", simplify = T)[,1]) |>
-  mutate( number = as.numeric( str_split( course, " ", simplify=T)[,2])) |>
-  select( program, number, title, hours)
+program <- str_split( raw[,1], pattern=" ", simplify=TRUE)[,1]
+
+program 
             
-            
+code <- str_split( raw[,1], pattern=" ", simplify=TRUE)[,2]
+
+code <- as.numeric( code )
+
+code             
+
+title <- raw[,2]
+
+title
+
+credits <- raw[,3]
+
+credits <- str_replace(credits, "Hours", "")
+
+credits <- str_trim( credits )
+
+data <- data.frame( program, code, title, credits)
+
+head(data)
 
 ```
