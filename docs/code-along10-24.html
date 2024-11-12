@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Code Along 10/24</title>
+<title>Textual Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,6 +67,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="code-along10-24_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="code-along10-24_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="code-along10-24_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="code-along10-24_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="code-along10-24_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="code-along10-24_files/libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet">
+
+<script src="code-along10-24_files/libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+
+<script src="code-along10-24_files/libs/wordcloud2-0.0.1/hover.js"></script>
+
+<script src="code-along10-24_files/libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+
 
 
 </head>
@@ -79,7 +91,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Code Along 10/24</h1>
+<h1 class="title">Textual Data</h1>
 </div>
 
 
@@ -224,13 +236,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="regular-expressions" class="level2">
 <h2 class="anchored" data-anchor-id="regular-expressions">Regular Expressions</h2>
 <ul>
-<li>Make a graphical display of the number of coursed in ENVS bby course level 100, 200, ect.</li>
+<li>Make a graphical display of the number of coursed in ENVS by course level 100, 200, ect.</li>
 <li>Make a wordcloud from the titles</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>envs <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(url)</span>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>envs <span class="ot">&lt;-</span> <span class="fu">readLines</span>(url)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( envs, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(envs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( envs, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "ENVS 101. Introduction to Environmental Studies I. 3 Hours."             
 [2] "Semester course; 3 lecture hours. 3 credits. Enrollment is restricted to"
@@ -238,9 +254,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [4] "environmental studies including sustainability, biological conservation,"
 [5] "global change and an overview of the core earth systems."                </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(envs, <span class="st">"ENVS"</span>)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>envs[index]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(envs, <span class="st">"ENVS"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>envs[index]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "ENVS 101. Introduction to Environmental Studies I. 3 Hours."             
  [2] "ENVS 102. Introduction to Environmental Studies II. 3 Hours."            
@@ -295,35 +311,525 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [51] "Laboratory exercises coordinated with ENVS 335 lectures."                
 [52] "ENVS 401. A series of laboratory and field experiments designed to"      </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>envs101 <span class="ot">&lt;-</span> envs[<span class="dv">1</span>]</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>envs101 <span class="ot">&lt;-</span> envs[<span class="dv">1</span>]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ ENVS 101. Introduction to Environmental Studies I. 3 Hours.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101,<span class="st">"ENVS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101,<span class="st">"ENVS"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;ENVS&gt; 101. Introduction to Environmental Studies I. 3 Hours.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101, <span class="st">"[:digit:]{3}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs101, <span class="st">"[:digit:]{3}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ ENVS &lt;101&gt;. Introduction to Environmental Studies I. 3 Hours.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:punct:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:punct:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ ENVS 101&lt;.&gt; Introduction to Environmental Studies I&lt;.&gt; 3 Hours&lt;.&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:alpha:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:alpha:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;E&gt;&lt;N&gt;&lt;V&gt;&lt;S&gt; 101. &lt;I&gt;&lt;n&gt;&lt;t&gt;&lt;r&gt;&lt;o&gt;&lt;d&gt;&lt;u&gt;&lt;c&gt;&lt;t&gt;&lt;i&gt;&lt;o&gt;&lt;n&gt; &lt;t&gt;&lt;o&gt; &lt;E&gt;&lt;n&gt;&lt;v&gt;&lt;i&gt;&lt;r&gt;&lt;o&gt;&lt;n&gt;&lt;m&gt;&lt;e&gt;&lt;n&gt;&lt;t&gt;&lt;a&gt;&lt;l&gt; &lt;S&gt;&lt;t&gt;&lt;u&gt;&lt;d&gt;&lt;i&gt;&lt;e&gt;&lt;s&gt; &lt;I&gt;. 3 &lt;H&gt;&lt;o&gt;&lt;u&gt;&lt;r&gt;&lt;s&gt;.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ &lt;E&gt;&lt;N&gt;&lt;V&gt;&lt;S&gt; 101. &lt;I&gt;ntroduction to &lt;E&gt;nvironmental &lt;S&gt;tudies &lt;I&gt;. 3 &lt;H&gt;ours.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:space:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>( envs101, <span class="st">"[:space:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] │ ENVS&lt; &gt;101.&lt; &gt;Introduction&lt; &gt;to&lt; &gt;Environmental&lt; &gt;Studies&lt; &gt;I.&lt; &gt;3&lt; &gt;Hours.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#we are looking for 4 uppercase letters and then a space and then 3 digits</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs, <span class="st">"[:alpha:]{4}[:digit:]{3}"</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs, <span class="st">"[A-Z]{4} [0-9]{3}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] │ &lt;ENVS 101&gt;. Introduction to Environmental Studies I. 3 Hours.
+ [6] │ &lt;ENVS 102&gt;. Introduction to Environmental Studies II. 3 Hours.
+ [7] │ Semester course; 3 lecture hours. 3 credits. Prerequisite: &lt;ENVS 101&gt; or
+[12] │ &lt;ENVS 105&gt;. Physical Geology. 3 Hours.
+[16] │ environment. An optional laboratory, &lt;ENVZ 105&gt;, may be taken with this
+[18] │ &lt;ENVS 201&gt;. Earth System Science. 3 Hours.
+[23] │ &lt;ENVS 222&gt;. Electronic Portfolios. 1 Hour.
+[29] │ &lt;ENVS 260&gt;. Outdoor Leadership. 3 Hours.
+[36] │ &lt;ENVS 265&gt;. Paths to Environmental Leadership. 2 Hours.
+[37] │ Semester course; 2 lecture hours. 2 credits. Prerequisites: &lt;ENVS 101&gt;
+[38] │ and &lt;ENVS 102&gt;, both with a minimum grade of B. This course focuses
+[47] │ &lt;ENVS 291&gt;. Special Topics in Environmental Studies. 1-4 Hours.
+[52] │ &lt;ENVS 300&gt;. Sustainable Societies: James River Basin. 3 Hours.
+[57] │ &lt;ENVS 301&gt;. Introduction to Meteorology. 3 Hours.
+[64] │ &lt;ENVS 310&gt;. Introduction to Oceanography. 3 Hours.
+[72] │ &lt;ENVS 311&gt;. Politics of the Environment. 3 Hours.
+[78] │ its impact on policy outcomes. Crosslisted as: &lt;POLI 311&gt;.
+[79] │ &lt;ENVS 314&gt;. Human-Environment Interactions: Foundations and
+[86] │ theory of population biology. Crosslisted as: &lt;INTL 314&gt;.
+[87] │ &lt;ENVS 315&gt;. Energy and the Environment. 3 Hours.
+... and 58 more</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#match the above specification only at the start of a line</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(envs, <span class="st">"^[A-Z]{4} [0-9]{3}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] │ &lt;ENVS 101&gt;. Introduction to Environmental Studies I. 3 Hours.
+  [6] │ &lt;ENVS 102&gt;. Introduction to Environmental Studies II. 3 Hours.
+ [12] │ &lt;ENVS 105&gt;. Physical Geology. 3 Hours.
+ [18] │ &lt;ENVS 201&gt;. Earth System Science. 3 Hours.
+ [23] │ &lt;ENVS 222&gt;. Electronic Portfolios. 1 Hour.
+ [29] │ &lt;ENVS 260&gt;. Outdoor Leadership. 3 Hours.
+ [36] │ &lt;ENVS 265&gt;. Paths to Environmental Leadership. 2 Hours.
+ [47] │ &lt;ENVS 291&gt;. Special Topics in Environmental Studies. 1-4 Hours.
+ [52] │ &lt;ENVS 300&gt;. Sustainable Societies: James River Basin. 3 Hours.
+ [57] │ &lt;ENVS 301&gt;. Introduction to Meteorology. 3 Hours.
+ [64] │ &lt;ENVS 310&gt;. Introduction to Oceanography. 3 Hours.
+ [72] │ &lt;ENVS 311&gt;. Politics of the Environment. 3 Hours.
+ [79] │ &lt;ENVS 314&gt;. Human-Environment Interactions: Foundations and
+ [87] │ &lt;ENVS 315&gt;. Energy and the Environment. 3 Hours.
+ [93] │ &lt;ENVS 321&gt;. Cartography. 3 Hours.
+ [95] │ &lt;STAT 208&gt;, or higher level MATH or STAT course. This course provides
+[101] │ &lt;ENVS 330&gt;. Environmental Pollution. 3 Hours.
+[103] │ &lt;BIOL 152&gt;. The study of pollution in the environment with emphasis on the
+[105] │ &lt;ENVS 332&gt;. Environmental Management. 3 Hours.
+[113] │ &lt;ENVS 335&gt;. Environmental Geology. 3 Hours.
+... and 29 more</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#This chunk is not working</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="st">"^[A-Z]{4} [0-9]{3}.+[0-9] Hours.$"</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>( pattern, envs ) <span class="ot">-&gt;</span> idx</span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>titles <span class="ot">&lt;-</span> envs[idx]</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>titles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ENVS 101. Introduction to Environmental Studies I. 3 Hours."     
+ [2] "ENVS 102. Introduction to Environmental Studies II. 3 Hours."    
+ [3] "ENVS 105. Physical Geology. 3 Hours."                            
+ [4] "ENVS 201. Earth System Science. 3 Hours."                        
+ [5] "ENVS 260. Outdoor Leadership. 3 Hours."                          
+ [6] "ENVS 265. Paths to Environmental Leadership. 2 Hours."           
+ [7] "ENVS 291. Special Topics in Environmental Studies. 1-4 Hours."   
+ [8] "ENVS 300. Sustainable Societies: James River Basin. 3 Hours."    
+ [9] "ENVS 301. Introduction to Meteorology. 3 Hours."                 
+[10] "ENVS 310. Introduction to Oceanography. 3 Hours."                
+[11] "ENVS 311. Politics of the Environment. 3 Hours."                 
+[12] "ENVS 315. Energy and the Environment. 3 Hours."                  
+[13] "ENVS 321. Cartography. 3 Hours."                                 
+[14] "ENVS 330. Environmental Pollution. 3 Hours."                     
+[15] "ENVS 332. Environmental Management. 3 Hours."                    
+[16] "ENVS 335. Environmental Geology. 3 Hours."                       
+[17] "ENVS 343. Data Literacy. 4 Hours."                               
+[18] "ENVS 355. Water. 3 Hours."                                       
+[19] "ENVS 360. Outdoor Programming and Event Management. 3 Hours."    
+[20] "ENVS 361. Outdoor Team Building and Group Facilitation. 3 Hours."
+[21] "ENVS 368. Nature Writing. 3 Hours."                              
+[22] "ENVS 370. Applications of Conservation Science. 3 Hours."        
+[23] "ENVS 391. Special Topics in Environmental Studies. 1-4 Hours."   
+[24] "ENVS 401. Meteorology and Climatology. 3 Hours."                 
+[25] "ENVS 411. Oceanography. 3 Hours."                                
+[26] "ENVS 421. Environmental Data Visualization. 3 Hours."            
+[27] "ENVS 430. Invasive Species Management. 3 Hours."                 
+[28] "ENVS 460. Wilderness First Responder. 3 Hours."                  
+[29] "ENVS 461. Wilderness Policy and Practice. 3 Hours."              
+[30] "ENVS 490. Research Seminar in Environmental Studies. 3 Hours."   
+[31] "ENVS 491. Topics in Environmental Studies. 1-4 Hours."           
+[32] "ENVS 492. Independent Study. 1-3 Hours."                         
+[33] "ENVS 493. Environmental Studies Internship. 1-3 Hours."          
+[34] "ENVS 499. Environmental Studies Capstone Experience. 0 Hours."   </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">str_split</span>(titles, <span class="at">pattern=</span><span class="st">"</span><span class="sc">\\</span><span class="st">."</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 34  4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]       [,2]                                        [,3]       [,4]
+[1,] "ENVS 101" " Introduction to Environmental Studies I"  " 3 Hours" ""  
+[2,] "ENVS 102" " Introduction to Environmental Studies II" " 3 Hours" ""  
+[3,] "ENVS 105" " Physical Geology"                         " 3 Hours" ""  
+[4,] "ENVS 201" " Earth System Science"                     " 3 Hours" ""  
+[5,] "ENVS 260" " Outdoor Leadership"                       " 3 Hours" ""  
+[6,] "ENVS 265" " Paths to Environmental Leadership"        " 2 Hours" ""  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>program <span class="ot">&lt;-</span> <span class="fu">str_split</span>( raw[,<span class="dv">1</span>], <span class="at">pattern=</span><span class="st">" "</span>, <span class="at">simplify=</span><span class="cn">TRUE</span>)[,<span class="dv">1</span>]</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>program </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS"
+[11] "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS"
+[21] "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS" "ENVS"
+[31] "ENVS" "ENVS" "ENVS" "ENVS"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="fu">str_split</span>( raw[,<span class="dv">1</span>], <span class="at">pattern=</span><span class="st">" "</span>, <span class="at">simplify=</span><span class="cn">TRUE</span>)[,<span class="dv">2</span>]</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>( code )</span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>code             </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 101 102 105 201 260 265 291 300 301 310 311 315 321 330 332 335 343 355 360
+[20] 361 368 370 391 401 411 421 430 460 461 490 491 492 493 499</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> raw[,<span class="dv">2</span>]</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>title</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] " Introduction to Environmental Studies I"     
+ [2] " Introduction to Environmental Studies II"    
+ [3] " Physical Geology"                            
+ [4] " Earth System Science"                        
+ [5] " Outdoor Leadership"                          
+ [6] " Paths to Environmental Leadership"           
+ [7] " Special Topics in Environmental Studies"     
+ [8] " Sustainable Societies: James River Basin"    
+ [9] " Introduction to Meteorology"                 
+[10] " Introduction to Oceanography"                
+[11] " Politics of the Environment"                 
+[12] " Energy and the Environment"                  
+[13] " Cartography"                                 
+[14] " Environmental Pollution"                     
+[15] " Environmental Management"                    
+[16] " Environmental Geology"                       
+[17] " Data Literacy"                               
+[18] " Water"                                       
+[19] " Outdoor Programming and Event Management"    
+[20] " Outdoor Team Building and Group Facilitation"
+[21] " Nature Writing"                              
+[22] " Applications of Conservation Science"        
+[23] " Special Topics in Environmental Studies"     
+[24] " Meteorology and Climatology"                 
+[25] " Oceanography"                                
+[26] " Environmental Data Visualization"            
+[27] " Invasive Species Management"                 
+[28] " Wilderness First Responder"                  
+[29] " Wilderness Policy and Practice"              
+[30] " Research Seminar in Environmental Studies"   
+[31] " Topics in Environmental Studies"             
+[32] " Independent Study"                           
+[33] " Environmental Studies Internship"            
+[34] " Environmental Studies Capstone Experience"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>credits <span class="ot">&lt;-</span> raw[,<span class="dv">3</span>]</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>credits <span class="ot">&lt;-</span> <span class="fu">str_replace</span>(credits, <span class="st">"Hours"</span>, <span class="st">""</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>credits <span class="ot">&lt;-</span> <span class="fu">str_trim</span>( credits )</span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( program, code, title, credits)</span>
+<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  program code                                     title credits
+1    ENVS  101   Introduction to Environmental Studies I       3
+2    ENVS  102  Introduction to Environmental Studies II       3
+3    ENVS  105                          Physical Geology       3
+4    ENVS  201                      Earth System Science       3
+5    ENVS  260                        Outdoor Leadership       3
+6    ENVS  265         Paths to Environmental Leadership       2</code></pre>
+</div>
+</div>
+</section>
+<section id="word-cloud" class="level2">
+<h2 class="anchored" data-anchor-id="word-cloud">Word Cloud</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>( title, <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] ""              "Introduction"  "to"            "Environmental"
+[5] "Studies"       "I"            
+
+[[2]]
+[1] ""              "Introduction"  "to"            "Environmental"
+[5] "Studies"       "II"           
+
+[[3]]
+[1] ""         "Physical" "Geology" 
+
+[[4]]
+[1] ""        "Earth"   "System"  "Science"
+
+[[5]]
+[1] ""           "Outdoor"    "Leadership"
+
+[[6]]
+[1] ""              "Paths"         "to"            "Environmental"
+[5] "Leadership"   
+
+[[7]]
+[1] ""              "Special"       "Topics"        "in"           
+[5] "Environmental" "Studies"      
+
+[[8]]
+[1] ""            "Sustainable" "Societies:"  "James"       "River"      
+[6] "Basin"      
+
+[[9]]
+[1] ""             "Introduction" "to"           "Meteorology" 
+
+[[10]]
+[1] ""             "Introduction" "to"           "Oceanography"
+
+[[11]]
+[1] ""            "Politics"    "of"          "the"         "Environment"
+
+[[12]]
+[1] ""            "Energy"      "and"         "the"         "Environment"
+
+[[13]]
+[1] ""            "Cartography"
+
+[[14]]
+[1] ""              "Environmental" "Pollution"    
+
+[[15]]
+[1] ""              "Environmental" "Management"   
+
+[[16]]
+[1] ""              "Environmental" "Geology"      
+
+[[17]]
+[1] ""         "Data"     "Literacy"
+
+[[18]]
+[1] ""      "Water"
+
+[[19]]
+[1] ""            "Outdoor"     "Programming" "and"         "Event"      
+[6] "Management" 
+
+[[20]]
+[1] ""             "Outdoor"      "Team"         "Building"     "and"         
+[6] "Group"        "Facilitation"
+
+[[21]]
+[1] ""        "Nature"  "Writing"
+
+[[22]]
+[1] ""             "Applications" "of"           "Conservation" "Science"     
+
+[[23]]
+[1] ""              "Special"       "Topics"        "in"           
+[5] "Environmental" "Studies"      
+
+[[24]]
+[1] ""            "Meteorology" "and"         "Climatology"
+
+[[25]]
+[1] ""             "Oceanography"
+
+[[26]]
+[1] ""              "Environmental" "Data"          "Visualization"
+
+[[27]]
+[1] ""           "Invasive"   "Species"    "Management"
+
+[[28]]
+[1] ""           "Wilderness" "First"      "Responder" 
+
+[[29]]
+[1] ""           "Wilderness" "Policy"     "and"        "Practice"  
+
+[[30]]
+[1] ""              "Research"      "Seminar"       "in"           
+[5] "Environmental" "Studies"      
+
+[[31]]
+[1] ""              "Topics"        "in"            "Environmental"
+[5] "Studies"      
+
+[[32]]
+[1] ""            "Independent" "Study"      
+
+[[33]]
+[1] ""              "Environmental" "Studies"       "Internship"   
+
+[[34]]
+[1] ""              "Environmental" "Studies"       "Capstone"     
+[5] "Experience"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>( title, <span class="st">" "</span>, <span class="at">simplify=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1] [,2]            [,3]          [,4]            [,5]           
+ [1,] ""   "Introduction"  "to"          "Environmental" "Studies"      
+ [2,] ""   "Introduction"  "to"          "Environmental" "Studies"      
+ [3,] ""   "Physical"      "Geology"     ""              ""             
+ [4,] ""   "Earth"         "System"      "Science"       ""             
+ [5,] ""   "Outdoor"       "Leadership"  ""              ""             
+ [6,] ""   "Paths"         "to"          "Environmental" "Leadership"   
+ [7,] ""   "Special"       "Topics"      "in"            "Environmental"
+ [8,] ""   "Sustainable"   "Societies:"  "James"         "River"        
+ [9,] ""   "Introduction"  "to"          "Meteorology"   ""             
+[10,] ""   "Introduction"  "to"          "Oceanography"  ""             
+[11,] ""   "Politics"      "of"          "the"           "Environment"  
+[12,] ""   "Energy"        "and"         "the"           "Environment"  
+[13,] ""   "Cartography"   ""            ""              ""             
+[14,] ""   "Environmental" "Pollution"   ""              ""             
+[15,] ""   "Environmental" "Management"  ""              ""             
+[16,] ""   "Environmental" "Geology"     ""              ""             
+[17,] ""   "Data"          "Literacy"    ""              ""             
+[18,] ""   "Water"         ""            ""              ""             
+[19,] ""   "Outdoor"       "Programming" "and"           "Event"        
+[20,] ""   "Outdoor"       "Team"        "Building"      "and"          
+[21,] ""   "Nature"        "Writing"     ""              ""             
+[22,] ""   "Applications"  "of"          "Conservation"  "Science"      
+[23,] ""   "Special"       "Topics"      "in"            "Environmental"
+[24,] ""   "Meteorology"   "and"         "Climatology"   ""             
+[25,] ""   "Oceanography"  ""            ""              ""             
+[26,] ""   "Environmental" "Data"        "Visualization" ""             
+[27,] ""   "Invasive"      "Species"     "Management"    ""             
+[28,] ""   "Wilderness"    "First"       "Responder"     ""             
+[29,] ""   "Wilderness"    "Policy"      "and"           "Practice"     
+[30,] ""   "Research"      "Seminar"     "in"            "Environmental"
+[31,] ""   "Topics"        "in"          "Environmental" "Studies"      
+[32,] ""   "Independent"   "Study"       ""              ""             
+[33,] ""   "Environmental" "Studies"     "Internship"    ""             
+[34,] ""   "Environmental" "Studies"     "Capstone"      "Experience"   
+      [,6]         [,7]          
+ [1,] "I"          ""            
+ [2,] "II"         ""            
+ [3,] ""           ""            
+ [4,] ""           ""            
+ [5,] ""           ""            
+ [6,] ""           ""            
+ [7,] "Studies"    ""            
+ [8,] "Basin"      ""            
+ [9,] ""           ""            
+[10,] ""           ""            
+[11,] ""           ""            
+[12,] ""           ""            
+[13,] ""           ""            
+[14,] ""           ""            
+[15,] ""           ""            
+[16,] ""           ""            
+[17,] ""           ""            
+[18,] ""           ""            
+[19,] "Management" ""            
+[20,] "Group"      "Facilitation"
+[21,] ""           ""            
+[22,] ""           ""            
+[23,] "Studies"    ""            
+[24,] ""           ""            
+[25,] ""           ""            
+[26,] ""           ""            
+[27,] ""           ""            
+[28,] ""           ""            
+[29,] ""           ""            
+[30,] "Studies"    ""            
+[31,] ""           ""            
+[32,] ""           ""            
+[33,] ""           ""            
+[34,] ""           ""            </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.vector</span>( <span class="fu">str_split</span>( title, <span class="st">" "</span>, <span class="at">simplify=</span><span class="cn">TRUE</span>) ) <span class="ot">-&gt;</span> words</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> words[ <span class="fu">str_length</span>(words) <span class="sc">&gt;</span> <span class="dv">0</span> ]</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>words <span class="ot">&lt;-</span> <span class="fu">sort</span>( words )</span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>words</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "and"           "and"           "and"           "and"          
+  [5] "and"           "Applications"  "Basin"         "Building"     
+  [9] "Capstone"      "Cartography"   "Climatology"   "Conservation" 
+ [13] "Data"          "Data"          "Earth"         "Energy"       
+ [17] "Environment"   "Environment"   "Environmental" "Environmental"
+ [21] "Environmental" "Environmental" "Environmental" "Environmental"
+ [25] "Environmental" "Environmental" "Environmental" "Environmental"
+ [29] "Environmental" "Environmental" "Environmental" "Event"        
+ [33] "Experience"    "Facilitation"  "First"         "Geology"      
+ [37] "Geology"       "Group"         "I"             "II"           
+ [41] "in"            "in"            "in"            "in"           
+ [45] "Independent"   "Internship"    "Introduction"  "Introduction" 
+ [49] "Introduction"  "Introduction"  "Invasive"      "James"        
+ [53] "Leadership"    "Leadership"    "Literacy"      "Management"   
+ [57] "Management"    "Management"    "Meteorology"   "Meteorology"  
+ [61] "Nature"        "Oceanography"  "Oceanography"  "of"           
+ [65] "of"            "Outdoor"       "Outdoor"       "Outdoor"      
+ [69] "Paths"         "Physical"      "Policy"        "Politics"     
+ [73] "Pollution"     "Practice"      "Programming"   "Research"     
+ [77] "Responder"     "River"         "Science"       "Science"      
+ [81] "Seminar"       "Societies:"    "Special"       "Special"      
+ [85] "Species"       "Studies"       "Studies"       "Studies"      
+ [89] "Studies"       "Studies"       "Studies"       "Studies"      
+ [93] "Studies"       "Study"         "Sustainable"   "System"       
+ [97] "Team"          "the"           "the"           "to"           
+[101] "to"            "to"            "to"            "to"           
+[105] "Topics"        "Topics"        "Topics"        "Visualization"
+[109] "Water"         "Wilderness"    "Wilderness"    "Writing"      </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>( words, <span class="at">count =</span> <span class="dv">1</span> ) <span class="sc">|&gt;</span> </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">word =</span> <span class="fu">factor</span>( words ) ) <span class="sc">|&gt;</span> </span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>( word ) <span class="sc">|&gt;</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="at">freq =</span> <span class="fu">sum</span>( count )) <span class="sc">|&gt;</span> </span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>( <span class="sc">-</span>freq ) <span class="ot">-&gt;</span> tdm </span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>tdm </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 62 × 2
+   word           freq
+   &lt;fct&gt;         &lt;dbl&gt;
+ 1 Environmental    13
+ 2 Studies           8
+ 3 and               5
+ 4 to                5
+ 5 in                4
+ 6 Introduction      4
+ 7 Management        3
+ 8 Outdoor           3
+ 9 Topics            3
+10 Data              2
+# ℹ 52 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>( <span class="sc">!</span><span class="fu">require</span>( wordcloud ) ) { </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"wordcloud"</span>)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"wordcloud2"</span>)  <span class="co"># for more fancy</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( wordcloud )</span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>( <span class="at">words =</span> tdm<span class="sc">$</span>word, </span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">freq =</span> tdm<span class="sc">$</span>freq )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code-along10-24_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud</span>( <span class="at">words =</span> tdm<span class="sc">$</span>word, </span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">freq =</span> tdm<span class="sc">$</span>freq,</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">scale=</span><span class="fu">c</span>(<span class="fl">3.5</span>,<span class="fl">0.25</span>),</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">min.freq =</span> <span class="dv">2</span>,</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="fu">brewer.pal</span>(<span class="dv">8</span>,<span class="st">"Paired"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="code-along10-24_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( wordcloud2 )</span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(<span class="at">data =</span> tdm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-12cf5897f824225d8841" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-12cf5897f824225d8841">{"x":{"word":["Environmental","Studies","and","to","in","Introduction","Management","Outdoor","Topics","Data","Environment","Geology","Leadership","Meteorology","Oceanography","of","Science","Special","the","Wilderness","Applications","Basin","Building","Capstone","Cartography","Climatology","Conservation","Earth","Energy","Event","Experience","Facilitation","First","Group","I","II","Independent","Internship","Invasive","James","Literacy","Nature","Paths","Physical","Policy","Politics","Pollution","Practice","Programming","Research","Responder","River","Seminar","Societies:","Species","Study","Sustainable","System","Team","Visualization","Water","Writing"],"freq":[13,8,5,5,4,4,3,3,3,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-dark","minSize":0,"weightFactor":13.84615384615385,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 </div>
 </div>
 </section>

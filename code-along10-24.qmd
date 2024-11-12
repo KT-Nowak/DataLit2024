@@ -188,3 +188,66 @@ data <- data.frame( program, code, title, credits)
 head(data)
 
 ```
+
+## Word Cloud
+
+```{r}
+
+str_split( title, " ")
+
+
+str_split( title, " ", simplify=TRUE)
+
+
+as.vector( str_split( title, " ", simplify=TRUE) ) -> words
+
+words <- words[ str_length(words) > 0 ]
+
+words <- sort( words )
+
+words
+
+```
+```{r}
+
+data.frame( words, count = 1 ) |> 
+  mutate( word = factor( words ) ) |> 
+  group_by( word ) |>
+  summarize( freq = sum( count )) |> 
+  arrange( -freq ) -> tdm 
+
+tdm 
+
+
+```
+```{r}
+if( !require( wordcloud ) ) { 
+  install.packages("wordcloud")
+  install.packages("wordcloud2")  # for more fancy
+} 
+
+```
+
+```{r}
+library( wordcloud )
+wordcloud( words = tdm$word, 
+           freq = tdm$freq )
+
+
+```
+```{r}
+wordcloud( words = tdm$word, 
+           freq = tdm$freq,
+           scale=c(3.5,0.25),
+           min.freq = 2,
+           colors = brewer.pal(8,"Paired"))
+
+```
+
+```{r}
+library( wordcloud2 )
+
+wordcloud2(data = tdm,
+           color = brewer.pal(12, "Paired"))
+
+```
