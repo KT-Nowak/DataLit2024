@@ -30,4 +30,7 @@ please.
 
 - [Text Data Homework](https://kt-nowak.github.io/DataLit2024/code-along10-24.html)
 
+- [Correlation Assignment](https://kt-nowak.github.io/DataLit2024/correlation_assignment.html)
+
+
 
