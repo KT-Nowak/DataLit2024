@@ -10,28 +10,28 @@ editor: visual
 
 ```
 
-# 1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.
+### 1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.
 ```{r}
 
 ```
 
-# 2.For those atmospheric data, which pair of variables has the strongest correlation? What is the 95% confidence interval on that correlation coefficient?
+### 2.For those atmospheric data, which pair of variables has the strongest correlation? What is the 95% confidence interval on that correlation coefficient?
 ```{r}
 
 ```
-# 3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.  
+### 3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.  
 ```{r}
 
 ```
-# 4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?
+### 4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?
 ```{r}
 
 ```
-# 5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that "looks" odd with these data? Explain why those data are the way they are.  
+### 5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that "looks" odd with these data? Explain why those data are the way they are.  
 ```{r}
 
 ```
-# 6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.  
+### 6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.  
 ```{r}
 
 ```
