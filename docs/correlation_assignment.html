@@ -69,10 +69,78 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="bringing-in-data-and-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="bringing-in-data-and-libraries">Bringing in Data and Libraries</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+
+Attaching package: 'kableExtra'
+
+
+The following object is masked from 'package:dplyr':
+
+    group_rows</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'GGally' was built under R version 4.4.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+Rows: 8199 Columns: 23── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (1): DateTime
+dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section>
 <section id="for-this-exercise-you-will-use-our-beloved-rice-rivers-center-data-to-answer-the-following-questions.-create-the-standard-quarto-html-document-and-turn-in-your-results-by-linking-to-your-github-repository." class="level2">
 <h2 class="anchored" data-anchor-id="for-this-exercise-you-will-use-our-beloved-rice-rivers-center-data-to-answer-the-following-questions.-create-the-standard-quarto-html-document-and-turn-in-your-results-by-linking-to-your-github-repository.">For this exercise, you will use our beloved Rice Rivers Center data to answer the following questions. Create the standard Quarto HTML document and turn in your results by linking to your GitHub repository.</h2>
 <section id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february." class="level3">
 <h3 class="anchored" data-anchor-id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february.">1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.</h3>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="for-those-atmospheric-data-which-pair-of-variables-has-the-strongest-correlation-what-is-the-95-confidence-interval-on-that-correlation-coefficient" class="level3">
 <h3 class="anchored" data-anchor-id="for-those-atmospheric-data-which-pair-of-variables-has-the-strongest-correlation-what-is-the-95-confidence-interval-on-that-correlation-coefficient">2.For those atmospheric data, which pair of variables has the strongest correlation? What is the 95% confidence interval on that correlation coefficient?</h3>

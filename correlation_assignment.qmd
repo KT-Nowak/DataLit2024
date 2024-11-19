@@ -3,15 +3,79 @@ title: "Correlation Assignment"
 author: "Kt Nowak"
 format: html
 editor: visual
+echo: FALSE
 ---
 
-## For this exercise, you will use our beloved Rice Rivers Center data to answer the following questions.  Create the standard Quarto HTML document and turn in your results by linking to your GitHub repository.
 ```{r}
+
+get_rice_data <- function() { 
+  url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+  
+  read_csv( url ) -> rice
+  
+  rice$H2O_TempF <- (9/5) * rice$H2O_TempC + 32 
+  rice$Rain_cm <- rice$Rain_in * 2.54
+  rice$Date <- substr(rice[["DateTime"]], 1, nchar(rice[["DateTime"]]) - 11)
+  rice$Time <- substr(rice[["DateTime"]], 
+                      nchar(rice[["DateTime"]]) - 10,
+                      nchar(rice[["DateTime"]]))
+  is.Date(as.Date(rice$Date))
+  mdy(rice$Date)
+  rice$Date <- mdy(rice$Date)
+  rice$Weekday <-wday(
+    rice$Date,
+    label = TRUE,
+    abbr = TRUE,)
+  rice <- rice[, !names(rice) %in% c("H2O_TempC")]
+  rice <- rice[, !names(rice) %in% c("PH_mv")]
+  rice <- rice[, !names(rice) %in% c("Depth_ft")]
+  rice <- rice[, !names(rice) %in% c("SpCond_mScm")]
+  rice <- rice[, !names(rice) %in% c("Rain_in")]
+  rice <- rice[, !names(rice) %in% c("DateTime")]
+  rice <- rice[, !names(rice) %in% c("RecordID")]
+    return(rice)
+  
+}
 
 ```
 
+
+## Bringing in Data and Libraries 
+```{r}
+
+library(tidyverse)
+
+library(dplyr)
+
+library(knitr)
+
+library(kableExtra)
+
+library(lubridate)
+
+library(GGally)
+
+rice_data <- get_rice_data()
+
+
+
+```
+
+## For this exercise, you will use our beloved Rice Rivers Center data to answer the following questions.  Create the standard Quarto HTML document and turn in your results by linking to your GitHub repository.
+
+
 ### 1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.
 ```{r}
+
+feb_days <- rice_data %>%
+  filter(between(Date, as.Date("2014-02-10"), as.Date("2014-02-15")))
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Time")]
+  
+
+ggpairs(feb_days)
+
+
 
 ```
 
