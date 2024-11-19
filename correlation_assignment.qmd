@@ -71,10 +71,34 @@ feb_days <- rice_data %>%
   filter(between(Date, as.Date("2014-02-10"), as.Date("2014-02-15")))
 
 feb_days <- feb_days[, !names(feb_days) %in% c("Time")]
-  
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Salinity_ppt")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("PH")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Turbidity_ntu")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Depth_m")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("H2O_TempF")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("ODO_sat")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("ODO_mgl")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Rain_cm")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("SurfaceWaterElev_m_levelNad83m")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Weekday")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("Chla_ugl")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("BGAPC_CML")]
+
+feb_days <- feb_days[, !names(feb_days) %in% c("BGAPC_rfu")]
 
 ggpairs(feb_days)
-
 
 
 ```
