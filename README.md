@@ -32,5 +32,6 @@ please.
 
 - [Correlation Assignment](https://kt-nowak.github.io/DataLit2024/correlation_assignment.html)
 
+- [Regression Homework](https://kt-nowak.github.io/DataLit2024/regression_hw.html)
 
 
