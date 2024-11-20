@@ -98,13 +98,23 @@ feb_days <- feb_days[, !names(feb_days) %in% c("BGAPC_CML")]
 
 feb_days <- feb_days[, !names(feb_days) %in% c("BGAPC_rfu")]
 
+feb_days <- feb_days[, !names(feb_days) %in% c("PAR")]
+
 ggpairs(feb_days)
 
 
 ```
 
 ### 2.For those atmospheric data, which pair of variables has the strongest correlation? What is the 95% confidence interval on that correlation coefficient?
+
+The strongest correlation is between Air Temperature and Relative Humidity. 
+
+the 95 percent confidence interval is:
+ -0.24589095 -0.08705632
+
 ```{r}
+
+cor.test(feb_days$AirTempF, feb_days$RelHumidity)
 
 ```
 ### 3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.  

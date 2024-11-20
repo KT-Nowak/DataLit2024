@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Kt Nowak">
 
-<title>Correlation Assignment</title>
+<title>regression_hw</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,19 +20,53 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="correlation_assignment_files/libs/clipboard/clipboard.min.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/quarto.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/popper.min.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/anchor.min.js"></script>
-<link href="correlation_assignment_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="correlation_assignment_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="correlation_assignment_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="correlation_assignment_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="correlation_assignment_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="regression_hw_files/libs/clipboard/clipboard.min.js"></script>
+<script src="regression_hw_files/libs/quarto-html/quarto.js"></script>
+<script src="regression_hw_files/libs/quarto-html/popper.min.js"></script>
+<script src="regression_hw_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="regression_hw_files/libs/quarto-html/anchor.min.js"></script>
+<link href="regression_hw_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="regression_hw_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="regression_hw_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="regression_hw_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="regression_hw_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -46,19 +79,13 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Correlation Assignment</h1>
+<h1 class="title">Regression Homework Activity</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Kt Nowak </p>
-          </div>
-  </div>
     
   
     
@@ -69,90 +96,185 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="bringing-in-data-and-libraries" class="level2">
-<h2 class="anchored" data-anchor-id="bringing-in-data-and-libraries">Bringing in Data and Libraries</h2>
+<hr>
+<hr>
+<p><img src="media/models.png" class="img-fluid"></p>
+<p>Since regression analysis is such a fundamental component of inferences, I thought it would be a good idea to try to work through a few more examples to give you some more practice.</p>
+<p>For this we will use some data on flights into and out of Newark (EWR), JFK, and La Guardia airports in NYC metropolitan area.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-
-Attaching package: 'kableExtra'
-
-
-The following object is masked from 'package:dplyr':
-
-    group_rows</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'GGally' was built under R version 4.4.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'GGally':
-  method from   
-  +.gg   ggplot2
-Rows: 8199 Columns: 23── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (1): DateTime
-dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-</section>
-<section id="for-this-exercise-you-will-use-our-beloved-rice-rivers-center-data-to-answer-the-following-questions.-create-the-standard-quarto-html-document-and-turn-in-your-results-by-linking-to-your-github-repository." class="level2">
-<h2 class="anchored" data-anchor-id="for-this-exercise-you-will-use-our-beloved-rice-rivers-center-data-to-answer-the-following-questions.-create-the-standard-quarto-html-document-and-turn-in-your-results-by-linking-to-your-github-repository.">For this exercise, you will use our beloved Rice Rivers Center data to answer the following questions. Create the standard Quarto HTML document and turn in your results by linking to your GitHub repository.</h2>
-<section id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february." class="level3">
-<h3 class="anchored" data-anchor-id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february.">1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="for-those-atmospheric-data-which-pair-of-variables-has-the-strongest-correlation-what-is-the-95-confidence-interval-on-that-correlation-coefficient" class="level3">
-<h3 class="anchored" data-anchor-id="for-those-atmospheric-data-which-pair-of-variables-has-the-strongest-correlation-what-is-the-95-confidence-interval-on-that-correlation-coefficient">2.For those atmospheric data, which pair of variables has the strongest correlation? What is the 95% confidence interval on that correlation coefficient?</h3>
-<p>The strongest correlation is between Air Temperature and Relative Humidity.</p>
-<p>the 95 percent confidence interval is: -0.24589095 -0.08705632</p>
-<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( flights) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  feb_days$AirTempF and feb_days$RelHumidity
-t = -4.072, df = 574, p-value = 5.315e-05
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.24589095 -0.08705632
-sample estimates:
-       cor 
--0.1675608 </code></pre>
+<pre><code>      year          month             day           dep_time    sched_dep_time
+ Min.   :2013   Min.   : 1.000   Min.   : 1.00   Min.   :   1   Min.   : 106  
+ 1st Qu.:2013   1st Qu.: 4.000   1st Qu.: 8.00   1st Qu.: 907   1st Qu.: 906  
+ Median :2013   Median : 7.000   Median :16.00   Median :1401   Median :1359  
+ Mean   :2013   Mean   : 6.549   Mean   :15.71   Mean   :1349   Mean   :1344  
+ 3rd Qu.:2013   3rd Qu.:10.000   3rd Qu.:23.00   3rd Qu.:1744   3rd Qu.:1729  
+ Max.   :2013   Max.   :12.000   Max.   :31.00   Max.   :2400   Max.   :2359  
+                                                 NA's   :8255                 
+   dep_delay          arr_time    sched_arr_time   arr_delay       
+ Min.   : -43.00   Min.   :   1   Min.   :   1   Min.   : -86.000  
+ 1st Qu.:  -5.00   1st Qu.:1104   1st Qu.:1124   1st Qu.: -17.000  
+ Median :  -2.00   Median :1535   Median :1556   Median :  -5.000  
+ Mean   :  12.64   Mean   :1502   Mean   :1536   Mean   :   6.895  
+ 3rd Qu.:  11.00   3rd Qu.:1940   3rd Qu.:1945   3rd Qu.:  14.000  
+ Max.   :1301.00   Max.   :2400   Max.   :2359   Max.   :1272.000  
+ NA's   :8255      NA's   :8713                  NA's   :9430      
+   carrier              flight       tailnum             origin         
+ Length:336776      Min.   :   1   Length:336776      Length:336776     
+ Class :character   1st Qu.: 553   Class :character   Class :character  
+ Mode  :character   Median :1496   Mode  :character   Mode  :character  
+                    Mean   :1972                                        
+                    3rd Qu.:3465                                        
+                    Max.   :8500                                        
+                                                                        
+     dest              air_time        distance         hour      
+ Length:336776      Min.   : 20.0   Min.   :  17   Min.   : 1.00  
+ Class :character   1st Qu.: 82.0   1st Qu.: 502   1st Qu.: 9.00  
+ Mode  :character   Median :129.0   Median : 872   Median :13.00  
+                    Mean   :150.7   Mean   :1040   Mean   :13.18  
+                    3rd Qu.:192.0   3rd Qu.:1389   3rd Qu.:17.00  
+                    Max.   :695.0   Max.   :4983   Max.   :23.00  
+                    NA's   :9430                                  
+     minute        time_hour                     
+ Min.   : 0.00   Min.   :2013-01-01 05:00:00.00  
+ 1st Qu.: 8.00   1st Qu.:2013-04-04 13:00:00.00  
+ Median :29.00   Median :2013-07-03 10:00:00.00  
+ Mean   :26.23   Mean   :2013-07-03 05:22:54.64  
+ 3rd Qu.:44.00   3rd Qu.:2013-10-01 07:00:00.00  
+ Max.   :59.00   Max.   :2013-12-31 23:00:00.00  
+                                                 </code></pre>
 </div>
 </div>
-</section>
-<section id="using-the-first-40-observations-in-air-temperature-and-barometric-pressure-from-the-rice-center-data-set-determine-if-they-are-individually-distributed-as-normal-random-variables." class="level3">
-<h3 class="anchored" data-anchor-id="using-the-first-40-observations-in-air-temperature-and-barometric-pressure-from-the-rice-center-data-set-determine-if-they-are-individually-distributed-as-normal-random-variables.">3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.</h3>
-</section>
-<section id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data" class="level3">
-<h3 class="anchored" data-anchor-id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data">4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?</h3>
-</section>
-<section id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are." class="level3">
-<h3 class="anchored" data-anchor-id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are.">5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that “looks” odd with these data? Explain why those data are the way they are.</h3>
-</section>
-<section id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation." class="level3">
-<h3 class="anchored" data-anchor-id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation.">6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.</h3>
-</section>
+<p>We also have some data related to local weather conditions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( weather )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    origin               year          month             day       
+ Length:26115       Min.   :2013   Min.   : 1.000   Min.   : 1.00  
+ Class :character   1st Qu.:2013   1st Qu.: 4.000   1st Qu.: 8.00  
+ Mode  :character   Median :2013   Median : 7.000   Median :16.00  
+                    Mean   :2013   Mean   : 6.504   Mean   :15.68  
+                    3rd Qu.:2013   3rd Qu.: 9.000   3rd Qu.:23.00  
+                    Max.   :2013   Max.   :12.000   Max.   :31.00  
+                                                                   
+      hour            temp             dewp           humid       
+ Min.   : 0.00   Min.   : 10.94   Min.   :-9.94   Min.   : 12.74  
+ 1st Qu.: 6.00   1st Qu.: 39.92   1st Qu.:26.06   1st Qu.: 47.05  
+ Median :11.00   Median : 55.40   Median :42.08   Median : 61.79  
+ Mean   :11.49   Mean   : 55.26   Mean   :41.44   Mean   : 62.53  
+ 3rd Qu.:17.00   3rd Qu.: 69.98   3rd Qu.:57.92   3rd Qu.: 78.79  
+ Max.   :23.00   Max.   :100.04   Max.   :78.08   Max.   :100.00  
+                 NA's   :1        NA's   :1       NA's   :1       
+    wind_dir       wind_speed         wind_gust         precip        
+ Min.   :  0.0   Min.   :   0.000   Min.   :16.11   Min.   :0.000000  
+ 1st Qu.:120.0   1st Qu.:   6.905   1st Qu.:20.71   1st Qu.:0.000000  
+ Median :220.0   Median :  10.357   Median :24.17   Median :0.000000  
+ Mean   :199.8   Mean   :  10.518   Mean   :25.49   Mean   :0.004469  
+ 3rd Qu.:290.0   3rd Qu.:  13.809   3rd Qu.:28.77   3rd Qu.:0.000000  
+ Max.   :360.0   Max.   :1048.361   Max.   :66.75   Max.   :1.210000  
+ NA's   :460     NA's   :4          NA's   :20778                     
+    pressure          visib          time_hour                    
+ Min.   : 983.8   Min.   : 0.000   Min.   :2013-01-01 01:00:00.0  
+ 1st Qu.:1012.9   1st Qu.:10.000   1st Qu.:2013-04-01 21:30:00.0  
+ Median :1017.6   Median :10.000   Median :2013-07-01 14:00:00.0  
+ Mean   :1017.9   Mean   : 9.255   Mean   :2013-07-01 18:26:37.7  
+ 3rd Qu.:1023.0   3rd Qu.:10.000   3rd Qu.:2013-09-30 13:00:00.0  
+ Max.   :1042.1   Max.   :10.000   Max.   :2013-12-30 18:00:00.0  
+ NA's   :2729                                                     </code></pre>
+</div>
+</div>
+<p>I’m going to make a synthetic data set consisting of flights out of JFK for the <em>ExpressJet</em> airlines. Since the weather data is on the hour, I also make a synthetic varible <code>Month.Day.Hour</code> so that I can join the weather data to this one.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( origin <span class="sc">==</span> <span class="st">"JFK"</span>, carrier <span class="sc">==</span> <span class="st">"EV"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">DateTime =</span> <span class="fu">paste</span>(month,day,hour, <span class="at">sep=</span><span class="st">"."</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( DateTime, </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Departure Delay</span><span class="st">`</span> <span class="ot">=</span> dep_delay,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Departure Time</span><span class="st">`</span> <span class="ot">=</span> sched_dep_time) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="ot">-&gt;</span> df.jfk </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( df.jfk )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   DateTime         Departure Delay  Departure Time
+ Length:1408        Min.   :-19.00   Min.   : 559  
+ Class :character   1st Qu.: -6.00   1st Qu.: 959  
+ Mode  :character   Median : -2.00   Median :1355  
+                    Mean   : 18.52   Mean   :1237  
+                    3rd Qu.: 16.00   3rd Qu.:1900  
+                    Max.   :536.00   Max.   :1945  
+                    NA's   :82                     </code></pre>
+</div>
+</div>
+<p>Now I’ll do the same with the weather data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( origin <span class="sc">==</span> <span class="st">"JFK"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">DateTime =</span> <span class="fu">paste</span>(month,day,hour, <span class="at">sep=</span><span class="st">"."</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="sc">-</span>origin, <span class="sc">-</span>year, <span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour, <span class="sc">-</span>time_hour ) <span class="ot">-&gt;</span> df.weather </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( df.weather )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      temp            dewp           humid           wind_dir    
+ Min.   :12.02   Min.   :-9.94   Min.   : 15.21   Min.   :  0.0  
+ 1st Qu.:39.92   1st Qu.:26.96   1st Qu.: 49.19   1st Qu.:140.0  
+ Median :53.96   Median :42.98   Median : 65.80   Median :220.0  
+ Mean   :54.47   Mean   :41.86   Mean   : 65.21   Mean   :204.2  
+ 3rd Qu.:69.08   3rd Qu.:57.92   3rd Qu.: 82.73   3rd Qu.:290.0  
+ Max.   :98.06   Max.   :78.08   Max.   :100.00   Max.   :360.0  
+                                                  NA's   :51     
+   wind_speed       wind_gust         precip            pressure     
+ Min.   : 0.000   Min.   :16.11   Min.   :0.000000   Min.   : 985.7  
+ 1st Qu.: 6.905   1st Qu.:23.02   1st Qu.:0.000000   1st Qu.:1013.1  
+ Median :10.357   Median :26.47   Median :0.000000   Median :1017.9  
+ Mean   :11.468   Mean   :27.56   Mean   :0.003985   Mean   :1018.2  
+ 3rd Qu.:14.960   3rd Qu.:31.07   3rd Qu.:0.000000   3rd Qu.:1023.3  
+ Max.   :42.579   Max.   :66.75   Max.   :0.660000   Max.   :1042.1  
+ NA's   :3        NA's   :7199                       NA's   :831     
+     visib          DateTime        
+ Min.   : 0.000   Length:8706       
+ 1st Qu.:10.000   Class :character  
+ Median :10.000   Mode  :character  
+ Mean   : 9.178                     
+ 3rd Qu.:10.000                     
+ Max.   :10.000                     
+                                    </code></pre>
+</div>
+</div>
+<p>Now, I’m going to <code>merge</code> these two <code>data.frame</code> objects using the common <code>key</code> I made <code>DateTime</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>( df.jfk, df.weather, <span class="at">by=</span><span class="st">"DateTime"</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="sc">-</span>DateTime ) <span class="ot">-&gt;</span> df </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( df )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Departure Delay  Departure Time      temp            dewp      
+ Min.   :-19.00   Min.   : 559   Min.   :12.02   Min.   :-7.96  
+ 1st Qu.: -6.00   1st Qu.: 959   1st Qu.:42.08   1st Qu.:26.96  
+ Median : -2.00   Median :1355   Median :55.94   Median :44.06  
+ Mean   : 18.53   Mean   :1236   Mean   :55.92   Mean   :42.44  
+ 3rd Qu.: 16.00   3rd Qu.:1900   3rd Qu.:69.98   3rd Qu.:59.00  
+ Max.   :536.00   Max.   :1945   Max.   :96.98   Max.   :78.08  
+ NA's   :81                                                     
+     humid           wind_dir       wind_speed       wind_gust    
+ Min.   : 18.19   Min.   :  0.0   Min.   : 0.000   Min.   :16.11  
+ 1st Qu.: 46.13   1st Qu.:130.0   1st Qu.: 8.055   1st Qu.:23.02  
+ Median : 64.29   Median :210.0   Median :11.508   Median :26.47  
+ Mean   : 63.49   Mean   :203.5   Mean   :11.865   Mean   :27.57  
+ 3rd Qu.: 80.75   3rd Qu.:290.0   3rd Qu.:14.960   3rd Qu.:31.07  
+ Max.   :100.00   Max.   :360.0   Max.   :33.373   Max.   :46.03  
+                  NA's   :12      NA's   :2        NA's   :1148   
+     precip            pressure          visib      
+ Min.   :0.000000   Min.   : 985.7   Min.   : 0.00  
+ 1st Qu.:0.000000   1st Qu.:1013.0   1st Qu.:10.00  
+ Median :0.000000   Median :1017.8   Median :10.00  
+ Mean   :0.003407   Mean   :1018.1   Mean   : 9.17  
+ 3rd Qu.:0.000000   3rd Qu.:1023.2   3rd Qu.:10.00  
+ Max.   :0.480000   Max.   :1041.9   Max.   :10.00  
+                    NA's   :135                     </code></pre>
+</div>
+</div>
+<section id="activity" class="level1">
+<h1>Activity</h1>
+<p>What features of this data set may impact the departure delay for flights coming out of JFK on <em>ExpressJet</em> Airlines?</p>
 </section>
 
 </main>
