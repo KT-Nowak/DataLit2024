@@ -170,12 +170,51 @@ sample estimates:
 <section id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data" class="level3">
 <h3 class="anchored" data-anchor-id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data">4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?</h3>
 <p>You would run a Spearman’s Rho corrilation.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in cor.test.default(first_40_rows$AirTempF, first_40_rows$BP_HG, :
+Cannot compute exact p-value with ties</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  first_40_rows$AirTempF and first_40_rows$BP_HG
+S = 17109, p-value = 3.553e-05
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.6049429 </code></pre>
+</div>
+</div>
 </section>
 <section id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are." class="level3">
 <h3 class="anchored" data-anchor-id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are.">5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that “looks” odd with these data? Explain why those data are the way they are.</h3>
+<p>The data is all skewed towards a lower pressure. This is because all 40 points take place in the same day so results will tend to remain consistent. This also results in the y axis having a small scale.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation." class="level3">
 <h3 class="anchored" data-anchor-id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation.">6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
 </section>
 </section>
 

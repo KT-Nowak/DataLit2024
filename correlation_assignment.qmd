@@ -136,14 +136,42 @@ ggplot(first_40_rows, aes(x = BP_HG)) +
 You would run a Spearman’s Rho corrilation. 
 ```{r}
 
+OG.FG.spearman <- cor.test( first_40_rows$AirTempF, first_40_rows$BP_HG, 
+                            method = "spearman" )
+OG.FG.spearman
+
 ```
 ### 5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that "looks" odd with these data? Explain why those data are the way they are.  
+
+The data is all skewed towards a lower pressure. This is because all 40 points take place in the same day so results will tend to remain consistent. This also results in the y axis having a small scale.
 ```{r}
 
+qqnorm(first_40_rows$BP_HG)
+
+qqline(first_40_rows$BP_HG)
 
 
 ```
 ### 6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.  
 ```{r}
+
+cor_func <- function(x, y) {
+  cor(x, y, method = "spearman")
+}
+
+n_permutations <- 1000
+
+observed_cor <- cor(first_40_rows$AirTempF, first_40_rows$BP_HG, method = "spearman")
+
+permutation_cor <- replicate(n_permutations, {
+  shuffled_y <- sample(first_40_rows$BP_HG)
+  cor_func(first_40_rows$AirTempF, shuffled_y)
+})
+
+hist(permutation_cor, main = "Permutation Distribution of Correlation")
+
+p_value <- sum(abs(permutation_cor) >= abs(observed_cor)) / n_permutations
+
+print(p_value)
 
 ```
