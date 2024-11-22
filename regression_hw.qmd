@@ -1,6 +1,6 @@
----
+------------------------------------------------------------------------
 
----
+------------------------------------------------------------------------
 
 ---
 title: "Regression Homework Activity"
@@ -66,3 +66,36 @@ summary( df )
 # Activity
 
 What features of this data set may impact the departure delay for flights coming out of JFK on *ExpressJet* Airlines?
+
+#```{r}
+
+models <- data.frame( beta0 = runif(250,-20,40),
+                      beta1 = runif(250, -5, 5))
+summary( models )
+
+
+grid <- expand.grid( beta0 = seq(15, 
+                                 20, 
+                                 length = 25),
+                     beta1 = seq(2, 
+                                 3, 
+                                 length = 25))
+grid$dist <- NA
+for( i in 1:nrow(grid) ) {
+  grid$dist[i] <- model_distance( grid$beta0[i],
+                                  grid$beta1[i],
+                                  df$x,
+                                  df$y )
+}
+
+ggplot( grid, aes(x = beta0, 
+                  y = beta1,
+                  color = -dist)) + 
+  geom_point( data = filter( grid, 
+                             rank(dist) <= 10), 
+              color = "red",
+              size = 4) +
+  geom_point()
+
+
+```

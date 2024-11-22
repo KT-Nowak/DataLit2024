@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>regression_hw</title>
+<title>Regression Homework Activity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,6 +68,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="regression_hw_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="regression_hw_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -79,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regression Homework Activity</h1>
+<div class="quarto-title-block"><div><h1 class="title">Regression Homework Activity</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -275,6 +304,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="activity" class="level1">
 <h1>Activity</h1>
 <p>What features of this data set may impact the departure delay for flights coming out of JFK on <em>ExpressJet</em> Airlines?</p>
+<p>#```{r}</p>
+<p>models &lt;- data.frame( beta0 = runif(250,-20,40), beta1 = runif(250, -5, 5)) summary( models )</p>
+<p>grid &lt;- expand.grid( beta0 = seq(15, 20, length = 25), beta1 = seq(2, 3, length = 25)) grid<span class="math inline">\(dist &lt;- NA
+for( i in 1:nrow(grid) ) {
+  grid\)</span>dist[i] &lt;- model_distance( grid<span class="math inline">\(beta0[i],
+                                  grid\)</span>beta1[i], df<span class="math inline">\(x,
+                                  df\)</span>y ) }</p>
+<p>ggplot( grid, aes(x = beta0, y = beta1, color = -dist)) + geom_point( data = filter( grid, rank(dist) &lt;= 10), color = “red”, size = 4) + geom_point()</p>
+<pre><code>
+
+&lt;!-- --&gt;
+
+::: {.quarto-embedded-source-code}
+```````````````````{.markdown shortcodes="false"}
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+---
+title: "Regression Homework Activity"
+format: 
+  html:
+    code-tools: true
+    toc: false
+---
+
+![](media/models.png)
+
+```{r setup, include=FALSE}
+library( tidyverse )
+library( nycflights13 )</code></pre>
+<p>Since regression analysis is such a fundamental component of inferences, I thought it would be a good idea to try to work through a few more examples to give you some more practice.</p>
+<p>For this we will use some data on flights into and out of Newark (EWR), JFK, and La Guardia airports in NYC metropolitan area.</p>
+<p>quarto-executable-code-5450563D</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( flights) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We also have some data related to local weather conditions.</p>
+<p>quarto-executable-code-5450563D</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( weather )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>I’m going to make a synthetic data set consisting of flights out of JFK for the <em>ExpressJet</em> airlines. Since the weather data is on the hour, I also make a synthetic varible <code>Month.Day.Hour</code> so that I can join the weather data to this one.</p>
+<p>quarto-executable-code-5450563D</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( origin <span class="sc">==</span> <span class="st">"JFK"</span>, carrier <span class="sc">==</span> <span class="st">"EV"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">DateTime =</span> <span class="fu">paste</span>(month,day,hour, <span class="at">sep=</span><span class="st">"."</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( DateTime, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Departure Delay</span><span class="st">`</span> <span class="ot">=</span> dep_delay,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">`</span><span class="at">Departure Time</span><span class="st">`</span> <span class="ot">=</span> sched_dep_time) <span class="sc">%&gt;%</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="ot">-&gt;</span> df.jfk </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( df.jfk )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now I’ll do the same with the weather data.</p>
+<p>quarto-executable-code-5450563D</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( origin <span class="sc">==</span> <span class="st">"JFK"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">DateTime =</span> <span class="fu">paste</span>(month,day,hour, <span class="at">sep=</span><span class="st">"."</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="sc">-</span>origin, <span class="sc">-</span>year, <span class="sc">-</span>month, <span class="sc">-</span>day, <span class="sc">-</span>hour, <span class="sc">-</span>time_hour ) <span class="ot">-&gt;</span> df.weather </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( df.weather )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, I’m going to <code>merge</code> these two <code>data.frame</code> objects using the common <code>key</code> I made <code>DateTime</code>.</p>
+<p>quarto-executable-code-5450563D</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>( df.jfk, df.weather, <span class="at">by=</span><span class="st">"DateTime"</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( <span class="sc">-</span>DateTime ) <span class="ot">-&gt;</span> df </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>( df )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="activity-1" class="level1">
+<h1>Activity</h1>
+<p>What features of this data set may impact the departure delay for flights coming out of JFK on <em>ExpressJet</em> Airlines?</p>
+<p>#```{r}</p>
+<p>models &lt;- data.frame( beta0 = runif(250,-20,40), beta1 = runif(250, -5, 5)) summary( models )</p>
+<p>grid &lt;- expand.grid( beta0 = seq(15, 20, length = 25), beta1 = seq(2, 3, length = 25)) grid<span class="math inline">\(dist &lt;- NA
+for( i in 1:nrow(grid) ) {
+  grid\)</span>dist[i] &lt;- model_distance( grid<span class="math inline">\(beta0[i],
+                                  grid\)</span>beta1[i], df<span class="math inline">\(x,
+                                  df\)</span>y ) }</p>
+<p>ggplot( grid, aes(x = beta0, y = beta1, color = -dist)) + geom_point( data = filter( grid, rank(dist) &lt;= 10), color = “red”, size = 4) + geom_point()</p>
+<pre><code></code></pre>
+<p>:::</p>
 </section>
 
 </main>
@@ -368,6 +472,57 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       container: window.document.getElementById('quarto-embedded-source-code-modal')
     });
     clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
