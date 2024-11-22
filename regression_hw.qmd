@@ -67,11 +67,13 @@ summary( df )
 
 What features of this data set may impact the departure delay for flights coming out of JFK on *ExpressJet* Airlines?
 
-#```{r}
+```{r}
 
-models <- data.frame( beta0 = runif(250,-20,40),
-                      beta1 = runif(250, -5, 5))
-summary( models )
+model_distance <- function( interscept, slope, X, Y ) {
+  yhat <- interscept + slope * X
+  diff <- Y - yhat
+  return( sqrt( mean( diff ^ 2 ) ) )
+}
 
 
 grid <- expand.grid( beta0 = seq(15, 
@@ -96,6 +98,17 @@ ggplot( grid, aes(x = beta0,
               color = "red",
               size = 4) +
   geom_point()
+
+model <- lm(beta1 ~ beta0, data = grid)
+
+slope <- coef(model)[[2]]
+
+print(slope)
+
+ggplot(grid, aes(x = beta0, y = beta1)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) 
+
 
 
 ```
