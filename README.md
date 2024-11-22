@@ -34,4 +34,5 @@ please.
 
 - [Regression Homework](https://kt-nowak.github.io/DataLit2024/regression_hw.html)
 
+- [Analysis of Variance](https://kt-nowak.github.io/DataLit2024/Analysis_of_Variance.html)
 
