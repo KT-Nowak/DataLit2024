@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,9 +103,40 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>get_rice_data <span class="ot">&lt;-</span> <span class="cf">function</span>() { </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="st">"https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&amp;single=true&amp;output=csv"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>( url ) <span class="ot">-&gt;</span> rice</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  rice<span class="sc">$</span>H2O_TempF <span class="ot">&lt;-</span> (<span class="dv">9</span><span class="sc">/</span><span class="dv">5</span>) <span class="sc">*</span> rice<span class="sc">$</span>H2O_TempC <span class="sc">+</span> <span class="dv">32</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  rice<span class="sc">$</span>Rain_cm <span class="ot">&lt;-</span> rice<span class="sc">$</span>Rain_in <span class="sc">*</span> <span class="fl">2.54</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  rice<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">substr</span>(rice[[<span class="st">"DateTime"</span>]], <span class="dv">1</span>, <span class="fu">nchar</span>(rice[[<span class="st">"DateTime"</span>]]) <span class="sc">-</span> <span class="dv">11</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  rice<span class="sc">$</span>Time <span class="ot">&lt;-</span> <span class="fu">substr</span>(rice[[<span class="st">"DateTime"</span>]], </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">nchar</span>(rice[[<span class="st">"DateTime"</span>]]) <span class="sc">-</span> <span class="dv">10</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">nchar</span>(rice[[<span class="st">"DateTime"</span>]]))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.Date</span>(<span class="fu">as.Date</span>(rice<span class="sc">$</span>Date))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mdy</span>(rice<span class="sc">$</span>Date)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  rice<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">mdy</span>(rice<span class="sc">$</span>Date)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  rice<span class="sc">$</span>Weekday <span class="ot">&lt;-</span><span class="fu">wday</span>(</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    rice<span class="sc">$</span>Date,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">abbr =</span> <span class="cn">TRUE</span>,)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"H2O_TempC"</span>)]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"PH_mv"</span>)]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Depth_ft"</span>)]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SpCond_mScm"</span>)]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Rain_in"</span>)]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"DateTime"</span>)]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  rice <span class="ot">&lt;-</span> rice[, <span class="sc">!</span><span class="fu">names</span>(rice) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"RecordID"</span>)]</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(rice)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="bringing-in-data-and-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="bringing-in-data-and-libraries">Bringing in Data and Libraries</h2>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -82,26 +147,40 @@ ul.task-list li input[type="checkbox"] {
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
 Attaching package: 'kableExtra'
-
 
 The following object is masked from 'package:dplyr':
 
     group_rows</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'GGally' was built under R version 4.4.2</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Registered S3 method overwritten by 'GGally':
   method from   
-  +.gg   ggplot2
-Rows: 8199 Columns: 23── Column specification ────────────────────────────────────────────────────────
+  +.gg   ggplot2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rice_data <span class="ot">&lt;-</span> <span class="fu">get_rice_data</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 8199 Columns: 23
+── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr  (1): DateTime
 dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
+
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
@@ -112,6 +191,40 @@ dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
 <section id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february." class="level3">
 <h3 class="anchored" data-anchor-id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february.">1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.</h3>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> rice_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(Date, <span class="fu">as.Date</span>(<span class="st">"2014-02-10"</span>), <span class="fu">as.Date</span>(<span class="st">"2014-02-15"</span>)))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Time"</span>)]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Salinity_ppt"</span>)]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"PH"</span>)]</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Turbidity_ntu"</span>)]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Depth_m"</span>)]</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"H2O_TempF"</span>)]</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ODO_sat"</span>)]</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ODO_mgl"</span>)]</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Rain_cm"</span>)]</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"SurfaceWaterElev_m_levelNad83m"</span>)]</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Weekday"</span>)]</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chla_ugl"</span>)]</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BGAPC_CML"</span>)]</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BGAPC_rfu"</span>)]</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>feb_days <span class="ot">&lt;-</span> feb_days[, <span class="sc">!</span><span class="fu">names</span>(feb_days) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"PAR"</span>)]</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(feb_days)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -126,6 +239,7 @@ dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
 <p>The strongest correlation is between Air Temperature and Relative Humidity.</p>
 <p>the 95 percent confidence interval is: -0.24589095 -0.08705632</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(feb_days<span class="sc">$</span>AirTempF, feb_days<span class="sc">$</span>RelHumidity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -145,6 +259,10 @@ sample estimates:
 <h3 class="anchored" data-anchor-id="using-the-first-40-observations-in-air-temperature-and-barometric-pressure-from-the-rice-center-data-set-determine-if-they-are-individually-distributed-as-normal-random-variables.">3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.</h3>
 <p>Air temperate is normally distributed and barometric pressure is individually distributed</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>first_40_rows <span class="ot">&lt;-</span> rice_data[<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>, <span class="fu">c</span>(<span class="st">"AirTempF"</span>, <span class="st">"BP_HG"</span>)]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(first_40_rows, <span class="fu">aes</span>(<span class="at">x =</span> AirTempF)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
@@ -155,6 +273,8 @@ sample estimates:
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(first_40_rows, <span class="fu">aes</span>(<span class="at">x =</span> BP_HG)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
@@ -171,10 +291,13 @@ sample estimates:
 <h3 class="anchored" data-anchor-id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data">4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?</h3>
 <p>You would run a Spearman’s Rho corrilation.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>OG.FG.spearman <span class="ot">&lt;-</span> <span class="fu">cor.test</span>( first_40_rows<span class="sc">$</span>AirTempF, first_40_rows<span class="sc">$</span>BP_HG, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">method =</span> <span class="st">"spearman"</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in cor.test.default(first_40_rows$AirTempF, first_40_rows$BP_HG, :
 Cannot compute exact p-value with ties</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>OG.FG.spearman</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Spearman's rank correlation rho
@@ -192,6 +315,9 @@ sample estimates:
 <h3 class="anchored" data-anchor-id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are.">5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that “looks” odd with these data? Explain why those data are the way they are.</h3>
 <p>The data is all skewed towards a lower pressure. This is because all 40 points take place in the same day so results will tend to remain consistent. This also results in the y axis having a small scale.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(first_40_rows<span class="sc">$</span>BP_HG)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(first_40_rows<span class="sc">$</span>BP_HG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -204,6 +330,20 @@ sample estimates:
 <section id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation." class="level3">
 <h3 class="anchored" data-anchor-id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation.">6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.</h3>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>cor_func <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(x, y, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>n_permutations <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>observed_cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(first_40_rows<span class="sc">$</span>AirTempF, first_40_rows<span class="sc">$</span>BP_HG, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>permutation_cor <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_permutations, {</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  shuffled_y <span class="ot">&lt;-</span> <span class="fu">sample</span>(first_40_rows<span class="sc">$</span>BP_HG)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor_func</span>(first_40_rows<span class="sc">$</span>AirTempF, shuffled_y)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(permutation_cor, <span class="at">main =</span> <span class="st">"Permutation Distribution of Correlation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -211,6 +351,9 @@ sample estimates:
 </figure>
 </div>
 </div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">abs</span>(permutation_cor) <span class="sc">&gt;=</span> <span class="fu">abs</span>(observed_cor)) <span class="sc">/</span> n_permutations</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0</code></pre>
 </div>

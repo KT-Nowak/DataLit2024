@@ -3,7 +3,7 @@ title: "Correlation Assignment"
 author: "Kt Nowak"
 format: html
 editor: visual
-echo: FALSE
+echo: TRUE
 ---
 
 ```{r}
