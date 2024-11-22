@@ -109,6 +109,48 @@ ggplot(grid, aes(x = beta0, y = beta1)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) 
 
+```
+#```{r}
+
+help(lm)
+
+as.data.frame(df)
+#
+```
+```{r}
+
+plot(df$`Departure Delay`, df$wind_speed, main = "Wind Speed Delay")
+
+cor.test(df$`Departure Delay`, df$wind_speed)
+
+Wspeed_mod <- lm( df$wind_speed ~ df$`Departure Delay`)
+
+summary(Wspeed_mod)
+
+coef(Wspeed_mod)
+
+confint(Wspeed_mod, level = 0.99)
+
+plot(df$`Departure Delay`, df$wind_speed, main = "Wind Speed Delay",
+     abline(Wspeed_mod, col = 2))
+```
+```{r}
+plot(df$`Departure Delay`, df$wind_gust, main = "Wind Gust Delay")
+
+cor.test(df$`Departure Delay`, df$wind_gust)
+
+```
+```{r}
+plot(df$`Departure Delay`, df$precip, main = "Precipitation Delay")
+
+cor.test(df$`Departure Delay`, df$precip)
+
+
+```
+```{r}
+plot(df$`Departure Delay`, df$pressure, main = "Pressure Delay")
+
+cor.test(df$`Departure Delay`, df$pressure)
 
 
 ```
