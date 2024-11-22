@@ -117,8 +117,18 @@ the 95 percent confidence interval is:
 cor.test(feb_days$AirTempF, feb_days$RelHumidity)
 
 ```
-### 3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.  
+### 3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.
+
+Air temperate is normally distributed and barometric pressure is individually distributed 
 ```{r}
+
+first_40_rows <- rice_data[1:40, c("AirTempF", "BP_HG")]
+
+ggplot(first_40_rows, aes(x = AirTempF)) +
+  geom_histogram()
+
+ggplot(first_40_rows, aes(x = BP_HG)) +
+  geom_histogram()
 
 ```
 ### 4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?
