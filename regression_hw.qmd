@@ -68,7 +68,7 @@ summary( df )
 
 What features of this data set may impact the departure delay for flights coming out of JFK on *ExpressJet* Airlines?
 
-
+Of the variables wind speed, wind gust, precipitation, and air pressure; precipitation is the best predictor of delay. PRecipitation has the highest R-squared value among the 4 with a R-squared value of 0.20299.  
 ```
 #```{r}
 
