@@ -140,7 +140,7 @@ coef(Pressure_mod)
 
 confint(Pressure_mod, level = 0.99)
 
-plot(df$`Departure Delay`, df$pressure, main = "Wind Speed Delay",
+plot(df$`Departure Delay`, df$pressure, main = "Pressure Delay",
      abline(Pressure_mod, col = 2))
 
 ```
