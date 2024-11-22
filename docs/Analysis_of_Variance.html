@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Kt Nowak">
 
-<title>Correlation Assignment</title>
+<title>analysis_of_variance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,20 +20,83 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="correlation_assignment_files/libs/clipboard/clipboard.min.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/quarto.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/popper.min.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="correlation_assignment_files/libs/quarto-html/anchor.min.js"></script>
-<link href="correlation_assignment_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="correlation_assignment_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="correlation_assignment_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="correlation_assignment_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="correlation_assignment_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="Analysis_of_Variance_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Analysis_of_Variance_files/libs/quarto-html/quarto.js"></script>
+<script src="Analysis_of_Variance_files/libs/quarto-html/popper.min.js"></script>
+<script src="Analysis_of_Variance_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Analysis_of_Variance_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Analysis_of_Variance_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Analysis_of_Variance_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Analysis_of_Variance_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Analysis_of_Variance_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Analysis_of_Variance_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -46,19 +108,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Correlation Assignment</h1>
+<h1 class="title">Analysis of Variance</h1>
+<p class="subtitle lead">In Class Activity</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Kt Nowak </p>
-          </div>
-  </div>
     
   
     
@@ -69,114 +126,103 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="bringing-in-data-and-libraries" class="level2">
-<h2 class="anchored" data-anchor-id="bringing-in-data-and-libraries">Bringing in Data and Libraries</h2>
+<hr>
+<hr>
+<p>Here is some new data to play with a bit to explore one-way and two-way analysis of variance models. These data represent weight data associated with three different diet types. There are 76 observations of individuals with the following characteristics:</p>
+<ul>
+<li>Gender (0/1)</li>
+<li>Age (earth years. 🤓)</li>
+<li>Height (cm)</li>
+<li>Pre.weight &amp; weight6weeks (kg)</li>
+<li>Diet (1,2,3)</li>
+</ul>
+<p>The data are located as a CSV file named <code>DietData.csv</code> linked from the Canvas page. Load the data in and format things so they look correctly to you.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-
-Attaching package: 'kableExtra'
-
-
-The following object is masked from 'package:dplyr':
-
-    group_rows</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the data in here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'GGally' was built under R version 4.4.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'GGally':
-  method from   
-  +.gg   ggplot2
-Rows: 8199 Columns: 23── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (1): DateTime
-dbl (22): RecordID, PAR, WindSpeed_mph, WindDir, AirTempF, RelHumidity, BP_H...
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-</section>
-<section id="for-this-exercise-you-will-use-our-beloved-rice-rivers-center-data-to-answer-the-following-questions.-create-the-standard-quarto-html-document-and-turn-in-your-results-by-linking-to-your-github-repository." class="level2">
-<h2 class="anchored" data-anchor-id="for-this-exercise-you-will-use-our-beloved-rice-rivers-center-data-to-answer-the-following-questions.-create-the-standard-quarto-html-document-and-turn-in-your-results-by-linking-to-your-github-repository.">For this exercise, you will use our beloved Rice Rivers Center data to answer the following questions. Create the standard Quarto HTML document and turn in your results by linking to your GitHub repository.</h2>
-<section id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february." class="level3">
-<h3 class="anchored" data-anchor-id="look-up-the-library-ggally-it-has-a-function-named-ggpairs.-use-that-function-to-plot-the-atmospheric-data-from-the-rice-rivers-center-for-the-samples-collected-from-10-february-to-15-february.">1.Look up the library GGally; it has a function named ggpairs(). Use that function to plot the atmospheric data from the Rice Rivers Center for the samples collected from 10 February to 15 February.</h3>
+<section id="exploratory-data-anlsysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-anlsysis">Exploratory Data Anlsysis</h2>
+<p>One of the first things to do is to look at the data and see if there are any obvious things. Go ahead and explore these data visually. What do you see?</p>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data visualization</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="for-those-atmospheric-data-which-pair-of-variables-has-the-strongest-correlation-what-is-the-95-confidence-interval-on-that-correlation-coefficient" class="level3">
-<h3 class="anchored" data-anchor-id="for-those-atmospheric-data-which-pair-of-variables-has-the-strongest-correlation-what-is-the-95-confidence-interval-on-that-correlation-coefficient">2.For those atmospheric data, which pair of variables has the strongest correlation? What is the 95% confidence interval on that correlation coefficient?</h3>
-<p>The strongest correlation is between Air Temperature and Relative Humidity.</p>
-<p>the 95 percent confidence interval is: -0.24589095 -0.08705632</p>
+<section id="estimating-mean-values" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-mean-values">Estimating Mean Values</h2>
+<p>Make a table of Weigth Loss by gender and diet.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's product-moment correlation
-
-data:  feb_days$AirTempF and feb_days$RelHumidity
-t = -4.072, df = 574, p-value = 5.315e-05
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.24589095 -0.08705632
-sample estimates:
-       cor 
--0.1675608 </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="using-the-first-40-observations-in-air-temperature-and-barometric-pressure-from-the-rice-center-data-set-determine-if-they-are-individually-distributed-as-normal-random-variables." class="level3">
-<h3 class="anchored" data-anchor-id="using-the-first-40-observations-in-air-temperature-and-barometric-pressure-from-the-rice-center-data-set-determine-if-they-are-individually-distributed-as-normal-random-variables.">3.Using the first 40 observations in air temperature and barometric pressure from the Rice Center data set, determine if they are individually distributed as normal random variables.</h3>
-<p>Air temperate is normally distributed and barometric pressure is individually distributed</p>
+<section id="way-analysis-of-variance" class="level2">
+<h2 class="anchored" data-anchor-id="way-analysis-of-variance">1-Way Analysis of Variance</h2>
+<p><em>Diet Issues:</em></p>
+<p>The underlying linear model.</p>
+<p><span class="math display">\[
+y_{ij} = \mu + \tau_{Diet, i} + \epsilon_j
+\]</span></p>
+<p>Test the null hypothesis, <span class="math inline">\(H_O:\)</span> <em>There is no effect of diet on weight loss</em> (e.g., <span class="math inline">\(\tau_{Diet-1} = \tau_{Diet-2} = \tau_{Diet-3} = 0.0\)</span>). Is there evidence for one diet producing more weight loss than the others? Create an <code>aov</code> analysis and assign it to the variable <code>fit.diet</code> and examine its contents.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<p>Are they all significantly different? Try the <code>TukeyHSD()</code> Interpret the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>How much of the variation is explained? If you notice when you do a summary from a <code>lm()</code> (regression) model, it gives you the <span class="math inline">\(R^2\)</span> values directly (remember <span class="math inline">\(R^2 = \frac{SS_{model}}{SS_{Error}}\)</span>). Does <code>summary()</code> of your <code>aov</code> model give you that?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How much variance?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p>Since I asked the question, the answer is probably no. Why does it not do this? Probably for historical reasons, which are a bit of a pain in the backside. That being said, there are some <code>tidy</code> ways to fix this issue. I’m going to use the <code>broom</code> package which allows us to clean up (or tidy if you will) the model objects. This will take the model object and pull out <em>all</em> the ANOVA table stuff and put it into a <code>tibble</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library( broom ) </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># use your model fit next (I called mine fit.diet)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy_diet &lt;- tidy( fit.diet )</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy_diet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="correlation_assignment_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<p>Now, since it is all easily accessible, we can calculate the <span class="math inline">\(R^2\)</span> from the new model output.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate the variance explained from the raw sums of squares</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># r2_Diet &lt;- tidy_diet$sumsq[1] / sum( tidy_diet$sumsq )</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># r2_Diet </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><em>Gender:</em></p>
+<p>The underlying linear model.</p>
+<p><span class="math inline">\(y_{ij} = \mu + \tau_{gender, i} + \epsilon_j\)</span></p>
+<p>Independent of the diet, test the null hypothesis <span class="math inline">\(H_O:\)</span> <em>There is no difference in weight loss between genders</em> (e.g., $ =* = 0.0 $). Is there evidence for one gender being significantly different than another? How much of the variation is explained (another <span class="math inline">\(R^2\)</span> by gender)?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># partition effects</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>How do you interpret these results thus far?</p>
+</section>
+<section id="do-genders-respond-differently-to-diets" class="level1">
+<h1>Do genders respond differently to diets?</h1>
+<p><span class="math inline">\(y_{ijk} = \mu + \tau_{Diet,i} + \tau_{gender,j} + \epsilon_k\)</span></p>
+<p>So here we do something a bit different. We want to simultaneously ask the following questions:</p>
+<ul>
+<li>Do diets influence weight loss?</li>
+<li>Do genders influence weight loss?</li>
+<li>Is there an interaction where different genders respond differently to different diets?</li>
+</ul>
+<p>In <span class="math inline">\(R\)</span>, this is done as:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># diet model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gender model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interaction model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What is the <span class="math inline">\(R^2\)</span> for this model?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best model variance explained</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data" class="level3">
-<h3 class="anchored" data-anchor-id="given-your-findings-in-the-last-question-what-kind-of-correlation-statistic-would-be-most-appropriate-for-estimating-the-correlation-between-this-subset-of-data">4.Given your findings in the last question, what kind of correlation statistic would be most appropriate for estimating the correlation between this subset of data?</h3>
-<p>You would run a Spearman’s Rho corrilation.</p>
-</section>
-<section id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are." class="level3">
-<h3 class="anchored" data-anchor-id="look-at-a-qqnorm-plot-of-the-barometric-pressure-data-you-used-in-the-previous-example.-is-there-something-that-looks-odd-with-these-data-explain-why-those-data-are-the-way-they-are.">5.Look at a qqnorm() plot of the barometric pressure data you used in the previous example. Is there something that “looks” odd with these data? Explain why those data are the way they are.</h3>
-</section>
-<section id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation." class="level3">
-<h3 class="anchored" data-anchor-id="using-a-permutation-approach-define-the-distribution-of-correlation-values-between-the-variables-in-3-assuming-that-the-null-hypothesis-is-true.-plot-these-as-a-histogram-and-include-the-observed-correlation.">6.Using a permutation approach, define the distribution of correlation values between the variables in #3, assuming that the NULL hypothesis is true. Plot these as a histogram and include the observed correlation.</h3>
-</section>
+<section id="which-model-is-best" class="level1">
+<h1>Which Model is Best?</h1>
+<p>How would you compare the models you generated? How do you interpret the findings?</p>
+<p><em>Explain, in words, your findings and interpretation of these findings</em></p>
 </section>
 
 </main>
