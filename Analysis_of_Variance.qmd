@@ -1,10 +1,7 @@
----
-
----
 
 ---
 title: "Analysis of Variance"
-subtitle: "In Class Activity"
+author: "Kt Nowak"
 execute: 
   echo: true
 format: 
@@ -26,6 +23,8 @@ The data are located as a CSV file named `DietData.csv` linked from the Canvas p
 ```{r}
 # load the data in here
 
+diet_data <- read.csv("DietData.csv")
+
 ```
 
 ## Exploratory Data Anlsysis
@@ -34,6 +33,48 @@ One of the first things to do is to look at the data and see if there are any ob
 
 ```{r}
 # Data visualization
+
+library(dplyr)
+
+diet_data$Diet <- factor(diet_data$Diet, levels = c(1, 2, 3), labels = c("Diet1", "Diet2", "Diet3"))
+
+diet_data$gender <- factor(diet_data$gender, levels = c(0, 1), labels = c("Male", "Female"))
+
+ggplot(diet_data, aes(x = pre.weight, y = weight6weeks, fill = Diet)) +  geom_boxplot() + 
+  geom_jitter(alpha = 0.5) +
+  labs(title = "Weight Loss by Diet Type", x = "Pre Weight", y = "Weight after 6 weeks") 
+```
+```{r}
+
+data_diet1 <- diet_data %>%
+  filter(Diet == "Diet1")
+
+ggplot(data_diet1, aes(x = pre.weight, y = weight6weeks)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_jitter(alpha = 0.5) +
+  labs(title = "Weight Loss in Diet 1", x = "Pre Weight", y = "Weight after 6 weeks")
+
+```
+```{r}
+
+data_diet2 <- diet_data %>%
+  filter(Diet == "Diet2")
+
+ggplot(data_diet2, aes(x = pre.weight, y = weight6weeks)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_jitter(alpha = 0.5) +
+  labs(title = "Weight Loss in Diet 2", x = "Pre Weight", y = "Weight Loss (6 weeks)")
+
+```
+```{r}
+data_diet3 <- diet_data %>%
+  filter(Diet == "Diet3")
+
+ggplot(data_diet3, aes(x = pre.weight, y = weight6weeks)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_jitter(alpha = 0.5) +
+  labs(title = "Weight Loss in Diet3 ", x = "Pre Weight", y = "Weight after 6 weeks")
+
 ```
 
 ## Estimating Mean Values
@@ -42,6 +83,15 @@ Make a table of Weigth Loss by gender and diet.
 
 ```{r}
 # Table output
+
+diet_data <- diet_data %>%
+  mutate(WeightLoss = pre.weight - weight6weeks)
+
+table_data <- diet_data %>%
+  select(WeightLoss, gender, Diet)
+
+head(table_data)
+
 ```
 
 ## 1-Way Analysis of Variance
@@ -58,19 +108,49 @@ Test the null hypothesis, $H_O:$ *There is no effect of diet on weight loss* (e.
 
 ```{r}
 # Define model
+
+fit.diet <- aov(WeightLoss ~ Diet, data = diet_data)
+
+print(fit.diet)
+
+summary(fit.diet)
+
 ```
 
 Are they all significantly different? Try the `TukeyHSD()` Interpret the results.
 
+There is a significant result, the following test will determine which diet is more effective. 
+
 ```{r}
 # Posthoc test
+
+TukeyHSD(fit.diet)
+
 ```
+The Turkey test finds that diet 3 is significantly different from the other two. 
+
+```{r}
+```
+
 
 How much of the variation is explained? If you notice when you do a summary from a `lm()` (regression) model, it gives you the $R^2$ values directly (remember $R^2 = \frac{SS_{model}}{SS_{Error}}$). Does `summary()` of your `aov` model give you that?
 
 ```{r}
 # How much variance?
+
+SS_Model <- (60.5)
+
+SS_Total <- (60.5 + 410.4) 
+
+
+R_squared <- (SS_Model / SS_Total)
+
+print(R_squared)
+
 ```
+approximately 12.84% of the variation in weight loss is explained by the different diets
+
+
 
 Since I asked the question, the answer is probably no. Why does it not do this? Probably for historical reasons, which are a bit of a pain in the backside. That being said, there are some `tidy` ways to fix this issue. I'm going to use the `broom` package which allows us to clean up (or tidy if you will) the model objects. This will take the model object and pull out *all* the ANOVA table stuff and put it into a `tibble`.
 
@@ -95,7 +175,7 @@ The underlying linear model.
 
 $y_{ij} = \mu + \tau_{gender, i} + \epsilon_j$
 
-Independent of the diet, test the null hypothesis $H_O:$ *There is no difference in weight loss between genders* (e.g., \$\tau*{gender-0} =* \tau{gender-2} = 0.0 \$). Is there evidence for one gender being significantly different than another? How much of the variation is explained (another $R^2$ by gender)?
+Independent of the diet, test the null hypothesis $H_O:$ *There is no difference in weight loss between genders* (e.g., \$\tau*{gender-0} =\* \tau{gender-2} = 0.0 \$). Is there evidence for one gender being significantly different than another? How much of the variation is explained (another $R^2$ by gender)?
 
 ```{r}
 # partition effects
