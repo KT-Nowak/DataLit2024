@@ -34,6 +34,7 @@ One of the first things to do is to look at the data and see if there are any ob
 ```{r}
 
 library(dplyr)
+library(ggplot2)
 ```
 ```{r}
 diet_data$Diet <- factor(diet_data$Diet, levels = c(1, 2, 3), labels = c("Diet1", "Diet2", "Diet3"))
