@@ -32,16 +32,17 @@ diet_data <- read.csv("DietData.csv")
 One of the first things to do is to look at the data and see if there are any obvious things. Go ahead and explore these data visually. What do you see?
 
 ```{r}
-# Data visualization
 
 library(dplyr)
-
+```
+```{r}
 diet_data$Diet <- factor(diet_data$Diet, levels = c(1, 2, 3), labels = c("Diet1", "Diet2", "Diet3"))
-
+```
+```{r}
 diet_data$gender <- factor(diet_data$gender, levels = c(0, 1), labels = c("Male", "Female"))
-
+```
+```{r}
 ggplot(diet_data, aes(x = pre.weight, y = weight6weeks, fill = Diet)) +  geom_boxplot() + 
-  geom_jitter(alpha = 0.5) +
   labs(title = "Weight Loss by Diet Type", x = "Pre Weight", y = "Weight after 6 weeks") 
 ```
 ```{r}
