@@ -152,23 +152,27 @@ print(R_squared)
 ```
 approximately 12.84% of the variation in weight loss is explained by the different diets
 
+the original aov did not give these R squared values directly 
 
+#####
 
 Since I asked the question, the answer is probably no. Why does it not do this? Probably for historical reasons, which are a bit of a pain in the backside. That being said, there are some `tidy` ways to fix this issue. I'm going to use the `broom` package which allows us to clean up (or tidy if you will) the model objects. This will take the model object and pull out *all* the ANOVA table stuff and put it into a `tibble`.
 
 ```{r}
-# library( broom ) 
+library( broom ) 
 # use your model fit next (I called mine fit.diet)
-# tidy_diet <- tidy( fit.diet )
-# tidy_diet
+tidy_diet <- tidy( fit.diet )
+
+tidy_diet
 ```
 
 Now, since it is all easily accessible, we can calculate the $R^2$ from the new model output.
 
 ```{r}
 # Estimate the variance explained from the raw sums of squares
-# r2_Diet <- tidy_diet$sumsq[1] / sum( tidy_diet$sumsq )
-# r2_Diet 
+ r2_Diet <- tidy_diet$sumsq[1] / sum( tidy_diet$sumsq )
+
+ r2_Diet 
 ```
 
 *Gender:*
@@ -180,16 +184,31 @@ $y_{ij} = \mu + \tau_{gender, i} + \epsilon_j$
 Independent of the diet, test the null hypothesis $H_O:$ *There is no difference in weight loss between genders* (e.g., \$\tau*{gender-0} =\* \tau{gender-2} = 0.0 \$). Is there evidence for one gender being significantly different than another? How much of the variation is explained (another $R^2$ by gender)?
 
 ```{r}
-# partition effects
+
+fit.gender <- aov(WeightLoss ~ gender, data = diet_data)
+
+summary(fit.gender)
+
+tidy_gender <- tidy( fit.gender )
+
+
+r2_gender <- tidy_gender$sumsq[1] / sum( tidy_gender$sumsq )
+
+print(r2_gender)
+
 ```
 
-How do you interpret these results thus far?
+# How do you interpret these results thus far?
+
+Only 0.5% of the differences in weight loss can be explained by variation in gender. 
 
 # Do genders respond differently to diets?
 
+There is no evidence here to suggest that genders respond differently to diets. 
+
 $y_{ijk} = \mu + \tau_{Diet,i} + \tau_{gender,j} + \epsilon_k$
 
-So here we do something a bit different. We want to simultaneously ask the following questions:
+## So here we do something a bit different. We want to simultaneously ask the following questions:
 
 -   Do diets influence weight loss?
 -   Do genders influence weight loss?
