@@ -4,6 +4,9 @@ author: "Kt Nowak"
 format: html
 editor: visual
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 ```{r}
 
 library(rmarkdown)
