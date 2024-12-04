@@ -36,3 +36,5 @@ please.
 
 - [Analysis of Variance](https://kt-nowak.github.io/DataLit2024/Analysis_of_Variance.html)
 
+- [Non Parametric and Counting Statistics](https://kt-nowak.github.io/DataLit2024/docs/nonP_and_counting_stats.html)
+
