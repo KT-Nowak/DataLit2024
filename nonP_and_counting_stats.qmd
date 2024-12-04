@@ -4,7 +4,11 @@ author: "Kt Nowak"
 format: html
 editor: visual
 ---
+```{r}
 
+library(rmarkdown)
+
+```
 For each of the following questions, please provide your analysis and an interpretation (e.g., written as you would in a scientific publication).  If it helps to describe your result, add tables or figures to help make your case. For every case, explain why you chose the particular analysis you did and demonstrate the reasons from the data.
 
 ## 1.The FDA has suggested a change in a medication that has been shown to have detrimental side effects in half of the patients.  A clinical trial was conducted with nineteen patients; only three reported side effects.  Did the change make a significant difference?  
