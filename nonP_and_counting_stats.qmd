@@ -96,10 +96,57 @@ print(p.value)
 ### The p value is significantly less than the critical value so we can reject the null hypothesis. We can conclude that there is an association between the use of treatment A or B and the turbidity bin the results fall into.
 
 
-
 ## 3.A dozen graduate students tried to determine if there was a relationship between their undergraduate GPA and their scores on the Graduate Records Examination.  Look at these data and determine the extent to which they are related.  Explain.
 ```{r}
+
+ggplot(grad_school, aes(x = GPA, y = GRE)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Undergraduate GPA", y = "GRE Score", 
+       title = "Relationship Between GPA and GRE Score")
+
 ```
+```{r}
+
+model <- lm(GRE ~ GPA, data = grad_school)
+summary(model)
+
+```
+```{r}
+
+loess_model <- loess(GRE ~ GPA, data = grad_school)
+
+summary(loess_model)
+
+```
+
+```{r}
+
+ggplot(grad_school, aes(x = GPA, y = GRE)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "blue") +
+  geom_smooth(method = "loess", se = FALSE, color = "red") +
+  labs(x = "Undergraduate GPA", y = "GRE Score",
+       title = "Relationship Between GPA and GRE Score")
+
+fit <- loess( GRE ~ GPA, data=grad_school)
+
+print(fit)
+
+span_values <- seq(0.2, 1.0, by = 0.1)
+
+ggplot(grad_school, aes(x = GPA, y = GRE)) +
+  geom_point() +
+  lapply(seq_along(span_values), function(i) {
+    geom_smooth(method = "loess", span = span_values[i], se = FALSE, color = i)
+  }) +
+  scale_color_manual(values = c("red", "blue", "green", "purple", "orange")) +
+  labs(x = "Undergraduate GPA", y = "GRE Score",
+       title = "LOESS Curves with Different Spans")
+
+```
+### The relationship between GPA and GRE score can be resonable predicted by a non parametric local regression. A local regression can explain all 12 data points with a residual error of 32, meaning the predicted GRE scores deviate from the actual scores by about 32 points.
+
 ## 4.You are looking at fruit yield on dogwood.  You designed an experiment with four different treatments and measured the total yield in germinated seeds.  Are there differences in yield?  Explain.
 ```{r}
 ```
