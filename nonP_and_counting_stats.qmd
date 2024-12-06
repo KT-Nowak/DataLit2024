@@ -15,6 +15,8 @@ library(tidyverse)
 
 library(lubridate)
 
+library(dplyr)
+
 turbidity <- read_csv("ntu_data.csv")
 
 grad_school <- read_csv("grad_school.csv")
@@ -35,15 +37,32 @@ null_prob <- 0.5
 binom.test(successes, trials, p = null_prob, alternative = "less")
 
 
-
 ```
-### we fail to reject the null hypothesis, meaning there's not enough evidence to conclude that the new medication is significantly better
+### we fail to reject the null hypothesis, there's not enough evidence to conclude that the new medication is significantly better
 
 
 
 ## 2.Two different environmental remediation treatments are evaluated for the impacts on turbidity (measured using the Nephelometric Turbidity Unit or NTU).  For regulatory reasons, turbidity is binned into four groups based on NTU: 0-15 ntu, 16-22 ntu, 23-30 ntu, and 31+ ntu.  Do both treatments have the same impact on turbidity?  Explain.
+
 ```{r}
+
+turbidity <- turbidity %>%
+  mutate(NTU_bin = case_when(
+    NTU <= 15 ~ "0-15",
+    NTU >= 16 & NTU <= 22 ~ "16-22",
+    NTU >= 23 & NTU <= 30 ~ "23-30",
+    NTU >= 31 ~ "31+"
+  ))
+
+
+observed_table <- table(turbidity$Treatment, turbidity$NTU_bin)
+
+print(observed_table)
+
 ```
+
+
+
 ## 3.A dozen graduate students tried to determine if there was a relationship between their undergraduate GPA and their scores on the Graduate Records Examination.  Look at these data and determine the extent to which they are related.  Explain.
 ```{r}
 ```

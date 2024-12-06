@@ -121,7 +121,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>turbidity <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"ntu_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>turbidity <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"ntu_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 128 Columns: 2
 ── Column specification ────────────────────────────────────────────────────────
@@ -178,12 +180,32 @@ probability of success
              0.1578947 </code></pre>
 </div>
 </div>
-<section id="we-fail-to-reject-the-null-hypothesis-meaning-theres-not-enough-evidence-to-conclude-that-the-new-medication-is-significantly-better" class="level3">
-<h3 class="anchored" data-anchor-id="we-fail-to-reject-the-null-hypothesis-meaning-theres-not-enough-evidence-to-conclude-that-the-new-medication-is-significantly-better">we fail to reject the null hypothesis, meaning there’s not enough evidence to conclude that the new medication is significantly better</h3>
+<section id="we-fail-to-reject-the-null-hypothesis-theres-not-enough-evidence-to-conclude-that-the-new-medication-is-significantly-better" class="level3">
+<h3 class="anchored" data-anchor-id="we-fail-to-reject-the-null-hypothesis-theres-not-enough-evidence-to-conclude-that-the-new-medication-is-significantly-better">we fail to reject the null hypothesis, there’s not enough evidence to conclude that the new medication is significantly better</h3>
 </section>
 </section>
 <section id="two-different-environmental-remediation-treatments-are-evaluated-for-the-impacts-on-turbidity-measured-using-the-nephelometric-turbidity-unit-or-ntu.-for-regulatory-reasons-turbidity-is-binned-into-four-groups-based-on-ntu-0-15-ntu-16-22-ntu-23-30-ntu-and-31-ntu.-do-both-treatments-have-the-same-impact-on-turbidity-explain." class="level2">
 <h2 class="anchored" data-anchor-id="two-different-environmental-remediation-treatments-are-evaluated-for-the-impacts-on-turbidity-measured-using-the-nephelometric-turbidity-unit-or-ntu.-for-regulatory-reasons-turbidity-is-binned-into-four-groups-based-on-ntu-0-15-ntu-16-22-ntu-23-30-ntu-and-31-ntu.-do-both-treatments-have-the-same-impact-on-turbidity-explain.">2.Two different environmental remediation treatments are evaluated for the impacts on turbidity (measured using the Nephelometric Turbidity Unit or NTU). For regulatory reasons, turbidity is binned into four groups based on NTU: 0-15 ntu, 16-22 ntu, 23-30 ntu, and 31+ ntu. Do both treatments have the same impact on turbidity? Explain.</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>turbidity <span class="ot">&lt;-</span> turbidity <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">NTU_bin =</span> <span class="fu">case_when</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    NTU <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"0-15"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    NTU <span class="sc">&gt;=</span> <span class="dv">16</span> <span class="sc">&amp;</span> NTU <span class="sc">&lt;=</span> <span class="dv">22</span> <span class="sc">~</span> <span class="st">"16-22"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    NTU <span class="sc">&gt;=</span> <span class="dv">23</span> <span class="sc">&amp;</span> NTU <span class="sc">&lt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">"23-30"</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    NTU <span class="sc">&gt;=</span> <span class="dv">31</span> <span class="sc">~</span> <span class="st">"31+"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>observed_table <span class="ot">&lt;-</span> <span class="fu">table</span>(turbidity<span class="sc">$</span>Treatment, turbidity<span class="sc">$</span>NTU_bin)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(observed_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             
+              0-15 16-22 23-30 31+
+  Treatment A    6    14    17   8
+  Treatment B   30    32    17   3</code></pre>
+</div>
+</div>
 </section>
 <section id="a-dozen-graduate-students-tried-to-determine-if-there-was-a-relationship-between-their-undergraduate-gpa-and-their-scores-on-the-graduate-records-examination.-look-at-these-data-and-determine-the-extent-to-which-they-are-related.-explain." class="level2">
 <h2 class="anchored" data-anchor-id="a-dozen-graduate-students-tried-to-determine-if-there-was-a-relationship-between-their-undergraduate-gpa-and-their-scores-on-the-graduate-records-examination.-look-at-these-data-and-determine-the-extent-to-which-they-are-related.-explain.">3.A dozen graduate students tried to determine if there was a relationship between their undergraduate GPA and their scores on the Graduate Records Examination. Look at these data and determine the extent to which they are related. Explain.</h2>
