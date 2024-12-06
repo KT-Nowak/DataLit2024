@@ -61,6 +61,40 @@ print(observed_table)
 
 ```
 
+```{r}
+
+row_totals <- rowSums(observed_table)
+
+col_totals <- colSums(observed_table)
+
+total_count <- sum(observed_table)
+
+expected_table <- outer(row_totals, col_totals) / total_count
+
+print(expected_table)
+
+
+```
+```{r}
+T <- sum( (observed_table - expected_table)^2 / expected_table  )
+
+print(T)
+
+alpha <- 0.05
+
+p <- 1.0 - alpha 
+
+critical_value <- qchisq(p, df=1 )
+
+print(critical_value)
+
+p.value <- 1.0 - pchisq( T, df=1 )
+
+print(p.value)
+
+```
+### The p value is significantly less than the critical value so we can reject the null hypothesis. We can conclude that there is an association between the use of treatment A or B and the turbidity bin the results fall into.
+
 
 
 ## 3.A dozen graduate students tried to determine if there was a relationship between their undergraduate GPA and their scores on the Graduate Records Examination.  Look at these data and determine the extent to which they are related.  Explain.
