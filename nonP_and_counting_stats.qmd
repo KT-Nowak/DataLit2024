@@ -149,6 +149,23 @@ ggplot(grad_school, aes(x = GPA, y = GRE)) +
 
 ## 4.You are looking at fruit yield on dogwood.  You designed an experiment with four different treatments and measured the total yield in germinated seeds.  Are there differences in yield?  Explain.
 ```{r}
-```
 
+dogwood |>
+  ggplot(aes(Treatment, Seeds) ) + 
+  geom_boxplot(notch=TRUE)
+
+
+
+
+```
+```{r}
+
+dogwood_fit <- kruskal.test( Seeds ~ Treatment, data=dogwood )
+
+print(dogwood_fit) 
+
+
+
+```
+### The given p-value is 1.141e-05, this is significantly less than 0.05, this means the porbability of observing this result if the null hypothesis is true is extremly low. We can reject the null hypothesis and say that the given treatments caused differences in the yield of seeds.
 
