@@ -37,6 +37,9 @@ binom.test(successes, trials, p = null_prob, alternative = "less")
 
 
 ```
+### we fail to reject the null hypothesis, meaning there's not enough evidence to conclude that the new medication is significantly better
+
+
 
 ## 2.Two different environmental remediation treatments are evaluated for the impacts on turbidity (measured using the Nephelometric Turbidity Unit or NTU).  For regulatory reasons, turbidity is binned into four groups based on NTU: 0-15 ntu, 16-22 ntu, 23-30 ntu, and 31+ ntu.  Do both treatments have the same impact on turbidity?  Explain.
 ```{r}
