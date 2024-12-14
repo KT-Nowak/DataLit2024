@@ -1,0 +1,163 @@
+---
+title: "Nowak 543 Final"
+author: "Kt Nowak"
+format: html
+editor: visual
+echo: false
+---
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(warning = FALSE)
+```
+```{r}
+
+library(rmarkdown)
+
+library(tidyverse)
+
+library(lubridate)
+
+library(dplyr)
+
+library(ggspatial)
+
+library( raster )
+
+library( sf )
+
+```
+```{r}
+
+locations <- read_csv("Arapat_Locations.csv")
+
+samples <- read_csv("Arapat_Samples.csv")
+
+```
+```{r}
+
+#Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.
+
+ggplot(samples, aes(x = Site, fill = Sex)) +
+  geom_bar(position = "fill") +
+  labs(x = "Site", y = "Proportion", title = "Sex Ratio by Site")
+
+```
+```{r}
+
+sex_counts <- samples %>%
+  group_by(Site) %>%
+  summarize(
+    Female_Count = sum(Sex == "Female"),
+    Male_Count = sum(Sex == "Male")
+  )
+
+sex_counts <- sex_counts %>%
+  mutate(Female_to_Male_Ratio = Female_Count / Male_Count)
+
+print(sex_counts)
+
+
+chisq.test(table(samples$Sex, samples$Site))
+
+# the chi squared test produces a p-value = 7.968e-05 this is less than 0.05 so it is considered a significant result and reject the null hypothesis that there is no difference in sex ratio by site  
+
+
+```
+
+```{r}
+#Which sites have sex ratios that deviate from equal proportions of males and females at the site?
+
+more_female <- sex_counts %>%
+  filter(Female_to_Male_Ratio > 1)
+
+print(more_female)
+
+more_male <- sex_counts %>%
+  filter(Female_to_Male_Ratio < 1)
+
+print(more_male)
+```
+```{r}
+#Is there a functional relationship between the habitat suitability at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km2 (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.
+
+habitat_suitability <- raster( "Suitability_now.tif" )
+
+coordinates(locations) <- ~Longitude + Latitude
+
+extracted_values <- extract(habitat_suitability, locations)
+
+locations@data <- merge(locations@data, sex_counts, by = "Site")
+
+locations_df <- as.data.frame(locations)
+
+locations_df$habitat_suitability <- extracted_values
+
+locations_df$Female_to_Male_Ratio < sex_counts$Female_to_Male_Ratio
+
+table_Q3 <- data.frame(
+  Site = locations_df$Site,
+  Female_to_Male_Ratio = locations_df$Female_to_Male_Ratio,
+  Habitat_Suitability = locations_df$habitat_suitability
+)
+
+print(table_Q3)
+
+
+#the following is a linear regression for the relationship between habitat suitability and female to male ratio
+
+
+ggplot(locations_df, aes(x = habitat_suitability, y = Female_to_Male_Ratio)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Habitat Suitability", y = "Female-to-Male Ratio")
+
+cor(locations_df$habitat_suitability,locations_df$Female_to_Male_Ratio)
+
+model_Q3 <- lm(Female_to_Male_Ratio ~ habitat_suitability, data = locations_df)
+
+summary(model_Q3)
+
+# p-value of  0.073 is less than 0.1 and suggests a potential relationship but not very significant, approximately 11% of the variation in the female-to-male ratio can be explained by habitat suitability, low R-squared value of 0.1103 suggests that habitat suitability alone might not be the primary driver of sex ratio variation
+
+```
+```{r}
+# Does the inclusion of Phenotype A and Phenotype B improve the functional relationship over habitat suitability alone?
+
+samples <- merge(samples, locations_df, by = "Site")
+
+model_Q4 <- lm(Female_to_Male_Ratio ~ habitat_suitability * PhenotypeA * PhenotypeB, data = samples)
+
+summary(model_Q4)
+
+# the p-value of the model combining the effects of sex ratio, phenotype A, and phenotype B is  2.2e-16 this significantly lower than 0.05 indicating there is a significantly significant relationship, which was not the case with sex ratio alone. 
+
+```
+```{r}
+#Using the data from the last glacial maximum and the sampling locations, has the suitability changed at each location (e.g., was it as suitable 20,000 years ago as today)?
+
+glacier <- raster("Suitability_lgm.asc")
+
+plot(glacier)
+
+extracted_glacier <- extract(glacier, locations)
+
+locations_df$glacier <- extracted_glacier
+
+table_glacier <- data.frame(
+  Habitat_Suitability = locations_df$habitat_suitability,
+  Glacier = locations_df$glacier
+)
+
+table_glacier$difference <- table_glacier$Habitat_Suitability - table_glacier$Glacier
+
+
+print(table_glacier)
+
+average_difference <- mean(table_glacier$difference, na.rm = TRUE)
+
+print(average_difference)
+
+#sites in average were -0.02843841 less suitable at the last glacial maximum, the values per site are detailed in the table below
+
+```
+
