@@ -39,7 +39,7 @@ samples <- read_csv("Arapat_Samples.csv")
 
 ggplot(samples, aes(x = Site, fill = Sex)) +
   geom_bar(position = "fill") +
-  labs(x = "Site", y = "Proportion", title = "Sex Ratio by Site")
+  labs(x = "Site", y = "Proportion", title = "Sex Ratio by Site") 
 
 ```
 ```{r}
@@ -109,7 +109,7 @@ print(table_Q3)
 ggplot(locations_df, aes(x = habitat_suitability, y = Female_to_Male_Ratio)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Habitat Suitability", y = "Female-to-Male Ratio")
+  labs(x = "Habitat Suitability", y = "Female-to-Male Ratio", title = "Linear Regression of Habitat Suitability as a Function of the Ratio of Female to Male Bettles")
 
 cor(locations_df$habitat_suitability,locations_df$Female_to_Male_Ratio)
 
@@ -138,6 +138,8 @@ summary(model_Q4)
 glacier <- raster("Suitability_lgm.asc")
 
 plot(glacier)
+plot(locations, add = TRUE, pch = 19, col = "red", title = "Sites During the Last Glacial Maximum")
+
 
 extracted_glacier <- extract(glacier, locations)
 
@@ -160,4 +162,28 @@ print(average_difference)
 #sites in average were -0.02843841 less suitable at the last glacial maximum, the values per site are detailed in the table below
 
 ```
+```{r}
+#Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the suitability estimated from the last glacial maximum.  Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of habitat suitability?
 
+locations_df$predicted_sex_ratio <- predict(model_Q3, newdata = data.frame(habitat_suitability = locations_df$glacier))
+
+ggplot(locations_df, aes(x = glacier, y = predicted_sex_ratio)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Historical Habitat Suitability", y = "Predicted Female-to-Male Ratio") +
+  ggtitle("Predicted Linear Regression of Habitat Suitability as a Function of the Ratio of Female to Male Bettles")
+
+plot(glacier)
+
+plot(locations, add = TRUE, pch = 19, col = "red", title = "Sites During the Last Glacial Maximum")
+
+#we know that during the last glacial maximum sites were on average 0.02758304 units less suitable, comparing maps of the sites during the two different time frames indicates that the northern area of the sample site was more different from modern conditions compared to the southern area
+
+```
+```{r}
+
+plot(habitat_suitability)
+
+plot(locations, add = TRUE, pch = 19, col = "red", title = "Modern Sites")
+
+```
