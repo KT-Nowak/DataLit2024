@@ -5,10 +5,12 @@ format: html
 editor: visual
 echo: false
 ---
+
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(warning = FALSE)
 ```
+
 ```{r}
 
 library(rmarkdown)
@@ -26,6 +28,7 @@ library( raster )
 library( sf )
 
 ```
+
 ```{r}
 
 locations <- read_csv("Arapat_Locations.csv")
@@ -33,6 +36,7 @@ locations <- read_csv("Arapat_Locations.csv")
 samples <- read_csv("Arapat_Samples.csv")
 
 ```
+
 ```{r}
 
 #Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.
@@ -42,6 +46,7 @@ ggplot(samples, aes(x = Site, fill = Sex)) +
   labs(x = "Site", y = "Proportion", title = "Sex Ratio by Site") 
 
 ```
+
 ```{r}
 
 sex_counts <- samples %>%
@@ -77,6 +82,7 @@ more_male <- sex_counts %>%
 
 print(more_male)
 ```
+
 ```{r}
 #Is there a functional relationship between the habitat suitability at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km2 (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.
 
@@ -120,6 +126,7 @@ summary(model_Q3)
 # p-value of  0.073 is less than 0.1 and suggests a potential relationship but not very significant, approximately 11% of the variation in the female-to-male ratio can be explained by habitat suitability, low R-squared value of 0.1103 suggests that habitat suitability alone might not be the primary driver of sex ratio variation
 
 ```
+
 ```{r}
 # Does the inclusion of Phenotype A and Phenotype B improve the functional relationship over habitat suitability alone?
 
@@ -132,6 +139,7 @@ summary(model_Q4)
 # the p-value of the model combining the effects of sex ratio, phenotype A, and phenotype B is  2.2e-16 this significantly lower than 0.05 indicating there is a significantly significant relationship, which was not the case with sex ratio alone. 
 
 ```
+
 ```{r}
 #Using the data from the last glacial maximum and the sampling locations, has the suitability changed at each location (e.g., was it as suitable 20,000 years ago as today)?
 
@@ -162,6 +170,7 @@ print(average_difference)
 #sites in average were -0.02843841 less suitable at the last glacial maximum, the values per site are detailed in the table below
 
 ```
+
 ```{r}
 #Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the suitability estimated from the last glacial maximum.  Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of habitat suitability?
 
@@ -180,6 +189,7 @@ plot(locations, add = TRUE, pch = 19, col = "red", title = "Sites During the Las
 #we know that during the last glacial maximum sites were on average 0.02758304 units less suitable, comparing maps of the sites during the two different time frames indicates that the northern area of the sample site was more different from modern conditions compared to the southern area
 
 ```
+
 ```{r}
 
 plot(habitat_suitability)
