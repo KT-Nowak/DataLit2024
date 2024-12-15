@@ -69,52 +69,21 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-Loading required package: sp
-
-
-Attaching package: 'raster'
-
-
-The following object is masked from 'package:dplyr':
-
-    select
-
-
-Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.3.1; sf_use_s2() is TRUE</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 31 Columns: 3
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): Site
-dbl (2): Latitude, Longitude
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 3100 Columns: 6
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): Site, Sex
-dbl (4): Plant, Individual, PhenotypeA, PhenotypeB
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
+<section id="overall-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="overall-motivation">Overall Motivation</h2>
+<p>Determine the extent to which changing climate may have impacted sex ratio divergence among locations in the Sonora Desert bark beetle, <em>Araptus attenuatus</em>.</p>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<p>To determine the the impacts of a changing climate on the the sex ratio of <em>Araptus attenuatus</em> one must first answer a series of smaller questions analysis known modern samples and changes to the sample site between time periods. Data used to analyse these relationships will be modern information on habitat suitability in the sample area, samples of the current beetle population detailing the sex counts and phenotype at study sites, and information about habitat suitability at the last glacial maximum ~20,000 years ago.</p>
+<p>Firstly the sample data must be structured to contain information on sex ratio by site rather than the given count values for sex female and sex male. A chi squared test can then be run to determine if the sex ratio is significantly variable by site. Sex ratio data can also determine which site specifically have a female to male ratio which differs from the expected 1:1 ratio.</p>
+<p>Once the sex ratio by site has been explored, is can be determined if there is a functional relationship between the habitat suitability at the sampling locations and the sex ratio. This will be done by cross referring the sample point locations with habitat suitability information in a raster form. Raster information for each point will allow the creation of a table containing habitat suitability and sex ratio by site. A linear regression for the relationship between habitat suitability and female to male ratio can the be created to find the extent to which habitat suitability can explain variation in sex ratios.</p>
+<p>It is important to find an accurate model which explains sex ratio using modern data so that habitat suitability from the last glacial maximum can be run through the most effective model available. A more complicated model can be created using the inclusion of data Phenotype A and Phenotype B at modern sites. This more complex model can be summarized to determine if it or the previously created model can better explain variation in sex ratios.</p>
+<p>Sample points can now be plotted onto raster data containing habitat suitability information from approximately 20 thousand years ago. Using the identified model a sex ratio for each site can be predicted by the habitat suitability value. The average change in sex ratio and changes in sex ratio per sample site between the last glacial maximum and contemporary samples can then be determined.</p>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>The following bar graph is a visualization of the ratio of female to male beetles at each sample.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -124,191 +93,622 @@ dbl (4): Plant, Individual, PhenotypeA, PhenotypeB
 </div>
 </div>
 </div>
+<p>Sex count information can be used to determine sex ratio by site, as detailed in the following table.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 31 × 4
-   Site    Female_Count Male_Count Female_to_Male_Ratio
-   &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;                &lt;dbl&gt;
- 1 Site 1            54         46                1.17 
- 2 Site 10           40         60                0.667
- 3 Site 11           44         56                0.786
- 4 Site 12           46         54                0.852
- 5 Site 13           43         57                0.754
- 6 Site 14           60         40                1.5  
- 7 Site 15           55         45                1.22 
- 8 Site 16           47         53                0.887
- 9 Site 17           38         62                0.613
-10 Site 18           31         69                0.449
-# ℹ 21 more rows</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Sex Counts by Site</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Site</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Male_Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_to_Male_Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Site 1</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">1.1739130</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 10</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0.6666667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 11</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">0.7857143</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 12</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.8518519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 13</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.7543860</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 14</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1.5000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 15</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">1.2222222</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 16</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.8867925</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 17</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.6129032</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 18</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">0.4492754</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 19</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">1.1276596</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 2</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.6949153</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 20</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.6129032</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 21</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0.5873016</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 22</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.7543860</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 23</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 24</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.8518519</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 25</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1.0000000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 26</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1.0408163</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 27</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">1.1739130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 28</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0.9230769</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 29</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.6129032</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 3</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0.7241379</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 30</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1.0408163</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 31</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">1.3255814</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 4</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">1.1739130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 5</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1.0408163</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 6</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">1.3809524</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 7</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0.8181818</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 8</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.8867925</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 9</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">1.7027027</td>
+</tr>
+</tbody>
+</table>
 
-data:  table(samples$Sex, samples$Site)
-X-squared = 68.382, df = 30, p-value = 7.968e-05</code></pre>
+
 </div>
 </div>
+<p>We can conclude from the calulated sex ratios that the following sites have a value greater than 1 and therefore have more females of the species.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 4
-   Site    Female_Count Male_Count Female_to_Male_Ratio
-   &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;                &lt;dbl&gt;
- 1 Site 1            54         46                 1.17
- 2 Site 14           60         40                 1.5 
- 3 Site 15           55         45                 1.22
- 4 Site 19           53         47                 1.13
- 5 Site 26           51         49                 1.04
- 6 Site 27           54         46                 1.17
- 7 Site 30           51         49                 1.04
- 8 Site 31           57         43                 1.33
- 9 Site 4            54         46                 1.17
-10 Site 5            51         49                 1.04
-11 Site 6            58         42                 1.38
-12 Site 9            63         37                 1.70</code></pre>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Sites with More Females</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Site</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Male_Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_to_Male_Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Site 1</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">1.173913</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 14</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1.500000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 15</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">1.222222</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 19</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">1.127660</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 26</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1.040816</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 27</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">1.173913</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 30</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1.040816</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 31</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">1.325581</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 4</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">1.173913</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 5</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">1.040816</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 6</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">1.380952</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 9</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">1.702703</td>
+</tr>
+</tbody>
+</table>
+
+
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 17 × 4
-   Site    Female_Count Male_Count Female_to_Male_Ratio
-   &lt;chr&gt;          &lt;int&gt;      &lt;int&gt;                &lt;dbl&gt;
- 1 Site 10           40         60                0.667
- 2 Site 11           44         56                0.786
- 3 Site 12           46         54                0.852
- 4 Site 13           43         57                0.754
- 5 Site 16           47         53                0.887
- 6 Site 17           38         62                0.613
- 7 Site 18           31         69                0.449
- 8 Site 2            41         59                0.695
- 9 Site 20           38         62                0.613
-10 Site 21           37         63                0.587
-11 Site 22           43         57                0.754
-12 Site 24           46         54                0.852
-13 Site 28           48         52                0.923
-14 Site 29           38         62                0.613
-15 Site 3            42         58                0.724
-16 Site 7            45         55                0.818
-17 Site 8            47         53                0.887</code></pre>
 </div>
-</div>
+<p>Similarly we can conclude from the calulated sex ratios that the following sites have a value less than 1 and therefore have more males of the species.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Sites with More Males</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Site</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Male_Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_to_Male_Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Site 10</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0.6666667</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 11</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">0.7857143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 12</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.8518519</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 13</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.7543860</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 16</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.8867925</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 17</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.6129032</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 18</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">0.4492754</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 2</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0.6949153</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 20</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.6129032</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 21</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0.5873016</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 22</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0.7543860</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 24</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0.8518519</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 28</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0.9230769</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 29</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">62</td>
+<td style="text-align: right;">0.6129032</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 3</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">0.7241379</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 7</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0.8181818</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 8</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0.8867925</td>
+</tr>
+</tbody>
+</table>
+
+
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      Site Female_to_Male_Ratio Habitat_Suitability
-1   Site 1            1.1739130           0.8810290
-2  Site 10            0.6666667           0.1879650
-3  Site 11            0.7857143           0.6163620
-4  Site 12            0.8518519           0.2876230
-5  Site 13            0.7543860           0.4613570
-6  Site 14            1.5000000           0.2673030
-7  Site 15            1.2222222           0.9018780
-8  Site 16            0.8867925           0.4964650
-9  Site 17            0.6129032           0.5242670
-10 Site 18            0.4492754           0.0562845
-11 Site 19            1.1276596           0.2185940
-12  Site 2            0.6949153           0.1627240
-13 Site 20            0.6129032           0.3651910
-14 Site 21            0.5873016           0.6195190
-15 Site 22            0.7543860           0.4125120
-16 Site 23            1.0000000           0.3519050
-17 Site 24            0.8518519           0.1744380
-18 Site 25            1.0000000           0.1455230
-19 Site 26            1.0408163           0.8625610
-20 Site 27            1.1739130           0.4214400
-21 Site 28            0.9230769                  NA
-22 Site 29            0.6129032           0.7217000
-23  Site 3            0.7241379           0.4328730
-24 Site 30            1.0408163           0.4226090
-25 Site 31            1.3255814           0.2791050
-26  Site 4            1.1739130           0.3975000
-27  Site 5            1.0408163           0.7324870
-28  Site 6            1.3809524           0.5264130
-29  Site 7            0.8181818           0.3210530
-30  Site 8            0.8867925           0.2617900
-31  Site 9            1.7027027           0.3953470</code></pre>
 </div>
+<p>A Chi Squared test is run to evaluate if there is a statistically significant difference from the standard 1:1 sex ratio and sampled sex ratios. The test produces a p-value = 7.968e-05, this is less than 0.05 so it is considered a significant result and reject the null hypothesis that there is no difference in sex ratio by site.</p>
+<p>We can conclude that sex ratio at tested sites is significantly different from an even 1:1 ratio.</p>
+<p>The following table details habitat suitability <strong>and</strong> sex ratio by sample site.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Sites with More Males</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Site</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Female_to_Male_Ratio</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Habitat_Suitability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Site 1</td>
+<td style="text-align: right;">1.1739130</td>
+<td style="text-align: right;">0.8810290</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 10</td>
+<td style="text-align: right;">0.6666667</td>
+<td style="text-align: right;">0.1879650</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 11</td>
+<td style="text-align: right;">0.7857143</td>
+<td style="text-align: right;">0.6163620</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 12</td>
+<td style="text-align: right;">0.8518519</td>
+<td style="text-align: right;">0.2876230</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 13</td>
+<td style="text-align: right;">0.7543860</td>
+<td style="text-align: right;">0.4613570</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 14</td>
+<td style="text-align: right;">1.5000000</td>
+<td style="text-align: right;">0.2673030</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 15</td>
+<td style="text-align: right;">1.2222222</td>
+<td style="text-align: right;">0.9018780</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 16</td>
+<td style="text-align: right;">0.8867925</td>
+<td style="text-align: right;">0.4964650</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 17</td>
+<td style="text-align: right;">0.6129032</td>
+<td style="text-align: right;">0.5242670</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 18</td>
+<td style="text-align: right;">0.4492754</td>
+<td style="text-align: right;">0.0562845</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 19</td>
+<td style="text-align: right;">1.1276596</td>
+<td style="text-align: right;">0.2185940</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 2</td>
+<td style="text-align: right;">0.6949153</td>
+<td style="text-align: right;">0.1627240</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 20</td>
+<td style="text-align: right;">0.6129032</td>
+<td style="text-align: right;">0.3651910</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 21</td>
+<td style="text-align: right;">0.5873016</td>
+<td style="text-align: right;">0.6195190</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 22</td>
+<td style="text-align: right;">0.7543860</td>
+<td style="text-align: right;">0.4125120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 23</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.3519050</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 24</td>
+<td style="text-align: right;">0.8518519</td>
+<td style="text-align: right;">0.1744380</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 25</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.1455230</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 26</td>
+<td style="text-align: right;">1.0408163</td>
+<td style="text-align: right;">0.8625610</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 27</td>
+<td style="text-align: right;">1.1739130</td>
+<td style="text-align: right;">0.4214400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 28</td>
+<td style="text-align: right;">0.9230769</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 29</td>
+<td style="text-align: right;">0.6129032</td>
+<td style="text-align: right;">0.7217000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 3</td>
+<td style="text-align: right;">0.7241379</td>
+<td style="text-align: right;">0.4328730</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 30</td>
+<td style="text-align: right;">1.0408163</td>
+<td style="text-align: right;">0.4226090</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 31</td>
+<td style="text-align: right;">1.3255814</td>
+<td style="text-align: right;">0.2791050</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 4</td>
+<td style="text-align: right;">1.1739130</td>
+<td style="text-align: right;">0.3975000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 5</td>
+<td style="text-align: right;">1.0408163</td>
+<td style="text-align: right;">0.7324870</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 6</td>
+<td style="text-align: right;">1.3809524</td>
+<td style="text-align: right;">0.5264130</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 7</td>
+<td style="text-align: right;">0.8181818</td>
+<td style="text-align: right;">0.3210530</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Site 8</td>
+<td style="text-align: right;">0.8867925</td>
+<td style="text-align: right;">0.2617900</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Site 9</td>
+<td style="text-align: right;">1.7027027</td>
+<td style="text-align: right;">0.3953470</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>The graph below is a linear regression for the relationship between habitat suitability and female to male ratio. The blue line represents the created model.</p>
+<div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="nowak_543final_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nowak_543final_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = Female_to_Male_Ratio ~ habitat_suitability, data = locations_df)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.42970 -0.20286 -0.03974  0.17497  0.76070 
-
-Coefficients:
-                    Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           0.8685     0.1193   7.281 6.31e-08 ***
-habitat_suitability   0.1859     0.2466   0.754    0.457    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.2987 on 28 degrees of freedom
-  (1 observation deleted due to missingness)
-Multiple R-squared:  0.01988,   Adjusted R-squared:  -0.01512 
-F-statistic: 0.568 on 1 and 28 DF,  p-value: 0.4573</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = Female_to_Male_Ratio ~ habitat_suitability * PhenotypeA * 
-    PhenotypeB, data = samples)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--0.55004 -0.19214 -0.04008  0.16561  0.76289 
-
-Coefficients:
-                                          Estimate Std. Error t value Pr(&gt;|t|)
-(Intercept)                               -0.23512    0.09352  -2.514    0.012
-habitat_suitability                        2.70995    0.20662  13.116  &lt; 2e-16
-PhenotypeA                                 0.34650    0.04237   8.178 4.23e-16
-PhenotypeB                                 0.42678    0.03869  11.031  &lt; 2e-16
-habitat_suitability:PhenotypeA            -0.81481    0.09150  -8.905  &lt; 2e-16
-habitat_suitability:PhenotypeB            -0.93534    0.08614 -10.858  &lt; 2e-16
-PhenotypeA:PhenotypeB                     -0.11917    0.01708  -6.979 3.65e-12
-habitat_suitability:PhenotypeA:PhenotypeB  0.27156    0.03702   7.336 2.82e-13
-                                             
-(Intercept)                               *  
-habitat_suitability                       ***
-PhenotypeA                                ***
-PhenotypeB                                ***
-habitat_suitability:PhenotypeA            ***
-habitat_suitability:PhenotypeB            ***
-PhenotypeA:PhenotypeB                     ***
-habitat_suitability:PhenotypeA:PhenotypeB ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 0.2738 on 2992 degrees of freedom
-  (100 observations deleted due to missingness)
-Multiple R-squared:  0.1199,    Adjusted R-squared:  0.1178 
-F-statistic: 58.23 on 7 and 2992 DF,  p-value: &lt; 2.2e-16</code></pre>
-</div>
-</div>
+<p>The model above produces a p-value of 0.073, which is less than 0.1 and suggests a potential relationship but not a very significant relationship. A low R-squared value of 0.1103 suggests that habitat suitability alone might not be the primary driver of sex ratio variation and indicates that only ~11% of the variation in the female-to-male ratio can be explained by habitat suitability.</p>
+<p>The inclusion of Phenotype A and Phenotype B information improves the functional relationship over habitat suitability alone.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="nowak_543final_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nowak_543final_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -357,14 +757,55 @@ F-statistic: 58.23 on 7 and 2992 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="nowak_543final_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nowak_543final_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1.0400289 0.9036484 0.9822443 0.9103740 0.9409738 0.9624141 1.0422554
+ [8] 0.9598993 0.9346196 0.8785850 0.8996230 0.9561772 0.9301622 0.9961596
+[15] 0.9587364 0.9143009 0.9282130 0.9516345 1.0137678 0.9427309 1.0009291
+[22] 1.0100555 0.9435934 1.0030774 0.9347917 0.9283388 1.0025473 0.9595633
+[29] 0.9147167 0.9322922 0.9325472</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Site Habitat_Suitability Predicted_Sex_Ratio
+1   Site 1           0.8810290           1.0400289
+2  Site 10           0.1879650           0.9036484
+3  Site 11           0.6163620           0.9822443
+4  Site 12           0.2876230           0.9103740
+5  Site 13           0.4613570           0.9409738
+6  Site 14           0.2673030           0.9624141
+7  Site 15           0.9018780           1.0422554
+8  Site 16           0.4964650           0.9598993
+9  Site 17           0.5242670           0.9346196
+10 Site 18           0.0562845           0.8785850
+11 Site 19           0.2185940           0.8996230
+12  Site 2           0.1627240           0.9561772
+13 Site 20           0.3651910           0.9301622
+14 Site 21           0.6195190           0.9961596
+15 Site 22           0.4125120           0.9587364
+16 Site 23           0.3519050           0.9143009
+17 Site 24           0.1744380           0.9282130
+18 Site 25           0.1455230           0.9516345
+19 Site 26           0.8625610           1.0137678
+20 Site 27           0.4214400           0.9427309
+21 Site 28                  NA           1.0009291
+22 Site 29           0.7217000           1.0100555
+23  Site 3           0.4328730           0.9435934
+24 Site 30           0.4226090           1.0030774
+25 Site 31           0.2791050           0.9347917
+26  Site 4           0.3975000           0.9283388
+27  Site 5           0.7324870           1.0025473
+28  Site 6           0.5264130           0.9595633
+29  Site 7           0.3210530           0.9147167
+30  Site 8           0.2617900           0.9322922
+31  Site 9           0.3953470           0.9325472</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="nowak_543final_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nowak_543final_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -373,11 +814,12 @@ F-statistic: 58.23 on 7 and 2992 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="nowak_543final_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="nowak_543final_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+</section>
 
 </main>
 <!-- /main column -->

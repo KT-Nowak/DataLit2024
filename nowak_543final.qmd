@@ -6,12 +6,35 @@ editor: visual
 echo: false
 ---
 
+## Overall Motivation
+
+Determine the extent to which changing climate may have impacted sex ratio divergence among locations in the Sonora Desert bark beetle, *Araptus attenuatus*.
+
+
+## Methods 
+
+To determine the the impacts of a changing climate on the the sex ratio of *Araptus attenuatus* one must first answer a series of smaller questions analysis known modern samples and changes to the sample site between time periods. Data used to analyse these relationships will be modern information on habitat suitability in the sample area, samples of the current beetle population detailing the sex counts and phenotype at study sites, and information about habitat suitability at the last glacial maximum ~20,000 years ago.
+
+Firstly the sample data must be structured to contain information on sex ratio by site rather than the given count values for sex female and sex male. A chi squared test can then be run to determine if the sex ratio is significantly variable by site. Sex ratio data can also determine which site specifically have a female to male ratio which differs from the expected 1:1 ratio.  
+
+Once the sex ratio by site has been explored, is can be determined if there is a functional relationship between the habitat suitability at the sampling locations and the sex ratio. This will be done by cross referring the sample point locations with habitat suitability information in a raster form. Raster information for each point will allow the creation of a table containing habitat suitability and sex ratio by site. A linear regression for the relationship between habitat suitability and female to male ratio can the be created to find the extent to which habitat suitability can explain variation in sex ratios.
+
+It is important to find an accurate model which explains sex ratio using modern data so that habitat suitability from the last glacial maximum can be run through the most effective model available. A more complicated model can be created using the inclusion of data Phenotype A and Phenotype B at modern sites. This more complex model can be summarized to determine if it or the previously created model can better explain variation in sex ratios. 
+
+Sample points can now be plotted onto raster data containing habitat suitability information from approximately 20 thousand years ago. Using the identified model a sex ratio for each site can be predicted by the habitat suitability value. The average change in sex ratio and changes in sex ratio per sample site between the last glacial maximum and contemporary samples can then be determined. 
+    
+## Results
+
+The following bar graph is a visualization of the ratio of female to male beetles at each sample.
+
+
 ```{r setup, include=FALSE}
 
 knitr::opts_chunk$set(warning = FALSE)
+
 ```
 
-```{r}
+```{r, include=FALSE}
 
 library(rmarkdown)
 
@@ -27,9 +50,13 @@ library( raster )
 
 library( sf )
 
+library(knitr)
+
+library(kableExtra)
+
 ```
 
-```{r}
+```{r, include=FALSE}
 
 locations <- read_csv("Arapat_Locations.csv")
 
@@ -43,11 +70,13 @@ samples <- read_csv("Arapat_Samples.csv")
 
 ggplot(samples, aes(x = Site, fill = Sex)) +
   geom_bar(position = "fill") +
-  labs(x = "Site", y = "Proportion", title = "Sex Ratio by Site") 
+  labs(x = "Site", y = "Proportion", title = "Sex Ratio by Site")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 
 ```
+Sex count information can be used to determine sex ratio by site, as detailed in the following table.
 
-```{r}
+```{r, include=FALSE}
 
 sex_counts <- samples %>%
   group_by(Site) %>%
@@ -68,8 +97,14 @@ chisq.test(table(samples$Sex, samples$Site))
 
 
 ```
-
 ```{r}
+
+kable(sex_counts, format = "html", caption = "Sex Counts by Site")
+
+```
+
+```{r, include=FALSE}
+
 #Which sites have sex ratios that deviate from equal proportions of males and females at the site?
 
 more_female <- sex_counts %>%
@@ -83,7 +118,28 @@ more_male <- sex_counts %>%
 print(more_male)
 ```
 
+We can conclude from the calulated sex ratios that the following sites have a value greater than 1 and therefore have more females of the species. 
+
 ```{r}
+
+kable(more_female, format = "html", caption = "Sites with More Females")
+
+```
+
+Similarly we can conclude from the calulated sex ratios that the following sites have a value less than 1 and therefore have more males of the species.
+
+```{r}
+
+kable(more_male, format = "html", caption = "Sites with More Males")
+
+```
+
+A Chi Squared test is run to evaluate if there is a statistically significant difference from the standard 1:1 sex ratio and sampled sex ratios. The test produces a p-value = 7.968e-05, this is less than 0.05 so it is considered a significant result and reject the null hypothesis that there is no difference in sex ratio by site. 
+
+We can conclude that sex ratio at tested sites is significantly different from an even 1:1 ratio. 
+
+
+```{r, include=FALSE}
 #Is there a functional relationship between the habitat suitability at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km2 (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.
 
 habitat_suitability <- raster( "Suitability_now.tif" )
@@ -127,7 +183,31 @@ summary(model_Q3)
 
 ```
 
+The following table details habitat suitability **and** sex ratio by sample site.
+
 ```{r}
+
+kable(table_Q3, format = "html", caption = "Sites with More Males")
+
+```
+
+The graph below is a linear regression for the relationship between habitat suitability and female to male ratio. The blue line represents the created model. 
+
+```{r}
+
+ggplot(locations_df, aes(x = habitat_suitability, y = Female_to_Male_Ratio)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Habitat Suitability", y = "Female-to-Male Ratio", title = "Linear Regression of Habitat Suitability as a Function of the Ratio of Female to Male Bettles")
+
+
+```
+The model above produces a p-value of 0.073, which is less than 0.1 and suggests a potential relationship but not a very significant relationship. A low R-squared value of 0.1103 suggests that habitat suitability alone might not be the primary driver of sex ratio variation and indicates that only ~11% of the variation in the female-to-male ratio can be explained by habitat suitability. 
+
+The inclusion of Phenotype A and Phenotype B information improves the functional relationship over habitat suitability alone.
+
+
+```{r, include=FALSE}
 # Does the inclusion of Phenotype A and Phenotype B improve the functional relationship over habitat suitability alone?
 
 samples <- merge(samples, locations_df, by = "Site")
@@ -139,6 +219,12 @@ summary(model_Q4)
 # the p-value of the model combining the effects of sex ratio, phenotype A, and phenotype B is  2.2e-16 this significantly lower than 0.05 indicating there is a significantly significant relationship, which was not the case with sex ratio alone. 
 
 ```
+
+```{r}
+
+
+```
+
 
 ```{r}
 #Using the data from the last glacial maximum and the sampling locations, has the suitability changed at each location (e.g., was it as suitable 20,000 years ago as today)?
@@ -182,9 +268,20 @@ ggplot(locations_df, aes(x = glacier, y = predicted_sex_ratio)) +
   labs(x = "Historical Habitat Suitability", y = "Predicted Female-to-Male Ratio") +
   ggtitle("Predicted Linear Regression of Habitat Suitability as a Function of the Ratio of Female to Male Bettles")
 
+print(locations_df$predicted_sex_ratio)
+
+glacial_ratio_table <- data.frame(
+  Site = locations_df$Site,
+  Habitat_Suitability = locations_df$habitat_suitability,
+  Predicted_Sex_Ratio = locations_df$predicted_sex_ratio
+)
+
+print(glacial_ratio_table)
+
 plot(glacier)
 
 plot(locations, add = TRUE, pch = 19, col = "red", title = "Sites During the Last Glacial Maximum")
+
 
 #we know that during the last glacial maximum sites were on average 0.02758304 units less suitable, comparing maps of the sites during the two different time frames indicates that the northern area of the sample site was more different from modern conditions compared to the southern area
 
